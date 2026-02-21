@@ -1,15 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webverse | Simple, Transparent Pricing</title>
+    <title>Webverse | Pricing Plans</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='85' font-family='Arial, sans-serif' font-weight='900' fill='%231E3A8A'>W</text><circle cx='85' cy='75' r='12' fill='%232563EB'/></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
@@ -18,7 +17,7 @@
             theme: {
                 extend: {
                     fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: { brand: { 400: '#60A5FA', 500: '#2563EB', 600: '#1D4ED8', 900: '#1E3A8A' } },
+                    colors: { brand: { 50: '#eff6ff', 400: '#60A5FA', 500: '#2563EB', 600: '#1D4ED8', 900: '#1E3A8A' } },
                     animation: {
                         blob: "blob 7s infinite",
                     },
@@ -38,26 +37,19 @@
         html { scroll-behavior: smooth; overflow-x: hidden; }
         body { overflow-x: hidden; }
         .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+        .pricing-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .pricing-card:hover { transform: translateY(-12px); }
         .animation-delay-2000 { animation-delay: 2s; }
-        .animation-delay-4000 { animation-delay: 4s; }
-        
-        /* Custom styling for the feature table */
-        .feature-row:hover { background-color: #f8fafc; transition: background-color 0.3s ease; }
     </style>
 </head>
-<body class="bg-slate-50 text-gray-800 antialiased selection:bg-brand-500 selection:text-white pt-24">
+<body class="bg-slate-50 text-gray-800 antialiased pt-24">
 
-    <nav class="glass-nav fixed w-full z-40 top-0 border-b border-gray-100 shadow-sm transition-all" data-aos="fade-down" data-aos-duration="800">
+    <nav class="glass-nav fixed w-full z-40 top-0 border-b border-gray-100 shadow-sm transition-all" data-aos="fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20 w-full">
-                
+            <div class="flex justify-between items-center h-20">
                 <div class="flex-shrink-0 flex items-center cursor-pointer group z-50">
                     <a href="index.html" class="font-black text-2xl tracking-tighter text-gray-900 group-hover:scale-105 transition-transform">Web<span class="text-brand-500">verse</span><span class="text-brand-500 text-3xl leading-none">.</span></a>
                 </div>
-                
-                <button id="mobile-menu-btn" class="md:hidden flex items-center text-gray-900 text-3xl focus:outline-none hover:text-brand-500 transition-colors p-2 z-50">
-                    <i class="fa-solid fa-bars-staggered"></i>
-                </button>
                 
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="index.html" class="text-gray-500 hover:text-brand-500 font-medium transition">Home</a>
@@ -65,283 +57,137 @@
                     <a href="pricing.html" class="text-brand-500 font-semibold transition">Pricing</a>
                     <a href="about.html" class="text-gray-500 hover:text-brand-500 font-medium transition">About</a>
                     <a href="index.html#contact" class="text-gray-500 hover:text-brand-500 font-medium transition">Contact</a>
-                    
-                    <a href="index.html#contact" class="ml-4 relative inline-flex items-center justify-center px-8 py-3 overflow-hidden font-bold text-white bg-brand-500 rounded-full group shadow-lg shadow-brand-500/40 hover:shadow-brand-500/60 transition-all duration-300 hover:-translate-y-1">
-                        <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
-                        <span class="relative">Get a Quote</span>
-                    </a>
                 </div>
 
+                <button id="mobile-menu-btn" class="md:hidden text-gray-900 text-3xl z-50">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center items-center">
-        <button id="close-menu-btn" class="absolute top-6 right-6 text-slate-400 hover:text-white text-5xl transition-colors p-4 focus:outline-none">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <div class="flex flex-col items-center space-y-8 text-4xl font-black tracking-tight w-full px-6 text-center">
-            <a href="index.html" class="mobile-link text-white hover:text-brand-500 transform translate-y-10 opacity-0 transition-all duration-500 delay-100 w-full">Home</a>
-            <a href="templates.html" class="mobile-link text-white hover:text-brand-500 transform translate-y-10 opacity-0 transition-all duration-500 delay-[150ms] w-full">Templates</a>
-            <a href="pricing.html" class="mobile-link text-brand-500 transform translate-y-10 opacity-0 transition-all duration-500 delay-[200ms] w-full">Pricing</a>
-            <a href="about.html" class="mobile-link text-white hover:text-brand-500 transform translate-y-10 opacity-0 transition-all duration-500 delay-[250ms] w-full">About</a>
-            <a href="index.html#contact" class="mobile-link text-white hover:text-brand-500 transform translate-y-10 opacity-0 transition-all duration-500 delay-[300ms] w-full">Contact</a>
-            
-            <a href="index.html#contact" class="mobile-link mt-8 px-12 py-5 bg-brand-500 text-white rounded-full text-2xl shadow-2xl shadow-brand-500/40 hover:bg-brand-400 transform translate-y-10 opacity-0 transition-all duration-500 delay-[350ms]">Get a Quote</a>
+    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center items-center">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-white text-5xl p-4"><i class="fa-solid fa-xmark"></i></button>
+        <div class="flex flex-col items-center space-y-8 text-3xl font-black text-white">
+            <a href="index.html">Home</a>
+            <a href="templates.html">Templates</a>
+            <a href="pricing.html" class="text-brand-500">Pricing</a>
+            <a href="about.html">About</a>
+            <a href="index.html#contact">Contact</a>
         </div>
     </div>
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-24 mt-16 overflow-visible">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-20 mt-16">
         <div class="absolute top-0 left-1/4 w-72 h-72 bg-brand-200 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob -z-10"></div>
-        <div class="absolute top-10 right-1/4 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000 -z-10"></div>
+        <div class="absolute top-10 right-1/4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000 -z-10"></div>
         
-        <div inline-block mb-6 data-aos="fade-up">
-            <span class="bg-white border border-gray-200 text-slate-800 text-sm font-black tracking-widest uppercase px-5 py-2 rounded-full shadow-sm">No Hidden Fees. No Surprises.</span>
-        </div>
-        <h1 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tighter mb-6" data-aos="fade-up" data-aos-delay="100">
-            Invest in your <br class="hidden md:block">
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-cyan-500">Digital Growth.</span>
+        <h1 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tighter mb-6" data-aos="fade-up">
+            Transparent <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-purple-600">Pricing.</span>
         </h1>
-        <p class="text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto font-medium" data-aos="fade-up" data-aos-delay="200">
-            Premium web infrastructure engineered for local businesses. Choose a package, and we deliver a lightning-fast site ready to convert.
+        <p class="text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto font-medium" data-aos="fade-up" data-aos-delay="100">
+            No hidden fees. No surprises. Just world-class code to help your business dominate the digital space.
         </p>
     </div>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 relative z-10">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             
-            <div class="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="100">
-                <div class="w-14 h-14 bg-slate-50 border border-gray-100 rounded-2xl flex items-center justify-center text-2xl mb-6 text-gray-700">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </div>
-                <h3 class="text-3xl font-black text-gray-900 mb-2">The "Starter"</h3>
-                <p class="text-gray-500 mb-8 text-lg">Perfect for new businesses needing a professional online presence.</p>
+            <div class="pricing-card bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 flex flex-col h-full" data-aos="fade-up" data-aos-delay="100">
                 <div class="mb-8">
-                    <span class="text-5xl font-black text-gray-900">₹2,999</span>
-                    <span class="text-gray-500 font-medium">/project</span>
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">The Starter</h3>
+                    <p class="text-gray-500 font-medium">Perfect for small local shops & portfolios.</p>
                 </div>
-                <div class="w-full h-px bg-gray-100 mb-8"></div>
-                <ul class="space-y-5 mb-10">
-                    <li class="flex items-start text-gray-600 font-medium"><i class="fa-solid fa-check text-green-500 mt-1.5 mr-3"></i> Premium Single-Page Site</li>
-                    <li class="flex items-start text-gray-600 font-medium"><i class="fa-solid fa-check text-green-500 mt-1.5 mr-3"></i> Mobile-First Responsive Design</li>
-                    <li class="flex items-start text-gray-600 font-medium"><i class="fa-solid fa-check text-green-500 mt-1.5 mr-3"></i> WhatsApp Order Integration</li>
-                    <li class="flex items-start text-gray-600 font-medium"><i class="fa-solid fa-check text-green-500 mt-1.5 mr-3"></i> Lead Capture Contact Form</li>
-                </ul>
-                <a href="index.html#contact" class="block w-full py-5 text-center rounded-2xl font-bold text-lg bg-gray-50 text-gray-900 hover:bg-gray-100 hover:shadow-md border border-gray-200 transition-all">Get Started</a>
-            </div>
-
-            <div class="bg-slate-900 p-10 rounded-[2.5rem] border border-slate-700 shadow-2xl shadow-brand-500/20 relative transform md:scale-105 hover:-translate-y-2 transition-transform duration-300 ring-4 ring-brand-500/30" data-aos="fade-up" data-aos-delay="200">
-                <div class="absolute -top-5 left-1/2 transform -translate-x-1/2">
-                    <span class="bg-gradient-to-r from-brand-500 to-cyan-400 text-white text-sm font-black tracking-widest uppercase px-6 py-2 rounded-full shadow-lg shadow-brand-500/40 border border-brand-400/50">Most Popular</span>
-                </div>
-                <div class="w-14 h-14 bg-slate-800 border border-slate-700 rounded-2xl flex items-center justify-center text-2xl mb-6 text-brand-400">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
-                <h3 class="text-3xl font-black text-white mb-2">The "Growth"</h3>
-                <p class="text-gray-400 mb-8 text-lg">Engineered for established businesses looking to dominate locally.</p>
                 <div class="mb-8">
-                    <span class="text-5xl font-black text-white">₹7,999</span>
-                    <span class="text-gray-400 font-medium">/project</span>
+                    <span class="text-5xl font-black text-gray-900">₹4,999</span>
+                    <span class="text-gray-400 font-bold tracking-widest text-sm">/PROJECT</span>
                 </div>
-                <div class="w-full h-px bg-slate-800 mb-8"></div>
-                <ul class="space-y-5 mb-10">
-                    <li class="flex items-start text-gray-300 font-medium"><i class="fa-solid fa-check text-brand-400 mt-1.5 mr-3"></i> Up to 5 Custom Pages</li>
-                    <li class="flex items-start text-gray-300 font-medium"><i class="fa-solid fa-check text-brand-400 mt-1.5 mr-3"></i> Advanced Scroll Animations</li>
-                    <li class="flex items-start text-gray-300 font-medium"><i class="fa-solid fa-check text-brand-400 mt-1.5 mr-3"></i> Dynamic Menu / Gallery Viewer</li>
-                    <li class="flex items-start text-gray-300 font-medium"><i class="fa-solid fa-check text-brand-400 mt-1.5 mr-3"></i> Advanced Local SEO Setup</li>
-                    <li class="flex items-start text-gray-300 font-medium"><i class="fa-solid fa-check text-brand-400 mt-1.5 mr-3"></i> Priority Developer Support</li>
+                <ul class="space-y-4 mb-10 text-gray-600 font-medium flex-grow">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> 1-Page Layout</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Mobile Responsive</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Basic SEO Setup</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Domain Integration</li>
+                    <li class="flex items-center gap-3 text-gray-300"><i class="fa-solid fa-circle-xmark"></i> Advanced Animations</li>
                 </ul>
-                <a href="index.html#contact" class="block w-full py-5 text-center rounded-2xl font-black text-lg bg-gradient-to-r from-brand-500 to-cyan-500 text-white hover:shadow-lg hover:shadow-brand-500/50 hover:scale-[1.02] transition-all">Claim Growth Plan</a>
+                <a href="contact-options.html?plan=Starter" class="block w-full text-center py-4 px-8 rounded-2xl bg-slate-100 text-slate-900 font-black hover:bg-brand-500 hover:text-white transition-all duration-300">Choose Starter</a>
             </div>
 
-            <div class="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="300">
-                <div class="w-14 h-14 bg-slate-50 border border-gray-100 rounded-2xl flex items-center justify-center text-2xl mb-6 text-gray-700">
-                    <i class="fa-solid fa-building"></i>
-                </div>
-                <h3 class="text-3xl font-black text-gray-900 mb-2">The "Pro-Store"</h3>
-                <p class="text-gray-500 mb-8 text-lg">Full-scale e-commerce, inventory, or booking systems for serious sellers.</p>
+            <div class="pricing-card bg-slate-900 p-10 rounded-[2.5rem] shadow-2xl border-4 border-brand-500 flex flex-col h-full relative" data-aos="fade-up">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-500 text-white px-6 py-1.5 rounded-full text-sm font-black tracking-widest uppercase shadow-lg">Most Popular</div>
                 <div class="mb-8">
-                    <span class="text-5xl font-black text-gray-900">Custom</span>
-                    <span class="text-gray-500 font-medium">Pricing</span>
+                    <h3 class="text-2xl font-black text-white mb-2">The Growth</h3>
+                    <p class="text-slate-400 font-medium">For businesses ready to scale up.</p>
                 </div>
-                <div class="w-full h-px bg-gray-100 mb-8"></div>
-                <ul class="space-y-5 mb-10">
-                    <li class="flex items-start text-gray-600 font-medium"><i class="fa-solid fa-check text-green-500 mt-1.5 mr-3"></i> Secure Payment Gateways</li>
-                    <li class="flex items-start text-gray-600 font-medium"><i class="fa-solid fa-check text-green-500 mt-1.5 mr-3"></i> Full E-Commerce/Booking Engine</li>
-                    <li class="flex items-start text-gray-600 font-medium"><i class="fa-solid fa-check text-green-500 mt-1.5 mr-3"></i> Custom Admin Dashboard</li>
-                    <li class="flex items-start text-gray-600 font-medium"><i class="fa-solid fa-check text-green-500 mt-1.5 mr-3"></i> 1 Month Free Maintenance</li>
+                <div class="mb-8">
+                    <span class="text-5xl font-black text-white">₹9,999</span>
+                    <span class="text-slate-500 font-bold tracking-widest text-sm">/PROJECT</span>
+                </div>
+                <ul class="space-y-4 mb-10 text-slate-300 font-medium flex-grow">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Multi-Page Website (Up to 5)</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Premium GSAP Animations</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Custom Brand Graphics</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Advanced Contact Funnels</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Professional SEO Package</li>
                 </ul>
-                <a href="index.html#contact" class="block w-full py-5 text-center rounded-2xl font-bold text-lg bg-gray-50 text-gray-900 hover:bg-gray-100 hover:shadow-md border border-gray-200 transition-all">Request a Quote</a>
+                <a href="contact-options.html?plan=Growth" class="block w-full text-center py-5 px-8 rounded-2xl bg-brand-500 text-white font-black hover:bg-brand-600 shadow-xl shadow-brand-500/40 transition-all duration-300 scale-105">Claim Growth Plan</a>
+            </div>
+
+            <div class="pricing-card bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 flex flex-col h-full" data-aos="fade-up" data-aos-delay="200">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">The Premium</h3>
+                    <p class="text-gray-500 font-medium">Full e-commerce & custom solutions.</p>
+                </div>
+                <div class="mb-8">
+                    <span class="text-5xl font-black text-gray-900">₹19,999</span>
+                    <span class="text-gray-400 font-bold tracking-widest text-sm">/PROJECT</span>
+                </div>
+                <ul class="space-y-4 mb-10 text-gray-600 font-medium flex-grow">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Full E-Commerce Setup</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Razorpay Payment Integration</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> CMS for Blog/Products</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> 1 Month Free Support</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Custom Database Logic</li>
+                </ul>
+                <a href="contact-options.html?plan=Premium" class="block w-full text-center py-4 px-8 rounded-2xl bg-slate-100 text-slate-900 font-black hover:bg-brand-500 hover:text-white transition-all duration-300">Get Premium</a>
             </div>
 
         </div>
-    </section>
+    </div>
 
-    <section class="py-24 bg-white border-y border-gray-100 overflow-hidden" data-aos="fade-up">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-black text-gray-900 tracking-tight">Compare Features</h2>
-                <p class="text-xl text-gray-500 mt-4">Everything you need to know, line by line.</p>
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-32">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-black text-gray-900 tracking-tight">Common Questions</h2>
+        </div>
+        
+        <div class="space-y-6" data-aos="fade-up">
+            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                <h4 class="text-xl font-bold mb-3">How long does a project take?</h4>
+                <p class="text-gray-500 font-medium">Starter plans usually launch in 3-5 days. Growth and Premium plans take 1-2 weeks depending on the complexity of features.</p>
             </div>
-            
-            <div class="overflow-x-auto hide-scrollbar rounded-3xl border border-gray-200 shadow-sm">
-                <table class="w-full text-left border-collapse min-w-[800px]">
-                    <thead>
-                        <tr class="bg-slate-50 border-b border-gray-200">
-                            <th class="py-6 px-8 text-lg font-bold text-gray-900 w-2/5">Features</th>
-                            <th class="py-6 px-8 text-lg font-bold text-gray-900 text-center w-1/5">Starter</th>
-                            <th class="py-6 px-8 text-lg font-bold text-brand-600 text-center w-1/5 bg-brand-50/50">Growth</th>
-                            <th class="py-6 px-8 text-lg font-bold text-gray-900 text-center w-1/5">Pro-Store</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="feature-row border-b border-gray-100">
-                            <td class="py-5 px-8 text-gray-700 font-medium">Page Limit</td>
-                            <td class="py-5 px-8 text-gray-500 text-center">1 Page (Landing)</td>
-                            <td class="py-5 px-8 text-gray-900 font-bold text-center bg-brand-50/30">Up to 5 Pages</td>
-                            <td class="py-5 px-8 text-gray-500 text-center">Unlimited Custom</td>
-                        </tr>
-                        <tr class="feature-row border-b border-gray-100">
-                            <td class="py-5 px-8 text-gray-700 font-medium">Mobile-First Optimization</td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-check text-green-500 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center bg-brand-50/30"><i class="fa-solid fa-check text-brand-500 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-check text-green-500 text-xl"></i></td>
-                        </tr>
-                        <tr class="feature-row border-b border-gray-100">
-                            <td class="py-5 px-8 text-gray-700 font-medium">Contact & Lead Forms</td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-check text-green-500 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center bg-brand-50/30"><i class="fa-solid fa-check text-brand-500 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-check text-green-500 text-xl"></i></td>
-                        </tr>
-                        <tr class="feature-row border-b border-gray-100">
-                            <td class="py-5 px-8 text-gray-700 font-medium">WhatsApp Ordering/Chat</td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-check text-green-500 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center bg-brand-50/30"><i class="fa-solid fa-check text-brand-500 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-check text-green-500 text-xl"></i></td>
-                        </tr>
-                        <tr class="feature-row border-b border-gray-100">
-                            <td class="py-5 px-8 text-gray-700 font-medium">Advanced Scroll Animations</td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-minus text-gray-300 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center bg-brand-50/30"><i class="fa-solid fa-check text-brand-500 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-check text-green-500 text-xl"></i></td>
-                        </tr>
-                        <tr class="feature-row border-b border-gray-100">
-                            <td class="py-5 px-8 text-gray-700 font-medium">SEO Optimization</td>
-                            <td class="py-5 px-8 text-gray-500 text-center">Basic</td>
-                            <td class="py-5 px-8 text-gray-900 font-bold text-center bg-brand-50/30">Advanced Local SEO</td>
-                            <td class="py-5 px-8 text-gray-500 text-center">Enterprise Setup</td>
-                        </tr>
-                        <tr class="feature-row border-b border-gray-100">
-                            <td class="py-5 px-8 text-gray-700 font-medium">E-Commerce / Payment Gateway</td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-minus text-gray-300 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center bg-brand-50/30"><i class="fa-solid fa-minus text-gray-300 text-xl"></i></td>
-                            <td class="py-5 px-8 text-center"><i class="fa-solid fa-check text-green-500 text-xl"></i></td>
-                        </tr>
-                        <tr class="feature-row">
-                            <td class="py-5 px-8 text-gray-700 font-medium rounded-bl-3xl">Estimated Delivery Time</td>
-                            <td class="py-5 px-8 text-gray-500 text-center">3-5 Days</td>
-                            <td class="py-5 px-8 text-gray-900 font-bold text-center bg-brand-50/30">7-10 Days</td>
-                            <td class="py-5 px-8 text-gray-500 text-center rounded-br-3xl">2-4 Weeks</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                <h4 class="text-xl font-bold mb-3">Do I need to pay for hosting?</h4>
+                <p class="text-gray-500 font-medium">We help you set up hosting. Depending on your traffic, we can often host your site for free using world-class platforms like Vercel or Netlify.</p>
             </div>
         </div>
     </section>
 
-    <section class="py-24 bg-slate-50 relative">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-black text-gray-900 tracking-tight">Frequently Asked Questions</h2>
-                <div class="w-20 h-1.5 bg-brand-500 mx-auto mt-6 rounded-full"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow" data-aos="fade-up" data-aos-delay="100">
-                    <h4 class="text-xl font-bold text-gray-900 mb-3"><i class="fa-solid fa-circle-question text-brand-500 mr-2"></i> Are there any hidden monthly fees?</h4>
-                    <p class="text-gray-500 leading-relaxed">No hidden agency fees. The price you see is what you pay us for the build. However, you will need to pay standard yearly fees to your domain registrar (like GoDaddy) and a web host (like GitHub or Hostinger) to keep your site on the internet.</p>
-                </div>
-                
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow" data-aos="fade-up" data-aos-delay="200">
-                    <h4 class="text-xl font-bold text-gray-900 mb-3"><i class="fa-solid fa-pen-nib text-brand-500 mr-2"></i> What if I need changes after launch?</h4>
-                    <p class="text-gray-500 leading-relaxed">We offer a 14-day grace period for minor text and image tweaks for free! For major overhauls or new page additions down the line, we charge a simple, transparent hourly rate.</p>
-                </div>
-                
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow" data-aos="fade-up" data-aos-delay="300">
-                    <h4 class="text-xl font-bold text-gray-900 mb-3"><i class="fa-solid fa-clock text-brand-500 mr-2"></i> How fast can you build my site?</h4>
-                    <p class="text-gray-500 leading-relaxed">If you choose the Starter package and have your images and text ready, we can often launch your site within 72 hours. The Growth package typically takes about a week to perfect the custom animations and pages.</p>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow" data-aos="fade-up" data-aos-delay="400">
-                    <h4 class="text-xl font-bold text-gray-900 mb-3"><i class="fa-solid fa-image text-brand-500 mr-2"></i> Do I need to provide the photos?</h4>
-                    <p class="text-gray-500 leading-relaxed">Yes, for the best results, you should provide high-quality photos of your specific business, food, or products. If you don't have any yet, we can temporarily use premium, royalty-free stock images that fit your brand.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-white text-center" data-aos="zoom-in">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">Ready to dominate your local market?</h2>
-            <p class="text-xl text-gray-500 mb-10 font-medium">Select a package and let's start coding your digital future.</p>
-            <a href="index.html#contact" class="inline-flex items-center justify-center px-10 py-5 overflow-hidden font-black text-white bg-brand-500 rounded-full group shadow-xl shadow-brand-500/40 hover:shadow-brand-500/60 transition-all duration-300 hover:-translate-y-1 text-lg">
-                <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-72 group-hover:h-72 opacity-10"></span>
-                <span class="relative flex items-center gap-3">Start Your Project <i class="fa-solid fa-arrow-right"></i></span>
-            </a>
-        </div>
-    </section>
-
-    <footer class="bg-slate-950 py-12 border-t border-slate-900 text-center">
+    <footer class="bg-slate-950 py-12 text-center text-white">
         <div class="max-w-7xl mx-auto px-4">
-            <a href="index.html" class="font-black text-2xl tracking-tighter text-white mb-6 inline-block">Web<span class="text-brand-500">verse</span>.</a>
-            <p class="text-slate-500 text-sm font-medium uppercase tracking-widest">© 2026 Webverse. All rights reserved. Built with precision from Assam.</p>
+            <a href="index.html" class="font-black text-2xl tracking-tighter mb-6 inline-block">Web<span class="text-brand-500">verse</span>.</a>
+            <p class="text-slate-500 text-sm font-medium uppercase tracking-widest">© 2026 Webverse. Precision Built in Assam.</p>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize Animations
-        AOS.init({
-            once: true,
-            offset: 100,
-        });
-
+        AOS.init({ once: true });
+        
         // Mobile Menu Logic
-        document.addEventListener("DOMContentLoaded", function() {
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const closeMenuBtn = document.getElementById('close-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const menuLinks = document.querySelectorAll('.mobile-link');
+        const btn = document.getElementById('mobile-menu-btn');
+        const close = document.getElementById('close-menu-btn');
+        const menu = document.getElementById('mobile-menu');
 
-            function toggleMenu() {
-                const isOpen = mobileMenu.classList.contains('opacity-100');
-                
-                if (!isOpen) {
-                    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-                    mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
-                    document.body.classList.add('overflow-hidden');
-                    
-                    menuLinks.forEach(link => {
-                        link.classList.remove('translate-y-10', 'opacity-0');
-                        link.classList.add('translate-y-0', 'opacity-100');
-                    });
-                } else {
-                    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
-                    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-                    document.body.classList.remove('overflow-hidden');
-                    
-                    menuLinks.forEach(link => {
-                        link.classList.remove('translate-y-0', 'opacity-100');
-                        link.classList.add('translate-y-10', 'opacity-0');
-                    });
-                }
-            }
-
-            if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
-            if(closeMenuBtn) closeMenuBtn.addEventListener('click', toggleMenu);
-            menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
-        });
+        btn.onclick = () => { menu.classList.remove('opacity-0', 'pointer-events-none'); menu.classList.add('opacity-100', 'pointer-events-auto'); }
+        close.onclick = () => { menu.classList.add('opacity-0', 'pointer-events-none'); menu.classList.remove('opacity-100', 'pointer-events-auto'); }
     </script>
 </body>
 </html>
