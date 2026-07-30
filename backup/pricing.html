@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webverse | Pricing Plans</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='85' font-family='Arial, sans-serif' font-weight='900' fill='%231E3A8A'>W</text><circle cx='85' cy='75' r='12' fill='%232563EB'/></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { brand: { 50: '#eff6ff', 400: '#60A5FA', 500: '#2563EB', 600: '#1D4ED8', 900: '#1E3A8A' } },
+                    animation: {
+                        blob: "blob 7s infinite",
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": { transform: "translate(0px, 0px) scale(1)" },
+                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                            "100%": { transform: "translate(0px, 0px) scale(1)" }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { overflow-x: hidden; }
+        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+        .pricing-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .pricing-card:hover { transform: translateY(-12px); }
+        .animation-delay-2000 { animation-delay: 2s; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800 antialiased pt-24">
+
+    <nav class="glass-nav fixed w-full z-40 top-0 border-b border-gray-100 shadow-sm transition-all" data-aos="fade-down">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer group z-50">
+                    <a href="index.html" class="font-black text-2xl tracking-tighter text-gray-900 group-hover:scale-105 transition-transform">Web<span class="text-brand-500">verse</span><span class="text-brand-500 text-3xl leading-none">.</span></a>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-gray-500 hover:text-brand-500 font-medium transition">Home</a>
+                    <a href="templates.html" class="text-gray-500 hover:text-brand-500 font-medium transition">Templates</a>
+                    <a href="pricing.html" class="text-brand-500 font-semibold transition">Pricing</a>
+                    <a href="about.html" class="text-gray-500 hover:text-brand-500 font-medium transition">About</a>
+                    <a href="index.html#contact" class="text-gray-500 hover:text-brand-500 font-medium transition">Contact</a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden text-gray-900 text-3xl z-50">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 flex flex-col justify-center items-center">
+        <button id="close-menu-btn" class="absolute top-6 right-6 text-white text-5xl p-4"><i class="fa-solid fa-xmark"></i></button>
+        <div class="flex flex-col items-center space-y-8 text-3xl font-black text-white">
+            <a href="index.html">Home</a>
+            <a href="templates.html">Templates</a>
+            <a href="pricing.html" class="text-brand-500">Pricing</a>
+            <a href="about.html">About</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-20 mt-16">
+        <div class="absolute top-0 left-1/4 w-72 h-72 bg-brand-200 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob -z-10"></div>
+        <div class="absolute top-10 right-1/4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000 -z-10"></div>
+        
+        <h1 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tighter mb-6" data-aos="fade-up">
+            Transparent <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-purple-600">Pricing.</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto font-medium" data-aos="fade-up" data-aos-delay="100">
+            No hidden fees. No surprises. Just world-class code to help your business dominate the digital space.
+        </p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            
+            <div class="pricing-card bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 flex flex-col h-full" data-aos="fade-up" data-aos-delay="100">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">The Starter</h3>
+                    <p class="text-gray-500 font-medium">Perfect for small local shops & portfolios.</p>
+                </div>
+                <div class="mb-8">
+                    <span class="text-5xl font-black text-gray-900">₹4,999</span>
+                    <span class="text-gray-400 font-bold tracking-widest text-sm">/PROJECT</span>
+                </div>
+                <ul class="space-y-4 mb-10 text-gray-600 font-medium flex-grow">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> 1-Page Layout</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Mobile Responsive</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Basic SEO Setup</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Domain Integration</li>
+                    <li class="flex items-center gap-3 text-gray-300"><i class="fa-solid fa-circle-xmark"></i> Advanced Animations</li>
+                </ul>
+                <a href="contact-options.html?plan=Starter" class="block w-full text-center py-4 px-8 rounded-2xl bg-slate-100 text-slate-900 font-black hover:bg-brand-500 hover:text-white transition-all duration-300">Choose Starter</a>
+            </div>
+
+            <div class="pricing-card bg-slate-900 p-10 rounded-[2.5rem] shadow-2xl border-4 border-brand-500 flex flex-col h-full relative" data-aos="fade-up">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-brand-500 text-white px-6 py-1.5 rounded-full text-sm font-black tracking-widest uppercase shadow-lg">Most Popular</div>
+                <div class="mb-8">
+                    <h3 class="text-2xl font-black text-white mb-2">The Growth</h3>
+                    <p class="text-slate-400 font-medium">For businesses ready to scale up.</p>
+                </div>
+                <div class="mb-8">
+                    <span class="text-5xl font-black text-white">₹9,999</span>
+                    <span class="text-slate-500 font-bold tracking-widest text-sm">/PROJECT</span>
+                </div>
+                <ul class="space-y-4 mb-10 text-slate-300 font-medium flex-grow">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Multi-Page Website (Up to 5)</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Premium GSAP Animations</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Custom Brand Graphics</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Advanced Contact Funnels</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Professional SEO Package</li>
+                </ul>
+                <a href="contact-options.html?plan=Growth" class="block w-full text-center py-5 px-8 rounded-2xl bg-brand-500 text-white font-black hover:bg-brand-600 shadow-xl shadow-brand-500/40 transition-all duration-300 scale-105">Claim Growth Plan</a>
+            </div>
+
+            <div class="pricing-card bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 flex flex-col h-full" data-aos="fade-up" data-aos-delay="200">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-black text-gray-900 mb-2">The Premium</h3>
+                    <p class="text-gray-500 font-medium">Full e-commerce & custom solutions.</p>
+                </div>
+                <div class="mb-8">
+                    <span class="text-5xl font-black text-gray-900">₹19,999</span>
+                    <span class="text-gray-400 font-bold tracking-widest text-sm">/PROJECT</span>
+                </div>
+                <ul class="space-y-4 mb-10 text-gray-600 font-medium flex-grow">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Full E-Commerce Setup</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Razorpay Payment Integration</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> CMS for Blog/Products</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> 1 Month Free Support</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-500"></i> Custom Database Logic</li>
+                </ul>
+                <a href="contact-options.html?plan=Premium" class="block w-full text-center py-4 px-8 rounded-2xl bg-slate-100 text-slate-900 font-black hover:bg-brand-500 hover:text-white transition-all duration-300">Get Premium</a>
+            </div>
+
+        </div>
+    </div>
+
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-32">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-black text-gray-900 tracking-tight">Common Questions</h2>
+        </div>
+        
+        <div class="space-y-6" data-aos="fade-up">
+            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                <h4 class="text-xl font-bold mb-3">How long does a project take?</h4>
+                <p class="text-gray-500 font-medium">Starter plans usually launch in 3-5 days. Growth and Premium plans take 1-2 weeks depending on the complexity of features.</p>
+            </div>
+            <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
+                <h4 class="text-xl font-bold mb-3">Do I need to pay for hosting?</h4>
+                <p class="text-gray-500 font-medium">We help you set up hosting. Depending on your traffic, we can often host your site for free using world-class platforms like Vercel or Netlify.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 py-12 text-center text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <a href="index.html" class="font-black text-2xl tracking-tighter mb-6 inline-block">Web<span class="text-brand-500">verse</span>.</a>
+            <p class="text-slate-500 text-sm font-medium uppercase tracking-widest">© 2026 Webverse. Precision Built in Assam.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+        
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const close = document.getElementById('close-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.onclick = () => { menu.classList.remove('opacity-0', 'pointer-events-none'); menu.classList.add('opacity-100', 'pointer-events-auto'); }
+        close.onclick = () => { menu.classList.add('opacity-0', 'pointer-events-none'); menu.classList.remove('opacity-100', 'pointer-events-auto'); }
+    </script>
+</body>
+</html>

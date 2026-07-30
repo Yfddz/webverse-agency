@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /backup/
+Sitemap: https://webversejandk.in/sitemap.xml
