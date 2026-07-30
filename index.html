@@ -8,6 +8,7 @@
     <meta name="description" content="Webverse builds lightning-fast, high-converting digital storefronts for restaurants, salons, clinics and boutiques. Born in Assam, building for brands everywhere.">
     <meta name="theme-color" content="#1B133C">
     <link rel="canonical" href="https://webversejandk.in/">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/jpeg" href="/favicon.jpeg">
 
     <meta property="og:type" content="website">
@@ -104,6 +105,7 @@
 
         /* ---------- verticals marquee ---------- */
         .marquee-track { display: flex; width: max-content; animation: slide 38s linear infinite; }
+        .marquee-mask:hover .marquee-track { animation-play-state: paused; }
         @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         .marquee-mask {
             -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
@@ -132,10 +134,13 @@
 
         <!-- Layer 0 — aurora mesh (always present) -->
         <div class="aurora absolute inset-0 z-0 overflow-hidden">
-            <span class="blob blob-1"></span>
-            <span class="blob blob-2"></span>
-            <span class="blob blob-3"></span>
-            <span class="blob blob-4"></span>
+            <!-- parallax wrapper: pointer moves this, keyframes stay on the blobs -->
+            <div id="auroraInner" class="absolute -inset-[6%] will-change-transform transition-transform duration-700 ease-out">
+                <span class="blob blob-1"></span>
+                <span class="blob blob-2"></span>
+                <span class="blob blob-3"></span>
+                <span class="blob blob-4"></span>
+            </div>
         </div>
 
         <!-- Layer 1 — background video, fades in only once it decodes -->
@@ -150,8 +155,12 @@
         <!-- Layer 2 — legibility scrim, keeps navy type readable over any frame -->
         <div id="scrim" class="scrim pointer-events-none absolute inset-0 z-[2]"></div>
 
-        <!-- Layer 3 — grain -->
-        <div class="grain pointer-events-none absolute inset-0 z-[3] mix-blend-soft-light"></div>
+        <!-- Layer 3 — cursor sheen, a soft light that trails the pointer -->
+        <div id="sheen" class="pointer-events-none absolute z-[3] hidden md:block h-[560px] w-[560px] rounded-full opacity-0 transition-opacity duration-700 will-change-transform"
+             style="background: radial-gradient(circle, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 62%);"></div>
+
+        <!-- Layer 4 — grain -->
+        <div class="grain pointer-events-none absolute inset-0 z-[4] mix-blend-soft-light"></div>
 
         <!-- Layer 10 — content -->
         <div class="relative z-10 flex h-full flex-col">
@@ -197,12 +206,12 @@
 
                 <div class="rise d5 mt-7 sm:mt-9 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
                     <a href="contact-options.html"
-                       class="cta group inline-flex items-center gap-2 rounded-xl bg-[#FEFEFE] px-7 sm:px-8 py-3.5 text-sm font-semibold text-[#1B133C] shadow-[0px_4px_12px_rgba(27,19,60,0.15)] hover:shadow-[0px_8px_22px_rgba(27,19,60,0.22)] hover:-translate-y-0.5 transition-all duration-300">
+                       class="cta group inline-flex items-center gap-2 rounded-xl bg-[#1B133C] px-7 sm:px-8 py-3.5 text-sm font-semibold text-white shadow-[0px_8px_24px_rgba(27,19,60,0.35)] hover:bg-[#2A2058] hover:shadow-[0px_12px_32px_rgba(27,19,60,0.45)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-300">
                         Get a Free Quote
                         <span class="cta-arrow" aria-hidden="true">&rarr;</span>
                     </a>
                     <a href="templates.html"
-                       class="inline-flex items-center rounded-xl border border-[#1B133C]/15 bg-white/50 backdrop-blur-sm px-7 sm:px-8 py-3.5 text-sm font-semibold text-[#1B133C]/80 hover:text-[#1B133C] hover:bg-white/80 transition-all duration-300">
+                       class="inline-flex items-center rounded-xl border border-[#1B133C]/15 bg-white/60 backdrop-blur-sm px-7 sm:px-8 py-3.5 text-sm font-semibold text-[#1B133C]/80 hover:text-[#1B133C] hover:bg-white/90 hover:border-[#1B133C]/25 active:scale-[0.98] transition-all duration-300">
                         See our work
                     </a>
                 </div>
@@ -269,6 +278,38 @@
             // Some mobile browsers reject autoplay until a gesture; retry quietly.
             var play = v.play();
             if (play && typeof play.catch === 'function') { play.catch(function () {}); }
+        })();
+
+        // Pointer depth: the aurora drifts a few pixels against the cursor and a
+        // soft sheen trails it. Mouse-only, skipped entirely for reduced motion.
+        (function () {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var inner = document.getElementById('auroraInner');
+            var sheen = document.getElementById('sheen');
+            var section = document.querySelector('section');
+            if (!inner || !section) return;
+
+            var tx = 0, ty = 0, sx = 0, sy = 0, raf = null;
+            function frame() {
+                raf = null;
+                inner.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px,0)';
+                if (sheen) sheen.style.transform = 'translate3d(' + (sx - 280) + 'px,' + (sy - 280) + 'px,0)';
+            }
+            section.addEventListener('pointermove', function (e) {
+                if (e.pointerType && e.pointerType !== 'mouse') return;
+                var r = section.getBoundingClientRect();
+                var nx = (e.clientX - r.left) / r.width - 0.5;
+                var ny = (e.clientY - r.top) / r.height - 0.5;
+                tx = nx * -22; ty = ny * -16;
+                sx = e.clientX - r.left; sy = e.clientY - r.top;
+                if (sheen) sheen.style.opacity = '0.5';
+                if (!raf) raf = requestAnimationFrame(frame);
+            });
+            section.addEventListener('pointerleave', function () {
+                tx = ty = 0;
+                if (sheen) sheen.style.opacity = '0';
+                if (!raf) raf = requestAnimationFrame(frame);
+            });
         })();
     </script>
 
