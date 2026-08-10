@@ -313,6 +313,30 @@ async function open(opts = {}) {
   ok('printing swaps every scene for its flat diagram and drops the controls',
     printed.stage === 'none' && printed.flat === 'block' && printed.controls === 'none', JSON.stringify(printed));
 
+  /* --- the contents column can be closed and stays closed --- */
+  const contents = await page.evaluate(async () => {
+    const layout = document.querySelector('.layout');
+    const sidebar = document.getElementById('sidebar');
+    const open = { cols: getComputedStyle(layout).gridTemplateColumns, vis: sidebar.offsetWidth > 0 };
+    document.getElementById('navClose').click();
+    await new Promise((r) => setTimeout(r, 60));
+    const closed = {
+      cols: getComputedStyle(layout).gridTemplateColumns,
+      vis: sidebar.offsetWidth > 0,
+      stored: localStorage.getItem('mf16.nav'),
+      expanded: document.getElementById('sidebarToggle').getAttribute('aria-expanded')
+    };
+    document.getElementById('sidebarToggle').click();
+    await new Promise((r) => setTimeout(r, 60));
+    const reopened = { vis: sidebar.offsetWidth > 0, stored: localStorage.getItem('mf16.nav') };
+    return { open, closed, reopened };
+  });
+  ok('the contents column closes, frees its column and remembers it',
+    contents.open.vis && !contents.closed.vis && contents.closed.stored === 'closed' &&
+    contents.closed.expanded === 'false' && contents.closed.cols !== contents.open.cols, JSON.stringify(contents));
+  ok('and the ☰ control brings it back',
+    contents.reopened.vis && contents.reopened.stored === 'open', JSON.stringify(contents.reopened));
+
   ok('no console errors on the desktop pass', errors.length === 0, errors.slice(0, 3).join(' | '));
 
   if (SHOTS) {
@@ -340,6 +364,19 @@ async function open(opts = {}) {
     scroll: document.documentElement.scrollWidth,
     client: document.documentElement.clientWidth
   }));
+  const drawer = await page.evaluate(async () => {
+    /* A column closed on a desktop must not disable the mobile drawer. */
+    document.documentElement.classList.add('nav-closed');
+    const sidebar = document.getElementById('sidebar');
+    document.getElementById('sidebarToggle').click();
+    await new Promise((r) => setTimeout(r, 60));
+    const opened = sidebar.classList.contains('open') && sidebar.offsetWidth > 0;
+    document.getElementById('navClose').click();
+    await new Promise((r) => setTimeout(r, 60));
+    return { opened, closed: !sidebar.classList.contains('open') };
+  });
+  ok('the mobile drawer still opens and closes, even with the desktop column collapsed',
+    drawer.opened && drawer.closed, JSON.stringify(drawer));
   ok('no horizontal overflow at 390px', wide.scroll === wide.client, JSON.stringify(wide));
 
   await scrollTo(page, '#s3d-pool');

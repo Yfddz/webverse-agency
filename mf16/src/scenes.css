@@ -235,6 +235,36 @@ text.hi { fill: var(--gold-bright) !important; }
 .s3d-toggle-wrap { display: inline-flex; align-items: center; gap: 8px; }
 .s3d-k::before { content: '\25C6 '; }
 
+/* ----------------------------------------------- closable contents column */
+
+/* The ☰ control was mobile-only; it now works at every width. */
+.sidebar-toggle { display: block; }
+.nav-close {
+  float: right;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dimmer);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: -3px;
+  transition: all 0.2s ease;
+}
+.nav-close:hover { border-color: var(--gold); color: var(--gold); }
+.nav-close:focus-visible { outline: 1px solid var(--gold); outline-offset: 2px; }
+
+/* Only wide layouts collapse the column — below 900px the sidebar is a
+   slide-over drawer and must keep its own open/closed handling. */
+@media (min-width: 901px) {
+  html.nav-closed .layout { grid-template-columns: minmax(0, 1fr); }
+  html.nav-closed .sidebar { display: none; }
+  html.nav-closed main { margin: 0 auto; }
+}
+
 /* -------------------------------------------------------------- responsive */
 
 @media (max-width: 900px) {

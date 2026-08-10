@@ -557,6 +557,36 @@ text.hi { fill: var(--gold-bright) !important; }
 .s3d-toggle-wrap { display: inline-flex; align-items: center; gap: 8px; }
 .s3d-k::before { content: '\25C6 '; }
 
+/* ----------------------------------------------- closable contents column */
+
+/* The ☰ control was mobile-only; it now works at every width. */
+.sidebar-toggle { display: block; }
+.nav-close {
+  float: right;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dimmer);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: -3px;
+  transition: all 0.2s ease;
+}
+.nav-close:hover { border-color: var(--gold); color: var(--gold); }
+.nav-close:focus-visible { outline: 1px solid var(--gold); outline-offset: 2px; }
+
+/* Only wide layouts collapse the column — below 900px the sidebar is a
+   slide-over drawer and must keep its own open/closed handling. */
+@media (min-width: 901px) {
+  html.nav-closed .layout { grid-template-columns: minmax(0, 1fr); }
+  html.nav-closed .sidebar { display: none; }
+  html.nav-closed main { margin: 0 auto; }
+}
+
 /* -------------------------------------------------------------- responsive */
 
 @media (max-width: 900px) {
@@ -592,12 +622,16 @@ text.hi { fill: var(--gold-bright) !important; }
   .s3d-cap { color: #000; }
 }
 </style>
+<script>
+  /* Applied before first paint so a closed contents column never flashes open. */
+  try { if (localStorage.getItem('mf16.nav') === 'closed') document.documentElement.classList.add('nav-closed'); } catch (e) {}
+</script>
 </head>
 <body>
 
 <header class="topbar">
   <div class="topbar-left">
-    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">☰ Parts</button>
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Show or hide the contents" aria-expanded="true">☰ Contents</button>
     <div class="brand">
       <span class="brand-top">Masterclass · ASSEB XII Finance</span>
       <span class="brand-title"><em>Ch. 16 — Mutual Fund</em></span>
@@ -630,7 +664,7 @@ text.hi { fill: var(--gold-bright) !important; }
 <div class="layout">
 
 <nav class="sidebar" id="sidebar">
-  <div class="sidebar-title">Contents</div>
+  <div class="sidebar-title">Contents<button class="nav-close" id="navClose" title="Close the contents column">Close</button></div>
   <ol class="nav-list" id="navList">
     <li><a class="nav-item" data-part="1"><span class="nav-num">01</span>What a Mutual Fund Is</a></li>
     <li><a class="nav-item" data-part="2"><span class="nav-num">02</span>NAV &amp; Unit Pricing</a></li>
@@ -1753,15 +1787,40 @@ NAV = ────────────────────────�
 
   const sidebar = document.getElementById('sidebar');
   const toggleBtn = document.getElementById('sidebarToggle');
-  toggleBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
-  function closeSidebarOnMobile() {
-    if (window.innerWidth <= 900) sidebar.classList.remove('open');
+  const navClose = document.getElementById('navClose');
+  const CONTENTS_KEY = 'mf16.nav';
+  /* Named `contents*`, not `nav*` — this script already has a setNav() for the
+     NAV calculator further down, and a second one would silently win. */
+  const narrowLayout = () => window.innerWidth <= 900;
+
+  /* Wide screens collapse the contents column away and remember the choice.
+     Narrow screens keep the slide-over drawer, which is transient by nature. */
+  function contentsOpen() {
+    return narrowLayout()
+      ? sidebar.classList.contains('open')
+      : !document.documentElement.classList.contains('nav-closed');
   }
+  function syncContents() {
+    toggleBtn.setAttribute('aria-expanded', String(contentsOpen()));
+  }
+  function setContents(open) {
+    if (narrowLayout()) sidebar.classList.toggle('open', open);
+    else {
+      document.documentElement.classList.toggle('nav-closed', !open);
+      try { localStorage.setItem(CONTENTS_KEY, open ? 'open' : 'closed'); } catch (e) { /* private mode */ }
+    }
+    syncContents();
+  }
+  toggleBtn.addEventListener('click', () => setContents(!contentsOpen()));
+  navClose.addEventListener('click', () => setContents(false));
+  function closeSidebarOnMobile() { if (narrowLayout()) setContents(false); }
   document.addEventListener('click', e => {
-    if (window.innerWidth <= 900 && sidebar.classList.contains('open')) {
-      if (!sidebar.contains(e.target) && e.target !== toggleBtn) sidebar.classList.remove('open');
+    if (narrowLayout() && sidebar.classList.contains('open')) {
+      if (!sidebar.contains(e.target) && e.target !== toggleBtn) setContents(false);
     }
   });
+  window.addEventListener('resize', syncContents);
+  syncContents();
 
   /* ---------- reveal spans ---------- */
   document.querySelectorAll('.reveal').forEach(s => {
