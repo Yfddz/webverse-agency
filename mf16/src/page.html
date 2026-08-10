@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutual Fund — AHSEC/ASSEB Class 12 Finance 3D Masterclass (Ch. 16)</title>
+<!--MF3D:FONTS-->
+<style>
+  :root {
+    --bg: #0b0a08;
+    --bg-2: #131110;
+    --bg-3: #1a1712;
+    --bg-4: #221d17;
+    --border: #2a2520;
+    --border-strong: #3a342c;
+    --text: #e8e3db;
+    --text-dim: #a8a196;
+    --text-dimmer: #6b6560;
+    --gold: #c9a961;
+    --gold-bright: #e5c88a;
+    --gold-deep: #8a7340;
+    --warn: #d08770;
+    --info: #7ca69a;
+    --success: #9cb37a;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 25%, rgba(201, 169, 97, 0.04) 0%, transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(124, 166, 154, 0.025) 0%, transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(11, 10, 8, 0.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .sidebar-toggle {
+    background: transparent; border: 1px solid var(--border-strong);
+    color: var(--text-dim); padding: 6px 10px; border-radius: 4px;
+    cursor: pointer; font-family: var(--mono); font-size: 12px; display: none;
+  }
+  .sidebar-toggle:hover { border-color: var(--gold); color: var(--gold); }
+  .brand { display: flex; flex-direction: column; min-width: 0; }
+  .brand-top { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase; }
+  .brand-title { font-family: var(--serif); font-size: 17px; font-weight: 500; letter-spacing: -0.01em; font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .progress { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.05em; }
+  .progress-dots { display: flex; gap: 3px; }
+  .progress-dot { width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--border-strong); background: transparent; transition: all 0.3s ease; cursor: pointer; }
+  .progress-dot.done { background: var(--gold); border-color: var(--gold); }
+  .progress-dot.active { border-color: var(--gold-bright); box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15); }
+  .layout { display: grid; grid-template-columns: 280px 1fr; max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+  .sidebar { border-right: 1px solid var(--border); padding: 32px 0; position: sticky; top: 57px; height: calc(100vh - 57px); overflow-y: auto; }
+  .sidebar-title { font-family: var(--mono); font-size: 10px; color: var(--text-dimmer); text-transform: uppercase; letter-spacing: 0.22em; padding: 0 28px 16px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
+  .nav-list { list-style: none; padding: 16px 0; }
+  .nav-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 28px; color: var(--text-dim); text-decoration: none; font-size: 13.5px; line-height: 1.45; border-left: 2px solid transparent; transition: all 0.2s ease; cursor: pointer; }
+  .nav-item:hover { color: var(--text); background: var(--bg-2); }
+  .nav-item.active { color: var(--gold-bright); border-left-color: var(--gold); background: linear-gradient(90deg, rgba(201, 169, 97, 0.08), transparent); }
+  .nav-num { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--text-dimmer); margin-top: 1px; min-width: 22px; }
+  .nav-item.active .nav-num { color: var(--gold); }
+  .nav-item.done .nav-num::after { content: ' ✓'; color: var(--success); }
+  main { padding: 56px 72px 120px; max-width: 880px; }
+  .masthead { padding-bottom: 40px; border-bottom: 1px solid var(--border); margin-bottom: 56px; }
+  .masthead-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .masthead h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 5vw, 58px); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 20px; }
+  .masthead h1 em { font-style: italic; color: var(--gold-bright); font-weight: 300; }
+  .masthead-desc { font-size: 17px; line-height: 1.6; color: var(--text-dim); max-width: 640px; font-family: var(--serif); font-weight: 300; }
+  .masthead-meta { display: flex; gap: 24px; margin-top: 24px; font-family: var(--mono); font-size: 11px; color: var(--text-dimmer); letter-spacing: 0.1em; text-transform: uppercase; flex-wrap: wrap; }
+  .masthead-meta span::before { content: '— '; color: var(--gold-deep); }
+  .part { padding: 64px 0; border-bottom: 1px solid var(--border); scroll-margin-top: 80px; }
+  .part:last-of-type { border-bottom: none; }
+  .part-header { margin-bottom: 36px; }
+  .part-number { font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .part-number::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold-deep), transparent); }
+  .part h2 { font-family: var(--serif); font-weight: 400; font-size: 36px; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .part h2 em { font-style: italic; color: var(--gold-bright); font-weight: 300; }
+  .part-subtitle { font-size: 15px; color: var(--text-dim); font-family: var(--serif); font-style: italic; font-weight: 300; }
+  .part h3 { font-family: var(--serif); font-weight: 500; font-size: 22px; letter-spacing: -0.01em; margin: 40px 0 14px; color: var(--text); }
+  .part h4 { font-family: var(--sans); font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); margin: 28px 0 10px; }
+  .part p { margin-bottom: 14px; color: var(--text); }
+  .part p.lead { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--text); font-weight: 300; margin-bottom: 20px; }
+  .part ul, .part ol { margin: 10px 0 20px 24px; }
+  .part li { margin-bottom: 8px; color: var(--text); }
+  .part strong { color: var(--gold-bright); font-weight: 600; }
+  .part em { font-style: italic; color: var(--text); }
+  code { font-family: var(--mono); font-size: 0.88em; background: var(--bg-3); padding: 1px 6px; border-radius: 3px; border: 1px solid var(--border); color: var(--gold-bright); }
+  pre { background: var(--bg-2); border: 1px solid var(--border); border-left: 3px solid var(--gold-deep); padding: 18px 22px; border-radius: 2px; overflow-x: auto; margin: 18px 0; font-family: var(--mono); font-size: 13px; line-height: 1.7; color: var(--text); }
+  pre .title { display: block; color: var(--gold); font-weight: 500; margin-bottom: 10px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .callout { margin: 22px 0; padding: 18px 22px; border-radius: 2px; border-left: 3px solid; background: var(--bg-2); position: relative; }
+  .callout-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; display: block; }
+  .callout p { margin-bottom: 10px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.trap { border-color: var(--warn); }
+  .callout.trap .callout-label { color: var(--warn); }
+  .callout.trap .callout-label::before { content: '⚠ '; }
+  .callout.exam { border-color: var(--gold); background: linear-gradient(to right, rgba(201, 169, 97, 0.06), var(--bg-2)); }
+  .callout.exam .callout-label { color: var(--gold-bright); }
+  .callout.exam .callout-label::before { content: '◆ '; }
+  .callout.insight { border-color: var(--info); }
+  .callout.insight .callout-label { color: var(--info); }
+  .callout.insight .callout-label::before { content: '▸ '; }
+  .callout.example { border-color: var(--success); background: linear-gradient(to right, rgba(156, 179, 122, 0.04), var(--bg-2)); }
+  .callout.example .callout-label { color: var(--success); }
+  .callout.example .callout-label::before { content: '✎ '; }
+  table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; border: 1px solid var(--border); }
+  th { background: var(--bg-3); color: var(--gold); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border-strong); }
+  td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg-2); }
+  .formula { display: block; background: var(--bg-3); border: 1px solid var(--border); padding: 16px 22px; margin: 16px 0; font-family: var(--mono); font-size: 14px; color: var(--gold-bright); border-radius: 2px; line-height: 1.6; white-space: pre-wrap; }
+  .formula .label { display: block; font-family: var(--sans); font-size: 11px; color: var(--text-dimmer); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .complete-btn { margin-top: 40px; background: transparent; border: 1px solid var(--border-strong); color: var(--text-dim); padding: 10px 20px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.2s ease; }
+  .complete-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .complete-btn.done { border-color: var(--success); color: var(--success); background: rgba(156, 179, 122, 0.06); }
+  .complete-btn.done::before { content: '✓ '; }
+  .closer { margin-top: 80px; padding: 40px; border: 1px solid var(--border-strong); border-radius: 2px; background: linear-gradient(to bottom right, var(--bg-2), var(--bg)); text-align: center; }
+  .closer-kicker { font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.24em; text-transform: uppercase; margin-bottom: 12px; }
+  .closer h3 { font-family: var(--serif); font-size: 26px; font-style: italic; font-weight: 300; margin-bottom: 16px; }
+  .closer p { color: var(--text-dim); max-width: 520px; margin: 0 auto; }
+
+
+  /* ---------- VOICE BAR ---------- */
+  .voicebar {
+    position: sticky; top: 57px; z-index: 95;
+    background: rgba(19,17,16,0.96); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: 9px 28px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .voicebar .vb-k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+  .voicebar .vb-k::before { content: '\25C9 '; }
+  .voicebar select {
+    background: var(--bg); border: 1px solid var(--border-strong); color: var(--text-dim);
+    font-family: var(--mono); font-size: 11px; padding: 5px 8px; border-radius: 2px; max-width: 190px;
+  }
+  .voicebar select:focus { outline: none; border-color: var(--gold); }
+  .vb-status { font-family: var(--mono); font-size: 10.5px; color: var(--text-dimmer); letter-spacing: 0.06em; flex: 1; min-width: 120px; }
+  .vb-status.live { color: var(--success); }
+  .listen-btn { margin-top: 14px; }
+  .listen-btn.playing { border-color: var(--success); color: var(--success); }
+  .speaking {
+    background: linear-gradient(90deg, rgba(201,169,97,0.14), rgba(201,169,97,0.02));
+    box-shadow: -3px 0 0 var(--gold);
+    border-radius: 2px;
+  }
+
+  /* ---------- ANIMATED EXPLAINER PLAYER ---------- */
+  .vplayer { margin: 28px 0; border: 1px solid var(--border-strong); border-radius: 2px; background: var(--bg-2); overflow: hidden; }
+  .v-head { padding: 12px 20px; border-bottom: 1px solid var(--border); background: var(--bg-3); display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .v-kick { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+  .v-kick::before { content: '\25B6 '; }
+  .v-title { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--text); }
+  .v-len { font-family: var(--mono); font-size: 10px; color: var(--text-dimmer); letter-spacing: 0.1em; margin-left: auto; }
+  .v-stage { padding: 18px 20px 6px; background: linear-gradient(to bottom, var(--bg), var(--bg-2)); }
+  .v-stage svg { width: 100%; height: auto; display: block; }
+  .v-el { opacity: 0; transition: opacity 0.65s ease; }
+  .v-el.on { opacity: 1; }
+  .v-controls { padding: 12px 20px; display: flex; align-items: center; gap: 12px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .v-track { flex: 1; height: 3px; background: var(--bg-4); border-radius: 2px; overflow: hidden; min-width: 90px; }
+  .v-fill { height: 100%; width: 0%; background: var(--gold); transition: width 0.5s ease; }
+  .v-step { font-family: var(--mono); font-size: 11px; color: var(--text-dimmer); letter-spacing: 0.1em; }
+  .v-cap { padding: 0 20px 16px; font-size: 13.5px; color: var(--text-dim); line-height: 1.55; min-height: 42px; }
+  .v-cap.live { color: var(--gold-bright); }
+  .v-play.playing { border-color: var(--success); color: var(--success); }
+
+  /* ---------- FIGURES / DIAGRAMS ---------- */
+  .figure { margin: 28px 0; border: 1px solid var(--border); border-radius: 2px; background: linear-gradient(to bottom, var(--bg-2), var(--bg)); padding: 22px 20px 16px; overflow: hidden; }
+  .figure svg { width: 100%; height: auto; display: block; }
+  .figure-cap { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dimmer); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .figure-cap b { color: var(--gold); font-weight: 500; }
+  .svg-node { fill: var(--bg-3); stroke: var(--border-strong); }
+  .svg-node-gold { fill: rgba(201,169,97,0.10); stroke: var(--gold-deep); }
+  .svg-t { font-family: 'IBM Plex Sans', sans-serif; fill: #e8e3db; font-size: 12px; }
+  .svg-t-sm { font-family: 'IBM Plex Mono', monospace; fill: #a8a196; font-size: 9.5px; letter-spacing: 0.08em; }
+  .svg-t-gold { font-family: 'IBM Plex Mono', monospace; fill: #c9a961; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .svg-t-title { font-family: 'Fraunces', Georgia, serif; fill: #e5c88a; font-size: 14px; font-style: italic; }
+  .svg-line { stroke: var(--border-strong); stroke-width: 1.2; fill: none; }
+  .svg-flow { stroke: var(--gold-deep); stroke-width: 1.4; fill: none; }
+
+  /* ---------- INTERACTIVE BLOCKS ---------- */
+  .ibox { margin: 28px 0; border: 1px solid var(--border-strong); border-radius: 2px; background: var(--bg-2); overflow: hidden; }
+  .ibox-head { padding: 12px 20px; border-bottom: 1px solid var(--border); background: var(--bg-3); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .ibox-head .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+  .ibox-head .k::before { content: '◈ '; }
+  .ibox-head .h { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--text); }
+  .ibox-body { padding: 20px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dimmer); }
+  .field input { background: var(--bg); border: 1px solid var(--border-strong); color: var(--gold-bright); font-family: var(--mono); font-size: 14px; padding: 9px 12px; border-radius: 2px; width: 100%; }
+  .field input:focus { outline: none; border-color: var(--gold); }
+  .calc-out { margin-top: 18px; padding: 16px 18px; border: 1px dashed var(--gold-deep); border-radius: 2px; background: rgba(201,169,97,0.05); font-family: var(--mono); font-size: 13px; line-height: 1.9; color: var(--text-dim); }
+  .calc-out .big { display: block; font-size: 26px; color: var(--gold-bright); margin-top: 6px; letter-spacing: 0.02em; }
+  .btn { background: transparent; border: 1px solid var(--border-strong); color: var(--text-dim); padding: 8px 16px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.2s ease; }
+  .btn:hover { border-color: var(--gold); color: var(--gold); }
+  .btn.sm { padding: 5px 11px; font-size: 10px; }
+
+  /* flip cards */
+  .flip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .flip { perspective: 1000px; height: 168px; cursor: pointer; }
+  .flip-in { position: relative; width: 100%; height: 100%; transition: transform 0.55s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
+  .flip.on .flip-in { transform: rotateY(180deg); }
+  .flip-f, .flip-b { position: absolute; inset: 0; backface-visibility: hidden; border: 1px solid var(--border-strong); border-radius: 2px; padding: 14px; display: flex; flex-direction: column; justify-content: center; }
+  .flip-f { background: var(--bg-3); align-items: center; text-align: center; }
+  .flip-f .n { font-family: var(--mono); font-size: 10px; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 8px; }
+  .flip-f .t { font-family: var(--serif); font-size: 17px; font-style: italic; color: var(--gold-bright); line-height: 1.25; }
+  .flip-f .hint { font-family: var(--mono); font-size: 9px; color: var(--text-dimmer); letter-spacing: 0.15em; margin-top: 10px; text-transform: uppercase; }
+  .flip-b { background: linear-gradient(to bottom right, var(--bg-4), var(--bg-2)); transform: rotateY(180deg); font-size: 12.5px; line-height: 1.5; color: var(--text); overflow: auto; }
+  .flip-b b { color: var(--gold-bright); }
+
+  /* quiz */
+  .q { border: 1px solid var(--border); border-radius: 2px; padding: 16px 18px; margin-bottom: 14px; background: var(--bg); }
+  .q .stem { font-size: 14.5px; margin-bottom: 12px; }
+  .q .stem .qn { font-family: var(--mono); font-size: 10px; color: var(--gold); letter-spacing: 0.18em; display: block; margin-bottom: 6px; }
+  .opt { display: block; width: 100%; text-align: left; background: var(--bg-2); border: 1px solid var(--border); color: var(--text); padding: 9px 13px; margin-bottom: 7px; border-radius: 2px; cursor: pointer; font-family: var(--sans); font-size: 13.5px; transition: all .18s ease; }
+  .opt:hover { border-color: var(--gold-deep); }
+  .opt.right { border-color: var(--success); background: rgba(156,179,122,0.10); color: var(--success); }
+  .opt.wrong { border-color: var(--warn); background: rgba(208,135,112,0.10); color: var(--warn); }
+  .opt.locked { cursor: default; }
+  .q .why { display: none; margin-top: 8px; font-size: 12.5px; color: var(--text-dim); border-left: 2px solid var(--gold-deep); padding-left: 12px; }
+  .q.answered .why { display: block; }
+  .score-bar { font-family: var(--mono); font-size: 12px; color: var(--gold-bright); letter-spacing: 0.1em; }
+
+  /* timeline */
+  .tl { position: relative; margin: 26px 0 10px; padding-left: 26px; }
+  .tl::before { content: ''; position: absolute; left: 6px; top: 4px; bottom: 4px; width: 1px; background: linear-gradient(to bottom, var(--gold-deep), var(--border)); }
+  .tl-item { position: relative; padding-bottom: 20px; }
+  .tl-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 1px solid var(--gold); }
+  .tl-item.big::before { background: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,97,0.18); }
+  .tl-y { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; color: var(--gold); }
+  .tl-t { font-size: 14.5px; margin-top: 2px; }
+  .tl-d { font-size: 13px; color: var(--text-dim); }
+
+  /* benefit cards */
+  .bgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+  .bcard { border: 1px solid var(--border); border-left: 2px solid var(--gold-deep); background: var(--bg-2); padding: 14px 16px; border-radius: 2px; }
+  .bcard .n { font-family: var(--mono); font-size: 10px; color: var(--gold); letter-spacing: 0.2em; }
+  .bcard .t { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--gold-bright); margin: 3px 0 6px; }
+  .bcard .d { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+  /* recall strip */
+  .recall { border: 1px dashed var(--border-strong); border-radius: 2px; padding: 16px 18px; margin: 24px 0; background: rgba(124,166,154,0.03); }
+  .recall .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--info); margin-bottom: 10px; display: block; }
+  .recall .k::before { content: '✓ '; }
+  .recall ol { margin: 0 0 0 20px !important; }
+  .recall li { font-size: 13.5px; color: var(--text-dim); }
+  .reveal { color: var(--bg-2); background: var(--bg-2); border-radius: 2px; padding: 0 4px; cursor: pointer; transition: all .2s ease; }
+  .reveal.on { color: var(--gold-bright); background: transparent; }
+
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+  .tbl-wrap table { margin: 18px 0; }
+
+  @media (max-width: 900px) {
+    html, body { overflow-x: hidden; }
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    main, .part, .masthead { min-width: 0; max-width: 100%; }
+    .tbl-wrap table { min-width: 460px; }
+    .part h2, .masthead h1, .part h3 { overflow-wrap: break-word; }
+    .part p, .part li, .callout p, .bcard .d { overflow-wrap: break-word; }
+    .figure { max-width: 100%; }
+    .ibox, .callout, .formula, pre { max-width: 100%; }
+    .formula { white-space: pre; overflow-x: auto; font-size: 11.5px; padding: 14px 16px; }
+    .voicebar { padding: 8px 14px; gap: 8px; }
+    .voicebar select { max-width: 118px; font-size: 10px; }
+    .vb-status { width: 100%; order: 9; }
+    .v-head, .v-controls, .v-cap { padding-left: 14px; padding-right: 14px; }
+    .v-stage { padding: 12px 10px 4px; }
+    .v-len { margin-left: 0; }
+    .sidebar { position: fixed; top: 57px; left: 0; width: 280px; background: var(--bg); transform: translateX(-100%); transition: transform 0.3s ease; z-index: 90; border-right: 1px solid var(--border-strong); }
+    .sidebar.open { transform: translateX(0); box-shadow: 20px 0 40px rgba(0,0,0,0.5); }
+    .sidebar-toggle { display: block; }
+    main { padding: 32px 20px 80px; }
+    .masthead h1 { font-size: 32px; }
+    .part { padding: 40px 0; }
+    .part h2 { font-size: 26px; }
+    .part h3 { font-size: 19px; }
+    pre { font-size: 11px; padding: 14px 16px; }
+    table { font-size: 12px; }
+    th, td { padding: 8px 10px; }
+    .topbar { padding: 12px 14px; }
+    .progress span { display: none; }
+    .closer { padding: 28px 20px; }
+    .field-row { grid-template-columns: 1fr; }
+    .flip-grid { grid-template-columns: 1fr; }
+    .flip { height: 150px; }
+    .bgrid { grid-template-columns: 1fr; }
+    .figure { padding: 14px 10px 12px; }
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 5px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold-deep); }
+</style>
+<!--MF3D:CSS-->
+<script>
+  /* Applied before first paint so a closed contents column never flashes open. */
+  try { if (localStorage.getItem('mf16.nav') === 'closed') document.documentElement.classList.add('nav-closed'); } catch (e) {}
+</script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Show or hide the contents" aria-expanded="true">☰ Contents</button>
+    <div class="brand">
+      <span class="brand-top">Masterclass · ASSEB XII Finance</span>
+      <span class="brand-title"><em>Ch. 16 — Mutual Fund</em></span>
+    </div>
+  </div>
+  <div class="progress">
+    <span>Progress</span>
+    <div class="progress-dots" id="progressDots"></div>
+    <span id="progressText">0 / 10</span>
+  </div>
+</header>
+
+
+<div class="voicebar">
+  <span class="vb-k">Voice</span>
+  <button class="btn sm" id="vbToggle">Enabled</button>
+  <select id="vbVoice" aria-label="Narration voice"></select>
+  <select id="vbRate" aria-label="Speaking speed">
+    <option value="0.8">0.8&times;</option>
+    <option value="0.9">0.9&times;</option>
+    <option value="1" selected>1.0&times;</option>
+    <option value="1.15">1.15&times;</option>
+    <option value="1.3">1.3&times;</option>
+    <option value="1.5">1.5&times;</option>
+  </select>
+  <button class="btn sm" id="vbStop">&#9632; Stop all</button>
+  <span class="vb-status" id="vbStatus">Idle &mdash; press Listen on any part, or Play on an explainer.</span>
+</div>
+
+<div class="layout">
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-title">Contents<button class="nav-close" id="navClose" title="Close the contents column">Close</button></div>
+  <ol class="nav-list" id="navList">
+    <li><a class="nav-item" data-part="1"><span class="nav-num">01</span>What a Mutual Fund Is</a></li>
+    <li><a class="nav-item" data-part="2"><span class="nav-num">02</span>NAV &amp; Unit Pricing</a></li>
+    <li><a class="nav-item" data-part="3"><span class="nav-num">03</span>The Five Parties</a></li>
+    <li><a class="nav-item" data-part="4"><span class="nav-num">04</span>Classification by Operation</a></li>
+    <li><a class="nav-item" data-part="5"><span class="nav-num">05</span>Open vs Closed — The Table</a></li>
+    <li><a class="nav-item" data-part="6"><span class="nav-num">06</span>Classification by Yield</a></li>
+    <li><a class="nav-item" data-part="7"><span class="nav-num">07</span>SIP, SWP &amp; STP</a></li>
+    <li><a class="nav-item" data-part="8"><span class="nav-num">08</span>Benefits of Investing</a></li>
+    <li><a class="nav-item" data-part="9"><span class="nav-num">09</span>Mutual Funds in India</a></li>
+    <li><a class="nav-item" data-part="10"><span class="nav-num">10</span>Exam Strategy &amp; Kill-List</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section class="masthead">
+  <div class="masthead-kicker">The Masterclass · Unit IV · Chapter 16</div>
+  <h1>Mutual Fund — <em>pooled money, professional hands</em></h1>
+  <p class="masthead-desc">Every definition, every classification, every difference and every benefit from ASSEB Finance Chapter 16 — rebuilt as ten interactive parts with four narrated 3D scenes, live diagrams, a working NAV calculator, flip-card drills and a scored quiz. Start at Part 1 and walk through.</p>
+  <div class="masthead-meta">
+    <span>10 parts</span>
+    <span>4 3D scenes</span>
+    <span>~95 min</span>
+    <span>Board-weight: 5-mark near-certain</span>
+    <span>PYQ: 2019, 2023, 2024</span>
+  </div>
+</section>
+
+<!-- ============================ PART 1 ============================ -->
+<section class="part" id="part-1">
+  <div class="part-header">
+    <div class="part-number">Part 01</div>
+    <h2>What a Mutual Fund Actually Is — <em>the pooling engine</em></h2>
+    <div class="part-subtitle">The textbook definition, the unit, the ₹10 offer price, and the one idea the whole chapter hangs on.</div>
+  </div>
+
+  <p class="lead">A small saver in Bajali with ₹5,000 cannot buy a diversified portfolio of thirty companies, cannot read a balance sheet, and cannot watch the market all day. A mutual fund exists to solve exactly that problem — it collects thousands of such ₹5,000s and hands the combined pile to somebody who <em>can</em>.</p>
+
+  <h3>The definition you write in the exam</h3>
+
+  <p>Your textbook opens the chapter with this, and it is the sentence to reproduce:</p>
+
+  <div class="formula"><span class="label">Textbook definition — ASSEB Finance, Ch. 16</span>Mutual fund is a collective investment created through mutual
+contributions made by large numbers of small savers who have no
+expertise knowledge to undertake investment in equities successfully.</div>
+
+  <p>And the supporting line, which is worth adding as a second sentence in any 2-mark or 5-mark answer: <em>mutual fund is basically an investment vehicle through which the fund managers pool fund to invest in shares and debentures.</em> Financial institutions, private companies and public companies all act as fund managers.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing small investors pooling money into a fund, managed by an AMC, invested in securities, with returns flowing back">
+      <text x="10" y="18" class="svg-t-gold">FIG 1.1 — THE POOLING MECHANISM</text>
+
+      <!-- investors -->
+      <g>
+        <circle cx="52" cy="82" r="16" class="svg-node"/><text x="52" y="86" text-anchor="middle" class="svg-t-sm">₹</text>
+        <circle cx="52" cy="128" r="16" class="svg-node"/><text x="52" y="132" text-anchor="middle" class="svg-t-sm">₹</text>
+        <circle cx="52" cy="174" r="16" class="svg-node"/><text x="52" y="178" text-anchor="middle" class="svg-t-sm">₹</text>
+        <circle cx="52" cy="220" r="16" class="svg-node"/><text x="52" y="224" text-anchor="middle" class="svg-t-sm">₹</text>
+        <text x="52" y="46" text-anchor="middle" class="svg-t-sm">SMALL SAVERS</text>
+        <text x="52" y="59" text-anchor="middle" class="svg-t-sm">(no expertise)</text>
+      </g>
+
+      <path d="M72 82 C 110 82, 120 140, 156 148" class="svg-flow"/>
+      <path d="M72 128 C 110 128, 122 142, 156 150" class="svg-flow"/>
+      <path d="M72 174 C 110 174, 122 160, 156 152" class="svg-flow"/>
+      <path d="M72 220 C 110 220, 120 162, 156 154" class="svg-flow"/>
+
+      <!-- pool -->
+      <rect x="158" y="108" width="132" height="86" rx="3" class="svg-node-gold"/>
+      <text x="224" y="138" text-anchor="middle" class="svg-t-title">The Pool</text>
+      <text x="224" y="158" text-anchor="middle" class="svg-t-sm">CORPUS OF THE SCHEME</text>
+      <text x="224" y="176" text-anchor="middle" class="svg-t-sm">divided into UNITS</text>
+
+      <path d="M290 151 L 336 151" class="svg-flow"/>
+      <path d="M330 146 L 338 151 L 330 156 Z" fill="#8a7340"/>
+
+      <!-- AMC -->
+      <rect x="338" y="118" width="120" height="66" rx="3" class="svg-node"/>
+      <text x="398" y="146" text-anchor="middle" class="svg-t">AMC</text>
+      <text x="398" y="164" text-anchor="middle" class="svg-t-sm">FUND MANAGER</text>
+
+      <path d="M458 151 L 500 151" class="svg-flow"/>
+      <path d="M494 146 L 502 151 L 494 156 Z" fill="#8a7340"/>
+
+      <!-- securities -->
+      <rect x="504" y="62" width="180" height="42" rx="3" class="svg-node"/>
+      <text x="594" y="88" text-anchor="middle" class="svg-t">Equity Shares</text>
+      <rect x="504" y="118" width="180" height="42" rx="3" class="svg-node"/>
+      <text x="594" y="144" text-anchor="middle" class="svg-t">Debentures &amp; Bonds</text>
+      <rect x="504" y="174" width="180" height="42" rx="3" class="svg-node"/>
+      <text x="594" y="200" text-anchor="middle" class="svg-t">Money-market Instruments</text>
+      <path d="M502 151 L 504 83" class="svg-line"/>
+      <path d="M502 151 L 504 195" class="svg-line"/>
+      <text x="594" y="236" text-anchor="middle" class="svg-t-sm">DIVERSIFIED PORTFOLIO</text>
+
+      <!-- return arrow -->
+      <path d="M690 226 C 736 280, 330 300, 80 256" class="svg-flow" stroke-dasharray="4 4"/>
+      <path d="M88 250 L 76 256 L 88 262 Z" fill="#8a7340"/>
+      <text x="400" y="316" text-anchor="middle" class="svg-t-sm">RETURNS FLOW BACK TO UNIT-HOLDERS (dividend / capital appreciation)</text>
+    </svg>
+    <div class="figure-cap"><b>Read it left to right:</b> many small contributions → one corpus → one professional manager → many securities → returns back to the same small savers. The whole chapter is footnotes to this picture.</div>
+  </div>
+
+  <div class="vplayer" id="vp-pool">
+    <div class="v-head"><span class="v-kick">Explainer 01</span><span class="v-title">How the pooling engine works</span><span class="v-len">6 steps &middot; ~55s</span></div>
+    <div class="v-stage">
+      <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated explainer of the mutual fund pooling mechanism">
+        <g id="p1-inv" class="v-el">
+          <text x="52" y="42" text-anchor="middle" class="svg-t-sm">SMALL SAVERS</text>
+          <circle cx="52" cy="78" r="16" class="svg-node"/><text x="52" y="82" text-anchor="middle" class="svg-t-sm">&#8377;</text>
+          <circle cx="52" cy="122" r="16" class="svg-node"/><text x="52" y="126" text-anchor="middle" class="svg-t-sm">&#8377;</text>
+          <circle cx="52" cy="166" r="16" class="svg-node"/><text x="52" y="170" text-anchor="middle" class="svg-t-sm">&#8377;</text>
+          <circle cx="52" cy="210" r="16" class="svg-node"/><text x="52" y="214" text-anchor="middle" class="svg-t-sm">&#8377;</text>
+        </g>
+        <g id="p1-arrows" class="v-el">
+          <path d="M72 78 C 112 78, 122 138, 156 144" class="svg-flow"/>
+          <path d="M72 122 C 112 122, 124 140, 156 146" class="svg-flow"/>
+          <path d="M72 166 C 112 166, 124 156, 156 148" class="svg-flow"/>
+          <path d="M72 210 C 112 210, 122 158, 156 150" class="svg-flow"/>
+        </g>
+        <g id="p1-pool" class="v-el">
+          <rect x="158" y="106" width="132" height="82" rx="3" class="svg-node-gold"/>
+          <text x="224" y="140" text-anchor="middle" class="svg-t-title">The Pool</text>
+          <text x="224" y="160" text-anchor="middle" class="svg-t-sm">CORPUS OF THE SCHEME</text>
+        </g>
+        <g id="p1-units" class="v-el">
+          <text x="224" y="212" text-anchor="middle" class="svg-t-sm">DIVIDED INTO EQUAL PORTIONS = UNITS</text>
+          <text x="224" y="228" text-anchor="middle" class="svg-t-gold">INITIAL OFFER PRICE &#8377;10</text>
+        </g>
+        <g id="p1-amc" class="v-el">
+          <path d="M290 147 L 334 147" class="svg-flow"/><path d="M328 142 L 336 147 L 328 152 Z" fill="#8a7340"/>
+          <rect x="338" y="118" width="120" height="60" rx="3" class="svg-node"/>
+          <text x="398" y="144" text-anchor="middle" class="svg-t">AMC</text>
+          <text x="398" y="162" text-anchor="middle" class="svg-t-sm">FUND MANAGER</text>
+        </g>
+        <g id="p1-sec" class="v-el">
+          <path d="M458 147 L 500 147" class="svg-flow"/><path d="M494 142 L 502 147 L 494 152 Z" fill="#8a7340"/>
+          <rect x="504" y="60" width="180" height="40" rx="3" class="svg-node"/><text x="594" y="85" text-anchor="middle" class="svg-t">Equity Shares</text>
+          <rect x="504" y="114" width="180" height="40" rx="3" class="svg-node"/><text x="594" y="139" text-anchor="middle" class="svg-t">Debentures &amp; Bonds</text>
+          <rect x="504" y="168" width="180" height="40" rx="3" class="svg-node"/><text x="594" y="193" text-anchor="middle" class="svg-t">Money-market Instruments</text>
+          <path d="M502 147 L 504 80" class="svg-line"/><path d="M502 147 L 504 188" class="svg-line"/>
+          <text x="594" y="228" text-anchor="middle" class="svg-t-gold">RISK DIVERSIFICATION</text>
+        </g>
+        <g id="p1-ret" class="v-el">
+          <path d="M690 214 C 736 268, 330 292, 80 250" class="svg-flow" stroke-dasharray="4 4"/>
+          <path d="M88 244 L 76 250 L 88 256 Z" fill="#8a7340"/>
+          <text x="400" y="288" text-anchor="middle" class="svg-t-sm">RETURNS FLOW BACK &#8212; DIVIDEND / CAPITAL APPRECIATION</text>
+        </g>
+      </svg>
+    </div>
+    <div class="v-controls">
+      <button class="btn sm v-play">&#9654; Play</button>
+      <button class="btn sm v-restart">&#8634; Restart</button>
+      <div class="v-track"><div class="v-fill"></div></div>
+      <span class="v-step">0 / 6</span>
+    </div>
+    <div class="v-cap">Press play. Narration is spoken by your device and the diagram builds in step with it.</div>
+  </div>
+
+  <div id="mount-scene-a"></div>
+
+  <h3>The unit — the single most examinable noun in the chapter</h3>
+
+  <p>The fund created by the contributions of investors is divided into equal portions called a <strong>unit</strong>. A unit is your proportionate ownership slice of the scheme. The price of each unit is governed by the value of the underlying investments — and the <strong>initial offer price of each unit is basically ₹10</strong>.</p>
+
+  <div class="callout trap">
+    <span class="callout-label">The ₹10 Trap</span>
+    <p>Students write "the price of a unit is ₹10." Wrong tense. <strong>₹10 is the <em>initial offer</em> price only</strong> — the price at launch. After launch the unit price is governed by NAV, which moves with the value of the underlying securities. Write "initial offer price" or lose the mark.</p>
+  </div>
+
+  <h3>Features of a mutual fund (the 2-mark construction)</h3>
+
+  <p>The chapter has no heading called "features" — but AHSEC asked for two of them in 2023. Build them out of the meaning paragraph:</p>
+
+  <ol>
+    <li><strong>Pooled / collective investment</strong> — money from a large number of small savers is combined into one corpus.</li>
+    <li><strong>Divided into units</strong> — the corpus is split into equal portions called units; initial offer price basically ₹10.</li>
+    <li><strong>NAV-based pricing</strong> — unit value is governed by the value of the underlying investments, measured by Net Asset Value.</li>
+    <li><strong>Professional management</strong> — the fund is managed by experienced and skilled professionals, not by the investor.</li>
+    <li><strong>Diversification</strong> — investment is spread across a number of companies and instruments.</li>
+    <li><strong>Flexibility</strong> — SIP, SWP and STP facilities allow flexible entry, exit and switching.</li>
+    <li><strong>Regulated</strong> — all mutual funds are registered with SEBI.</li>
+  </ol>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens — PYQ evidence</span>
+    <p><strong>ASSEB 2023, Q3 (2 marks):</strong> "Write two features of Mutual Fund." Two features, one line each. Convenience and flexibility of investment were the sanctioned answers that year, but any two from the list above are defensible.</p>
+    <p>For 1-mark slots the chapter's own question list asks: full form of <strong>SIP</strong>, full form of <strong>NAV</strong>, the first mutual fund institution of India, and the year UTI was established. Four gimmes.</p>
+  </div>
+
+  <div class="recall">
+    <span class="k">Recall check — tap to reveal</span>
+    <ol>
+      <li>The equal portions into which a fund's corpus is divided are called <span class="reveal">units</span>.</li>
+      <li>The initial offer price of each unit is basically <span class="reveal">₹10</span>.</li>
+      <li>Mutual funds pool money from <span class="reveal">small savers who have no expertise knowledge to invest in equities</span>.</li>
+    </ol>
+  </div>
+
+  <button class="complete-btn" data-part="1">Mark Part 1 Complete</button>
+</section>
+
+<!-- ============================ PART 2 ============================ -->
+<section class="part" id="part-2">
+  <div class="part-header">
+    <div class="part-number">Part 02</div>
+    <h2>NAV — <em>Net Asset Value</em></h2>
+    <div class="part-subtitle">The one calculation in this chapter. Learn the formula, then use the live calculator below.</div>
+  </div>
+
+  <p class="lead">NAV is the price tag on a unit. It is also the only place in Chapter 16 where an examiner can ask you to compute something — which makes it disproportionately valuable, because most candidates only memorise words.</p>
+
+  <h3>The formula, stated the textbook's way</h3>
+
+  <p>Your textbook words it as: <em>total value of a scheme minus liabilities and then divided by outstanding number of units calculates the NAV.</em> In symbols:</p>
+
+  <div class="formula"><span class="label">Net Asset Value — ASSEB Finance Ch. 16</span>          Total value of the scheme − Liabilities
+NAV = ─────────────────────────────────────────────
+              Number of outstanding units</div>
+
+  <div class="figure">
+    <svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar diagram showing total scheme value minus liabilities gives net assets, divided by units gives NAV">
+      <text x="10" y="18" class="svg-t-gold">FIG 2.1 — ANATOMY OF NAV</text>
+
+      <rect x="20" y="42" width="470" height="40" rx="2" class="svg-node-gold"/>
+      <text x="255" y="67" text-anchor="middle" class="svg-t">TOTAL VALUE OF THE SCHEME  (all assets at market value)</text>
+
+      <rect x="380" y="100" width="110" height="34" rx="2" fill="rgba(208,135,112,0.10)" stroke="#d08770"/>
+      <text x="435" y="122" text-anchor="middle" class="svg-t-sm">LIABILITIES</text>
+      <text x="200" y="122" text-anchor="middle" class="svg-t-sm">MINUS →</text>
+
+      <rect x="20" y="152" width="360" height="40" rx="2" class="svg-node-gold"/>
+      <text x="200" y="177" text-anchor="middle" class="svg-t">NET ASSETS OF THE SCHEME</text>
+
+      <path d="M390 172 L 430 172" class="svg-flow"/>
+      <text x="470" y="168" class="svg-t-sm">÷ OUTSTANDING</text>
+      <text x="470" y="182" class="svg-t-sm">   NUMBER OF UNITS</text>
+
+      <path d="M600 172 L 632 172" class="svg-flow"/>
+      <path d="M626 167 L 634 172 L 626 177 Z" fill="#8a7340"/>
+      <rect x="636" y="148" width="106" height="48" rx="2" class="svg-node-gold"/>
+      <text x="689" y="170" text-anchor="middle" class="svg-t-title">NAV</text>
+      <text x="689" y="187" text-anchor="middle" class="svg-t-sm">PER UNIT (₹)</text>
+
+      <text x="20" y="228" class="svg-t-sm">NOTE — LIABILITIES ARE SUBTRACTED FROM THE SCHEME'S ASSETS, NOT FROM THE UNIT COUNT. THE DIVISION HAPPENS LAST.</text>
+    </svg>
+    <div class="figure-cap"><b>Order of operations:</b> subtract first, divide second. Getting this backwards is the standard arithmetic slip.</div>
+  </div>
+
+  <div class="vplayer" id="vp-nav">
+    <div class="v-head"><span class="v-kick">Explainer 02</span><span class="v-title">Computing NAV, step by step</span><span class="v-len">5 steps &middot; ~45s</span></div>
+    <div class="v-stage">
+      <svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated explainer computing net asset value">
+        <g id="n1-assets" class="v-el">
+          <rect x="20" y="40" width="470" height="42" rx="2" class="svg-node-gold"/>
+          <text x="255" y="60" text-anchor="middle" class="svg-t">TOTAL VALUE OF THE SCHEME</text>
+          <text x="255" y="76" text-anchor="middle" class="svg-t-gold">&#8377;52,00,000</text>
+        </g>
+        <g id="n1-liab" class="v-el">
+          <text x="188" y="120" text-anchor="middle" class="svg-t-sm">LESS &#8594;</text>
+          <rect x="360" y="100" width="130" height="36" rx="2" fill="rgba(208,135,112,0.12)" stroke="#d08770"/>
+          <text x="425" y="114" text-anchor="middle" class="svg-t-sm">LIABILITIES</text>
+          <text x="425" y="128" text-anchor="middle" class="svg-t-sm">&#8377;2,00,000</text>
+        </g>
+        <g id="n1-net" class="v-el">
+          <rect x="20" y="152" width="340" height="42" rx="2" class="svg-node-gold"/>
+          <text x="190" y="172" text-anchor="middle" class="svg-t">NET ASSETS</text>
+          <text x="190" y="188" text-anchor="middle" class="svg-t-gold">&#8377;50,00,000</text>
+        </g>
+        <g id="n1-div" class="v-el">
+          <path d="M368 173 L 404 173" class="svg-flow"/>
+          <text x="470" y="169" class="svg-t-sm">&#247; 5,00,000</text>
+          <text x="470" y="183" class="svg-t-sm">   UNITS</text>
+        </g>
+        <g id="n1-res" class="v-el">
+          <path d="M580 173 L 614 173" class="svg-flow"/><path d="M608 168 L 616 173 L 608 178 Z" fill="#8a7340"/>
+          <rect x="618" y="148" width="124" height="50" rx="2" class="svg-node-gold"/>
+          <text x="680" y="170" text-anchor="middle" class="svg-t-title">NAV = &#8377;10</text>
+          <text x="680" y="187" text-anchor="middle" class="svg-t-sm">PER UNIT</text>
+          <text x="20" y="230" class="svg-t-gold">SUBTRACT FIRST &middot; DIVIDE SECOND</text>
+        </g>
+      </svg>
+    </div>
+    <div class="v-controls">
+      <button class="btn sm v-play">&#9654; Play</button>
+      <button class="btn sm v-restart">&#8634; Restart</button>
+      <div class="v-track"><div class="v-fill"></div></div>
+      <span class="v-step">0 / 5</span>
+    </div>
+    <div class="v-cap">Press play to watch the calculation build.</div>
+  </div>
+
+  <div id="mount-scene-b"></div>
+
+  <div class="ibox">
+    <div class="ibox-head">
+      <span class="k">Interactive</span>
+      <span class="h">NAV Calculator — punch in your own figures</span>
+    </div>
+    <div class="ibox-body">
+      <div class="field-row">
+        <div class="field">
+          <label>Total value of scheme (₹)</label>
+          <input type="number" id="navAssets" value="5200000">
+        </div>
+        <div class="field">
+          <label>Liabilities (₹)</label>
+          <input type="number" id="navLiab" value="200000">
+        </div>
+        <div class="field">
+          <label>Outstanding units</label>
+          <input type="number" id="navUnits" value="500000">
+        </div>
+      </div>
+      <div class="calc-out" id="navOut"></div>
+      <div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn sm" onclick="setNav(5200000,200000,500000)">Preset A</button>
+        <button class="btn sm" onclick="setNav(84000000,4000000,4000000)">Preset B</button>
+        <button class="btn sm" onclick="setNav(9600000,600000,600000)">Preset C</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout example">
+    <span class="callout-label">Worked Example — the classic setup</span>
+    <p><strong>Problem:</strong> A scheme's investments are valued at ₹52,00,000. Its liabilities are ₹2,00,000. It has 5,00,000 units outstanding. Find the NAV per unit.</p>
+    <p><strong>Step 1 — Net assets:</strong> ₹52,00,000 − ₹2,00,000 = ₹50,00,000.</p>
+    <p><strong>Step 2 — Divide by units:</strong> ₹50,00,000 ÷ 5,00,000 units.</p>
+    <p><strong>Step 3 — Compute:</strong> 50,00,000 ÷ 5,00,000 = 10.</p>
+    <p><em>Answer: NAV = ₹10 per unit — the scheme is exactly at its initial offer price.</em></p>
+  </div>
+
+  <div class="callout example">
+    <span class="callout-label">Worked Example — reading the return</span>
+    <p><strong>Problem:</strong> Kapil buys 1,000 units at the initial offer price of ₹10. Two years later the NAV is ₹14. What is his position?</p>
+    <p><strong>Step 1 — Cost:</strong> 1,000 × ₹10 = ₹10,000.</p>
+    <p><strong>Step 2 — Present value:</strong> 1,000 × ₹14 = ₹14,000.</p>
+    <p><strong>Step 3 — Gain:</strong> ₹14,000 − ₹10,000 = ₹4,000, i.e. 4,000 ÷ 10,000 = <strong>40%</strong> appreciation.</p>
+    <p><em>Answer: the number of units never changed — only the NAV did. That is the entire logic of capital appreciation in a mutual fund.</em></p>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-label">Why NAV, and not "market price"</span>
+    <p>An open-ended unit is not traded on an exchange, so there is no bid and ask to set its price. The only honest price is <em>what the underlying portfolio is worth per unit right now</em> — which is precisely NAV. This is also why open-ended funds transact directly with the AMC at NAV, while closed-ended units, being listed, can trade on the exchange at a price that differs from NAV.</p>
+  </div>
+
+  <div class="callout trap">
+    <span class="callout-label">The "divide by units first" Trap</span>
+    <p>Under time pressure students compute Assets ÷ Units and then subtract liabilities. That is <strong>wrong</strong> — liabilities are a claim on the pool, not on each unit. Always net the liabilities off the scheme's total value <em>before</em> dividing.</p>
+  </div>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens</span>
+    <p>The chapter's own 2-mark question is "Explain how NAV is calculated?" — one formula line plus one sentence of explanation is a full answer. Write the formula as a proper fraction; examiners reward the layout.</p>
+  </div>
+
+  <button class="complete-btn" data-part="2">Mark Part 2 Complete</button>
+</section>
+
+<!-- ============================ PART 3 ============================ -->
+<section class="part" id="part-3">
+  <div class="part-header">
+    <div class="part-number">Part 03</div>
+    <h2>The Five Parties — <em>who does what</em></h2>
+    <div class="part-subtitle">Sponsor, Trustee, Custodian, AMC, Beneficial Owner. A guaranteed 2-marker, and the backbone of any long answer's introduction.</div>
+  </div>
+
+  <p class="lead">A mutual fund is not one organisation. It is a trust structure with deliberately separated roles, so that the person who <em>promotes</em> the fund is not the person who <em>holds</em> its securities, and neither of them is the person who <em>decides</em> what to buy.</p>
+
+  <h3>The list, in the textbook's order</h3>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>Party</th><th>Role</th></tr>
+    <tr><td><strong>Sponsor</strong></td><td>The promoter — the institution or company that establishes the mutual fund and gets it registered.</td></tr>
+    <tr><td><strong>Trustee</strong></td><td>Holds the fund in trust for the investors and supervises that the scheme is run in the investors' interest.</td></tr>
+    <tr><td><strong>Custodian</strong></td><td>Holds the securities of the scheme in safe custody and handles their delivery and settlement.</td></tr>
+    <tr><td><strong>Asset Management Company (AMC)</strong></td><td>The fund manager — takes the actual investment decisions and manages the portfolio for a fee.</td></tr>
+    <tr><td><strong>Beneficial Owner (Investors)</strong></td><td>The unit-holders. They own the beneficial interest in the fund; the returns belong to them.</td></tr>
+  </table></div>
+
+  <div class="figure">
+    <svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Structure chart of a mutual fund showing SEBI, sponsor, trustee, AMC, custodian and investors">
+      <text x="10" y="18" class="svg-t-gold">FIG 3.1 — STRUCTURE OF A MUTUAL FUND</text>
+
+      <rect x="298" y="34" width="164" height="34" rx="2" class="svg-node"/>
+      <text x="380" y="56" text-anchor="middle" class="svg-t">SEBI  ·  Regulator</text>
+      <path d="M380 68 L 380 96" class="svg-line" stroke-dasharray="3 3"/>
+
+      <rect x="298" y="96" width="164" height="40" rx="2" class="svg-node-gold"/>
+      <text x="380" y="114" text-anchor="middle" class="svg-t">SPONSOR</text>
+      <text x="380" y="129" text-anchor="middle" class="svg-t-sm">ESTABLISHES THE FUND</text>
+
+      <path d="M380 136 L 380 166" class="svg-flow"/>
+      <path d="M375 160 L 380 168 L 385 160 Z" fill="#8a7340"/>
+
+      <rect x="286" y="168" width="188" height="44" rx="2" class="svg-node-gold"/>
+      <text x="380" y="188" text-anchor="middle" class="svg-t">TRUSTEE  /  TRUST</text>
+      <text x="380" y="203" text-anchor="middle" class="svg-t-sm">HOLDS FUND FOR INVESTORS</text>
+
+      <path d="M286 190 L 200 190" class="svg-flow"/>
+      <path d="M206 185 L 198 190 L 206 195 Z" fill="#8a7340"/>
+      <rect x="40" y="168" width="158" height="44" rx="2" class="svg-node"/>
+      <text x="119" y="188" text-anchor="middle" class="svg-t">AMC</text>
+      <text x="119" y="203" text-anchor="middle" class="svg-t-sm">MANAGES PORTFOLIO</text>
+
+      <path d="M474 190 L 560 190" class="svg-flow"/>
+      <path d="M554 185 L 562 190 L 554 195 Z" fill="#8a7340"/>
+      <rect x="562" y="168" width="158" height="44" rx="2" class="svg-node"/>
+      <text x="641" y="188" text-anchor="middle" class="svg-t">CUSTODIAN</text>
+      <text x="641" y="203" text-anchor="middle" class="svg-t-sm">SAFE CUSTODY</text>
+
+      <path d="M380 212 L 380 250" class="svg-flow"/>
+      <path d="M375 244 L 380 252 L 385 244 Z" fill="#8a7340"/>
+
+      <rect x="258" y="252" width="244" height="46" rx="2" class="svg-node-gold"/>
+      <text x="380" y="272" text-anchor="middle" class="svg-t">BENEFICIAL OWNERS  ·  UNIT-HOLDERS</text>
+      <text x="380" y="288" text-anchor="middle" class="svg-t-sm">THE INVESTORS — RETURNS BELONG TO THEM</text>
+
+      <text x="20" y="322" class="svg-t-sm">SEPARATION OF ROLES IS THE POINT: THE MANAGER NEVER PHYSICALLY HOLDS THE SECURITIES.</text>
+    </svg>
+    <div class="figure-cap"><b>Draw this if a long answer asks for the structure.</b> Five boxes, one dotted line from the regulator, and you have earned the presentation marks.</div>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-label">Why the Custodian is separated from the AMC</span>
+    <p>If the same entity both decided <em>what</em> to buy and physically <em>held</em> what was bought, there would be nothing stopping it from quietly moving securities out. Splitting decision-making (AMC) from custody (Custodian) under a supervising Trustee is the structural safeguard that makes the SEBI-registered fund a "protected investment" — which is exactly benefit no. 7 in Part 8.</p>
+  </div>
+
+  <div class="callout trap">
+    <span class="callout-label">The Sponsor–Trustee Trap</span>
+    <p>Students collapse Sponsor and Trustee into one. They are distinct: the <strong>Sponsor establishes</strong> the fund; the <strong>Trustee holds it in trust and supervises</strong> it on behalf of unit-holders. If a 2-mark question says "name the parties," name all five — partial lists get partial marks.</p>
+  </div>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens</span>
+    <p>"What are the various parties involved in Mutual fund?" is a listed 2-mark question in your textbook exercise. Five names, no explanation needed at 2 marks. At 3 or 5 marks, add the one-line role for each — the table above is exactly that answer.</p>
+  </div>
+
+  <div class="recall">
+    <span class="k">Recall check — tap to reveal</span>
+    <ol>
+      <li>AMC stands for <span class="reveal">Asset Management Company</span>.</li>
+      <li>The party that holds the scheme's securities in safe custody is the <span class="reveal">Custodian</span>.</li>
+      <li>The investors are described in the textbook as the <span class="reveal">Beneficial Owners</span>.</li>
+    </ol>
+  </div>
+
+  <button class="complete-btn" data-part="3">Mark Part 3 Complete</button>
+</section>
+
+<!-- ============================ PART 4 ============================ -->
+<section class="part" id="part-4">
+  <div class="part-header">
+    <div class="part-number">Part 04</div>
+    <h2>Classification I — <em>on the basis of Operation</em></h2>
+    <div class="part-subtitle">Closed-ended, Open-ended, Interval. Three schemes, one question of whether the door stays open.</div>
+  </div>
+
+  <p class="lead">The textbook classifies mutual funds twice, on two independent bases. The first — <em>execution or operation</em> — asks a single question: can you get in and out whenever you like? Everything else follows from the answer.</p>
+
+  <h3>(i) Closed-ended funds</h3>
+  <p>Under this scheme the <strong>corpus of the fund is fixed</strong> and the fund's life is pre-fixed. The units are redeemable or returnable to investors only after expiry of the term. Entry and exit of investors from the fund is not allowed once the scheme is closed. However, an existing investor who wishes to sell his holdings before the date of maturity <strong>may do so in the stock exchange where the units are listed</strong>.</p>
+
+  <h3>(ii) Open-ended funds</h3>
+  <p>Under this scheme the <strong>fund size and the period of investment are not pre-fixed</strong>. A person willing to invest can invest at any time and can also redeem his investment as and when required. The purchase and sale of units in an open-ended fund is not restricted — investors buy from, or sell holdings directly to, the <strong>AMC issuing the units</strong>.</p>
+
+  <h3>(iii) Interval funds</h3>
+  <p>Interval funds <strong>combine the features of open-ended and closed-ended schemes</strong>. These funds are open for purchase or redemption during specific intervals at Net Asset Value and closed the rest of the time. The units under this scheme are traded in the stock exchange.</p>
+
+  <div class="figure">
+    <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline diagram comparing closed-ended, open-ended and interval funds">
+      <text x="10" y="18" class="svg-t-gold">FIG 4.1 — WHEN CAN YOU ENTER OR EXIT?</text>
+
+      <!-- closed -->
+      <text x="20" y="58" class="svg-t">Closed-ended</text>
+      <rect x="150" y="42" width="60" height="24" rx="2" fill="rgba(156,179,122,0.18)" stroke="#9cb37a"/>
+      <text x="180" y="58" text-anchor="middle" class="svg-t-sm">NFO</text>
+      <rect x="212" y="42" width="428" height="24" rx="2" fill="rgba(208,135,112,0.10)" stroke="#3a342c"/>
+      <text x="426" y="58" text-anchor="middle" class="svg-t-sm">LOCKED — REDEMPTION NOT ALLOWED (SELL VIA STOCK EXCHANGE ONLY)</text>
+      <rect x="642" y="42" width="94" height="24" rx="2" fill="rgba(156,179,122,0.18)" stroke="#9cb37a"/>
+      <text x="689" y="58" text-anchor="middle" class="svg-t-sm">MATURITY</text>
+      <text x="150" y="84" class="svg-t-sm">CORPUS FIXED · LIFE PRE-FIXED · UNITS LISTED</text>
+
+      <!-- open -->
+      <text x="20" y="140" class="svg-t">Open-ended</text>
+      <rect x="150" y="124" width="586" height="24" rx="2" fill="rgba(156,179,122,0.16)" stroke="#9cb37a"/>
+      <text x="443" y="140" text-anchor="middle" class="svg-t-sm">CONTINUOUSLY OPEN — BUY OR REDEEM DIRECTLY WITH THE AMC AT NAV</text>
+      <text x="150" y="166" class="svg-t-sm">SIZE NOT FIXED · NO FIXED MATURITY · UNITS NOT LISTED</text>
+
+      <!-- interval -->
+      <text x="20" y="222" class="svg-t">Interval</text>
+      <rect x="150" y="206" width="90" height="24" rx="2" fill="rgba(156,179,122,0.18)" stroke="#9cb37a"/>
+      <text x="195" y="222" text-anchor="middle" class="svg-t-sm">OPEN</text>
+      <rect x="242" y="206" width="120" height="24" rx="2" fill="rgba(208,135,112,0.10)" stroke="#3a342c"/>
+      <text x="302" y="222" text-anchor="middle" class="svg-t-sm">CLOSED</text>
+      <rect x="364" y="206" width="90" height="24" rx="2" fill="rgba(156,179,122,0.18)" stroke="#9cb37a"/>
+      <text x="409" y="222" text-anchor="middle" class="svg-t-sm">OPEN</text>
+      <rect x="456" y="206" width="120" height="24" rx="2" fill="rgba(208,135,112,0.10)" stroke="#3a342c"/>
+      <text x="516" y="222" text-anchor="middle" class="svg-t-sm">CLOSED</text>
+      <rect x="578" y="206" width="90" height="24" rx="2" fill="rgba(156,179,122,0.18)" stroke="#9cb37a"/>
+      <text x="623" y="222" text-anchor="middle" class="svg-t-sm">OPEN</text>
+      <text x="150" y="248" class="svg-t-sm">OPEN AT SPECIFIC INTERVALS AT NAV · TRADED IN STOCK EXCHANGE</text>
+
+      <path d="M150 272 L 736 272" class="svg-line"/>
+      <text x="150" y="290" class="svg-t-sm">LAUNCH</text>
+      <text x="736" y="290" text-anchor="end" class="svg-t-sm">TIME →</text>
+    </svg>
+    <div class="figure-cap"><b>Green = you may transact. Muted = you may not.</b> Interval funds are literally open-ended behaviour switched on and off on a schedule.</div>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-label">Why closed-ended units must be listed</span>
+    <p>If the AMC will not buy your units back before maturity, you need <em>somebody else</em> to buy them — and that somebody is found on a stock exchange. Listing is not a decoration; it is the only exit route a closed-ended investor has. Open-ended funds do not need listing precisely because the AMC itself is always the buyer.</p>
+  </div>
+
+  <div class="callout trap">
+    <span class="callout-label">The "closed means frozen" Trap</span>
+    <p>Students write that a closed-ended investor "cannot sell at all until maturity." Incomplete — and it costs half the mark. The correct line is: <strong>he cannot redeem from the fund, but he may sell the units on the stock exchange where they are listed.</strong></p>
+  </div>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens</span>
+    <p>"Explain various types of Mutual fund on the basis of Operation or Execution" is a listed <strong>5-mark</strong> question in your textbook. Three types, so budget roughly: one line of definition + two lines of explanation each, plus a one-line opening. Do not pad — 5-mark answers reward density.</p>
+  </div>
+
+  <button class="complete-btn" data-part="4">Mark Part 4 Complete</button>
+</section>
+
+<!-- ============================ PART 5 ============================ -->
+<section class="part" id="part-5">
+  <div class="part-header">
+    <div class="part-number">Part 05</div>
+    <h2>Open-ended vs Closed-ended — <em>the table you must not improvise</em></h2>
+    <div class="part-subtitle">Six bases, straight from the textbook. This is a distinguish question, so it is answered in a table. Always.</div>
+  </div>
+
+  <p class="lead">AHSEC loves "distinguish between." The rule you already apply everywhere in this subject applies here with no exceptions: a differences question is answered as a comparison table with a stated basis for each row — never as prose.</p>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>Basis of difference</th><th>Open-ended Mutual Fund</th><th>Closed-ended Mutual Fund</th></tr>
+    <tr><td><strong>1. Nature</strong></td><td>The scheme remains open for investment or sale of investment.</td><td>The scheme is closed for investment and for sale of investment.</td></tr>
+    <tr><td><strong>2. Size of corpus</strong></td><td>The size of the corpus is not fixed.</td><td>The maximum size of the fund is pre-fixed and cannot be exceeded.</td></tr>
+    <tr><td><strong>3. Liquidity of investment</strong></td><td>The investment is highly liquid — an investor can sell his fund at any time.</td><td>Not fully liquid; after initial investment an investor has to stay with the fund till the lock-in period is over.</td></tr>
+    <tr><td><strong>4. Listing in stock exchange</strong></td><td>Units are not listed in the stock exchange.</td><td>Units are listed in the stock exchange.</td></tr>
+    <tr><td><strong>5. Time of purchase and sale</strong></td><td>Units are available for purchase at any point of time; there is no question of a specific size of the fund.</td><td>Units are not available for purchase after the fund size achieves its target.</td></tr>
+    <tr><td><strong>6. Maturity</strong></td><td>There is no fixed maturity time for receiving the value of the units purchased.</td><td>There is a fixed maturity time, on expiry of which the value of the unit is paid.</td></tr>
+  </table></div>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens — 5 marks, 5 rows</span>
+    <p>"Distinguish between Open-ended and Closed-ended mutual fund" is a listed <strong>5-mark</strong> question. Five marks means <strong>five rows minimum</strong> — the textbook gives you six, so you have one spare. Rule the table before you start writing, label the columns, and put the basis of difference in column one. A prose answer to a distinguish question loses marks even when the content is right.</p>
+  </div>
+
+  <div class="callout trap">
+    <span class="callout-label">The Listing Inversion Trap</span>
+    <p>Under pressure, half the class swaps rows 3 and 4. Anchor it with the logic from Part 4: <strong>closed-ended is the one that is listed</strong>, because listing is its only exit. Open-ended is <em>not</em> listed because it needs no exchange — the AMC buys back directly.</p>
+  </div>
+
+  <div id="mount-scene-c"></div>
+
+  <div class="ibox">
+    <div class="ibox-head">
+      <span class="k">Interactive</span>
+      <span class="h">Sorting drill — which side does it belong to?</span>
+    </div>
+    <div class="ibox-body">
+      <p style="font-size:13.5px; color:var(--text-dim); margin-bottom:14px;">Tap each statement to reveal whether it describes an open-ended or a closed-ended scheme.</p>
+      <div id="sortDrill"></div>
+      <div style="margin-top:12px;"><button class="btn sm" onclick="resetSort()">Reset drill</button></div>
+    </div>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-label">One sentence that generates all six rows</span>
+    <p>"An open-ended fund is a permanently open counter at the AMC; a closed-ended fund is a fixed-size, fixed-life pool with an exchange for a side door." Every row in the table is a consequence of that single distinction — nature, corpus, liquidity, listing, timing, maturity. Learn the sentence and you can rebuild the table under exam stress.</p>
+  </div>
+
+  <button class="complete-btn" data-part="5">Mark Part 5 Complete</button>
+</section>
+
+<!-- ============================ PART 6 ============================ -->
+<section class="part" id="part-6">
+  <div class="part-header">
+    <div class="part-number">Part 06</div>
+    <h2>Classification II — <em>on the basis of Yield &amp; Investment Pattern</em></h2>
+    <div class="part-subtitle">Nine fund types. This is your 8-mark question, and it is the densest content in the chapter.</div>
+  </div>
+
+  <p class="lead">The second classification asks a different question entirely — not <em>when can I exit</em>, but <em>what does the fund actually buy, and what does it do with the income</em>. Nine answers, each with a distinct investor profile attached.</p>
+
+  <h3>The nine types</h3>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>#</th><th>Type</th><th>What it does</th></tr>
+    <tr><td>i</td><td><strong>Growth-oriented fund</strong></td><td>Income generated by the invested fund is <em>not</em> distributed among unit-holders; it is allocated proportionately towards the initial investment, so the size of the unit-holder's investment goes on increasing.</td></tr>
+    <tr><td>ii</td><td><strong>Income-oriented fund</strong></td><td>Aims at distribution of the income generated by the investments among unit-holders, as dividend. Popular with small investors who prefer regular income and avoid high risk — for example, retired persons.</td></tr>
+    <tr><td>iii</td><td><strong>Balanced mutual fund</strong></td><td>Invested both in equities and in interest-bearing instruments such as debentures and preference shares — so investors get the chance of appreciation in equities plus an ascertained return.</td></tr>
+    <tr><td>iv</td><td><strong>Stock fund</strong></td><td>Invested in securities of different companies, varying from highly rated companies to newly established ones. Suitable for those who can resist significant risk for higher returns.</td></tr>
+    <tr><td>v</td><td><strong>Leverage fund</strong></td><td>Combines borrowed funds with own funds and invests in speculative stock that promises higher future profit. Interest on the borrowed fund is paid out of profit earned; the balance is distributed among unit-holders.</td></tr>
+    <tr><td>vi</td><td><strong>Tax relief fund</strong></td><td>Also known as <em>equity-linked savings schemes</em>; essentially closed-ended. Investment is made in equity shares that entitle investors to deduction or rebate in income tax under the Income Tax Act, 1961. Subject to a minimum lock-in period.</td></tr>
+    <tr><td>vii</td><td><strong>Bonds fund</strong></td><td>Bonds are more liquid, diversified and conservative, with modest capital gains; some are sold at a discount to face value. Bonds selected are highly secured with steady income and lesser default risk. Popular with investors who want fixed return plus safety.</td></tr>
+    <tr><td>viii</td><td><strong>Money market mutual fund (MMMF)</strong></td><td>Set up to invest in money-market instruments — treasury bills, certificates of deposit, commercial papers, bill discounting. Investments in MMMF are subject to guidelines laid down by the <strong>Reserve Bank of India</strong>.</td></tr>
+    <tr><td>ix</td><td><strong>Real estate fund</strong></td><td>Invested in real-estate ventures. Basically closed-ended. Such funds are of various types depending upon the real-estate transactions involved.</td></tr>
+  </table></div>
+
+  <div class="callout trap">
+    <span class="callout-label">The Summary-vs-Body Trap — read this one twice</span>
+    <p>The chapter's <em>main body</em> lists <strong>nine</strong> types (i–ix, ending with real estate funds). The chapter's <em>Summary</em> at the end lists only <strong>eight</strong> (a–h) — it drops real estate. Both are in your book. For an 8-mark answer, write eight fully explained types and add real estate as the ninth; you cannot be penalised for including something the main text contains.</p>
+  </div>
+
+  <div class="figure">
+    <svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Risk and return positioning map of the nine mutual fund types">
+      <text x="10" y="18" class="svg-t-gold">FIG 6.1 — RISK / RETURN POSITIONING OF THE NINE TYPES</text>
+
+      <path d="M70 280 L 736 280" class="svg-line"/>
+      <path d="M70 280 L 70 44" class="svg-line"/>
+      <text x="400" y="306" text-anchor="middle" class="svg-t-sm">RISK BORNE BY THE INVESTOR →</text>
+      <text x="-170" y="26" transform="rotate(-90)" class="svg-t-sm">RETURN POTENTIAL →</text>
+
+      <circle cx="130" cy="252" r="7" fill="#7ca69a"/><text x="146" y="256" class="svg-t">MMMF</text>
+      <circle cx="196" cy="234" r="7" fill="#7ca69a"/><text x="212" y="238" class="svg-t">Bonds fund</text>
+      <circle cx="288" cy="212" r="7" fill="#7ca69a"/><text x="304" y="216" class="svg-t">Income-oriented</text>
+      <circle cx="382" cy="178" r="7" fill="#c9a961"/><text x="398" y="182" class="svg-t">Balanced</text>
+      <circle cx="330" cy="140" r="7" fill="#c9a961"/><text x="346" y="144" class="svg-t">Tax relief (ELSS)</text>
+      <circle cx="500" cy="132" r="7" fill="#c9a961"/><text x="516" y="136" class="svg-t">Growth-oriented</text>
+      <circle cx="588" cy="98" r="7" fill="#d08770"/><text x="604" y="102" class="svg-t">Stock fund</text>
+      <circle cx="672" cy="66" r="7" fill="#d08770"/><text x="600" y="52" class="svg-t">Leverage fund</text>
+      <circle cx="470" cy="228" r="7" fill="#c9a961"/><text x="486" y="232" class="svg-t">Real estate</text>
+
+      <text x="80" y="272" class="svg-t-sm">LOW</text>
+      <text x="710" y="272" text-anchor="end" class="svg-t-sm">HIGH</text>
+    </svg>
+    <div class="figure-cap"><b>Positioning is illustrative, not textbook data</b> — it is a memory aid built from each type's stated investor profile. Do not quote coordinates in an answer; use it to recall <em>which investor</em> each fund suits.</div>
+  </div>
+
+  <div id="mount-scene-d"></div>
+
+  <div class="ibox">
+    <div class="ibox-head">
+      <span class="k">Interactive</span>
+      <span class="h">Flip-card drill — nine types, name the definition</span>
+    </div>
+    <div class="ibox-body">
+      <p style="font-size:13.5px; color:var(--text-dim); margin-bottom:14px;">Say the definition out loud first. Then tap to check yourself.</p>
+      <div class="flip-grid" id="flipGrid"></div>
+      <div style="margin-top:14px;"><button class="btn sm" onclick="flipAll(false)">Reset all cards</button></div>
+    </div>
+  </div>
+
+  <div class="callout example">
+    <span class="callout-label">Worked Example — why a leverage fund raises unit-holder return</span>
+    <p><strong>Problem:</strong> A leverage fund has own funds of ₹60,00,000 and borrows ₹40,00,000 at 10% p.a., investing the whole ₹1,00,00,000. The portfolio earns 18% in the year. What return do unit-holders get?</p>
+    <p><strong>Step 1 — Total earnings:</strong> ₹1,00,00,000 × 18% = ₹18,00,000.</p>
+    <p><strong>Step 2 — Interest on borrowed fund:</strong> ₹40,00,000 × 10% = ₹4,00,000.</p>
+    <p><strong>Step 3 — Balance for unit-holders:</strong> ₹18,00,000 − ₹4,00,000 = ₹14,00,000.</p>
+    <p><strong>Step 4 — Return on own funds:</strong> ₹14,00,000 ÷ ₹60,00,000 = <strong>23.33%</strong>, against 18% without borrowing.</p>
+    <p><em>Answer: leverage lifted the unit-holders' return from 18% to 23.33% — and that same leverage would magnify a loss just as sharply, which is why the textbook calls the underlying stock "speculative."</em></p>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-label">Growth vs Income — one word decides it</span>
+    <p>Both funds earn income. The difference is a single verb: growth funds <em>retain</em> it (added back to your investment, so your holding grows), income funds <em>distribute</em> it (paid out as dividend). Everything else — who invests, what risk, which age group — follows from that verb.</p>
+  </div>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens — the 8-marker</span>
+    <p>"Explain various types of Mutual fund on the basis of Investment pattern" is the chapter's only listed <strong>8-mark</strong> question. Structure it: two-line introduction → eight numbered types with two to three lines each → one-line conclusion. Roughly 300 words. Do <em>not</em> write eight one-word bullets; 8-mark answers are graded on explanation, not on the list.</p>
+  </div>
+
+  <button class="complete-btn" data-part="6">Mark Part 6 Complete</button>
+</section>
+
+<!-- ============================ PART 7 ============================ -->
+<section class="part" id="part-7">
+  <div class="part-header">
+    <div class="part-number">Part 07</div>
+    <h2>SIP, SWP and STP — <em>the flexibility trio</em></h2>
+    <div class="part-subtitle">Three full forms the examiner can ask for in one mark each, plus the arithmetic that makes SIP worth understanding.</div>
+  </div>
+
+  <p class="lead">Your textbook says mutual funds offer <em>flexibility in investment pattern</em>, and names three facilities that deliver it. These are the cheapest marks in the chapter — one mark each for a full form — and the fastest to forget, because they are only mentioned once.</p>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>Abbreviation</th><th>Full form</th><th>What it lets you do</th></tr>
+    <tr><td><strong>SIP</strong></td><td>Systematic Investment Plan</td><td>Invest a fixed sum at fixed regular intervals instead of one lump sum.</td></tr>
+    <tr><td><strong>SWP</strong></td><td>Systematic Withdrawal Plan</td><td>Withdraw a fixed sum at fixed regular intervals instead of redeeming everything at once.</td></tr>
+    <tr><td><strong>STP</strong></td><td>Systematic Transfer Plan</td><td>Transfer a fixed sum at fixed intervals from one scheme to another within the same fund house.</td></tr>
+  </table></div>
+
+  <div class="callout example">
+    <span class="callout-label">Worked Example — why SIP averages your cost down</span>
+    <p><strong>Problem:</strong> An investor puts ₹2,000 into a scheme on the first of each month for three months. The NAV on those dates is ₹10, ₹8 and ₹12.50. Compare his average cost per unit with the average NAV.</p>
+    <p><strong>Step 1 — Units bought each month:</strong> 2,000 ÷ 10 = 200 units; 2,000 ÷ 8 = 250 units; 2,000 ÷ 12.50 = 160 units.</p>
+    <p><strong>Step 2 — Totals:</strong> total invested = ₹6,000; total units = 200 + 250 + 160 = 610 units.</p>
+    <p><strong>Step 3 — Average cost per unit:</strong> 6,000 ÷ 610 = ₹9.84 (approx).</p>
+    <p><strong>Step 4 — Simple average of the three NAVs:</strong> (10 + 8 + 12.50) ÷ 3 = 30.50 ÷ 3 = ₹10.17 (approx).</p>
+    <p><em>Answer: his cost per unit (₹9.84) is lower than the average NAV (₹10.17), because the fixed rupee amount automatically bought more units when the NAV was low and fewer when it was high.</em></p>
+  </div>
+
+  <div class="figure">
+    <svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart showing that a fixed monthly SIP amount buys more units when NAV is low">
+      <text x="10" y="18" class="svg-t-gold">FIG 7.1 — FIXED RUPEES, VARIABLE UNITS</text>
+
+      <path d="M70 210 L 700 210" class="svg-line"/>
+      <path d="M70 210 L 70 44" class="svg-line"/>
+
+      <!-- month 1 -->
+      <rect x="140" y="130" width="54" height="80" class="svg-node-gold"/>
+      <text x="167" y="228" text-anchor="middle" class="svg-t-sm">MONTH 1</text>
+      <text x="167" y="122" text-anchor="middle" class="svg-t">200 u</text>
+      <text x="167" y="244" text-anchor="middle" class="svg-t-sm">NAV ₹10</text>
+
+      <!-- month 2 -->
+      <rect x="320" y="110" width="54" height="100" fill="rgba(156,179,122,0.20)" stroke="#9cb37a"/>
+      <text x="347" y="228" text-anchor="middle" class="svg-t-sm">MONTH 2</text>
+      <text x="347" y="102" text-anchor="middle" class="svg-t">250 u</text>
+      <text x="347" y="244" text-anchor="middle" class="svg-t-sm">NAV ₹8</text>
+
+      <!-- month 3 -->
+      <rect x="500" y="146" width="54" height="64" fill="rgba(208,135,112,0.16)" stroke="#d08770"/>
+      <text x="527" y="228" text-anchor="middle" class="svg-t-sm">MONTH 3</text>
+      <text x="527" y="138" text-anchor="middle" class="svg-t">160 u</text>
+      <text x="527" y="244" text-anchor="middle" class="svg-t-sm">NAV ₹12.50</text>
+
+      <text x="600" y="120" class="svg-t-sm">EACH MONTH:</text>
+      <text x="600" y="136" class="svg-t-sm">₹2,000 INVESTED</text>
+      <text x="600" y="158" class="svg-t-sm">TOTAL: ₹6,000</text>
+      <text x="600" y="174" class="svg-t-sm">610 UNITS</text>
+      <text x="600" y="196" class="svg-t-gold">COST ₹9.84/UNIT</text>
+
+      <text x="76" y="60" class="svg-t-sm">UNITS</text>
+      <text x="76" y="74" class="svg-t-sm">BOUGHT</text>
+    </svg>
+    <div class="figure-cap"><b>The bar heights are units, not rupees.</b> The rupee amount is identical every month — only the unit count moves, inversely to NAV.</div>
+  </div>
+
+  <div class="vplayer" id="vp-sip">
+    <div class="v-head"><span class="v-kick">Explainer 03</span><span class="v-title">Why SIP averages your cost down</span><span class="v-len">5 steps &middot; ~50s</span></div>
+    <div class="v-stage">
+      <svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Animated explainer of rupee cost averaging under a systematic investment plan">
+        <g id="s1-ax" class="v-el">
+          <path d="M70 206 L 700 206" class="svg-line"/><path d="M70 206 L 70 40" class="svg-line"/>
+          <text x="78" y="56" class="svg-t-sm">UNITS</text><text x="78" y="70" class="svg-t-sm">BOUGHT</text>
+          <text x="384" y="248" text-anchor="middle" class="svg-t-sm">&#8377;2,000 INVESTED EVERY MONTH &#8212; THE RUPEES NEVER CHANGE</text>
+        </g>
+        <g id="s1-b1" class="v-el">
+          <rect x="140" y="126" width="54" height="80" class="svg-node-gold"/>
+          <text x="167" y="118" text-anchor="middle" class="svg-t">200 u</text>
+          <text x="167" y="222" text-anchor="middle" class="svg-t-sm">M1 &middot; NAV &#8377;10</text>
+        </g>
+        <g id="s1-b2" class="v-el">
+          <rect x="320" y="106" width="54" height="100" fill="rgba(156,179,122,0.22)" stroke="#9cb37a"/>
+          <text x="347" y="98" text-anchor="middle" class="svg-t">250 u</text>
+          <text x="347" y="222" text-anchor="middle" class="svg-t-sm">M2 &middot; NAV &#8377;8</text>
+        </g>
+        <g id="s1-b3" class="v-el">
+          <rect x="500" y="142" width="54" height="64" fill="rgba(208,135,112,0.18)" stroke="#d08770"/>
+          <text x="527" y="134" text-anchor="middle" class="svg-t">160 u</text>
+          <text x="527" y="222" text-anchor="middle" class="svg-t-sm">M3 &middot; NAV &#8377;12.50</text>
+        </g>
+        <g id="s1-tot" class="v-el">
+          <text x="596" y="110" class="svg-t-sm">TOTAL INVESTED &#8377;6,000</text>
+          <text x="596" y="128" class="svg-t-sm">TOTAL UNITS 610</text>
+        </g>
+        <g id="s1-res" class="v-el">
+          <text x="596" y="156" class="svg-t-gold">COST &#8377;9.84 / UNIT</text>
+          <text x="596" y="176" class="svg-t-sm">AVERAGE NAV &#8377;10.17</text>
+          <text x="596" y="194" class="svg-t-sm">YOU PAID LESS</text>
+        </g>
+      </svg>
+    </div>
+    <div class="v-controls">
+      <button class="btn sm v-play">&#9654; Play</button>
+      <button class="btn sm v-restart">&#8634; Restart</button>
+      <div class="v-track"><div class="v-fill"></div></div>
+      <span class="v-step">0 / 5</span>
+    </div>
+    <div class="v-cap">Press play to watch three months of a SIP build.</div>
+  </div>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens</span>
+    <p>The chapter's own 1-mark list opens with "Write the full form of SIP" — meaning it has been considered examinable enough to be printed as question no. 1. Learn all three full forms; they cost thirty seconds and can appear in the 1×6 section.</p>
+  </div>
+
+  <div class="recall">
+    <span class="k">Recall check — tap to reveal</span>
+    <ol>
+      <li>SIP = <span class="reveal">Systematic Investment Plan</span>; SWP = <span class="reveal">Systematic Withdrawal Plan</span>; STP = <span class="reveal">Systematic Transfer Plan</span>.</li>
+      <li>Under SIP, when NAV falls the number of units purchased <span class="reveal">increases</span>.</li>
+    </ol>
+  </div>
+
+  <button class="complete-btn" data-part="7">Mark Part 7 Complete</button>
+</section>
+
+<!-- ============================ PART 8 ============================ -->
+<section class="part" id="part-8">
+  <div class="part-header">
+    <div class="part-number">Part 08</div>
+    <h2>Benefits of Investing in Mutual Funds — <em>the highest-frequency question in the chapter</em></h2>
+    <div class="part-subtitle">Eight benefits. Asked in 2019, asked again in 2024. Learn these to the point of reflex.</div>
+  </div>
+
+  <p class="lead">If you memorise one list from Chapter 16, make it this one. It is the only content in the chapter with a confirmed repeat across the PYQ archive — and the repeat is almost verbatim.</p>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens — confirmed PYQ repeat</span>
+    <p><strong>AHSEC 2019, Q14 (5 marks, alternative):</strong> "Mention five advantages of Mutual Funds."<br>
+    <strong>ASSEB 2024, Q10 (5 marks, alternative):</strong> "Write the advantages of investing in mutual funds."</p>
+    <p>Two appearances, five years apart, same 5-mark slot, effectively the same stem. <strong>This is the single most probable Mutual Fund question on your paper.</strong> Five benefits with one explanatory line each is a full-mark answer; you know eight, so you can pick your strongest five.</p>
+  </div>
+
+  <div class="bgrid">
+    <div class="bcard"><div class="n">01</div><div class="t">Liquidity</div><div class="d">Investment in mutual fund provides easy liquidity to those who want to dispose of their units. Open-ended funds may be sold back to the AMC; closed-ended funds can be sold in the stock exchange where they are listed.</div></div>
+    <div class="bcard"><div class="n">02</div><div class="t">Risk diversification</div><div class="d">The fund is invested in diversified portfolios and in a number of companies. This reduces the risk of investment, because stocks seldom decline in value in the same proportion.</div></div>
+    <div class="bcard"><div class="n">03</div><div class="t">Return</div><div class="d">Investment in mutual fund provides higher return potential to investors, as the fund is invested carefully in selected securities.</div></div>
+    <div class="bcard"><div class="n">04</div><div class="t">Professional management</div><div class="d">The fund is invested in selected securities by experienced and skilled professionals who have experience and knowledge of portfolio management.</div></div>
+    <div class="bcard"><div class="n">05</div><div class="t">Convenience</div><div class="d">Investment is very simple — it does not involve much paperwork, and avoids problems such as delayed payments, bad deliveries and unnecessary follow-up with brokers.</div></div>
+    <div class="bcard"><div class="n">06</div><div class="t">Less costly</div><div class="d">Because of the large scale of investment, brokerage, paperwork, custodial and other charges translate into lower expense for each investor.</div></div>
+    <div class="bcard"><div class="n">07</div><div class="t">Protected investment</div><div class="d">All mutual funds are registered with SEBI and function within strict regulations designed to protect the interest of investors.</div></div>
+    <div class="bcard"><div class="n">08</div><div class="t">Tax benefit</div><div class="d">Many mutual funds offer the benefit of tax exemptions to investors under the Income Tax Act.</div></div>
+  </div>
+
+  <div class="callout trap">
+    <span class="callout-label">The Missing Eighth Trap</span>
+    <p>The chapter's main body lists <strong>eight</strong> benefits. The Summary at the end lists only <strong>seven</strong> — it drops <em>Protected investment</em> (the SEBI point). If you revise only from the Summary you will walk into the exam one benefit short. Revise from the main body.</p>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-label">Order them by strength, not by memory</span>
+    <p>At 5 marks you write five, not eight. Pick the five that are hardest to argue with and easiest to explain in one line: <strong>Risk diversification, Professional management, Liquidity, Less costly, Protected investment (SEBI)</strong>. "Return" is weak on its own — a mutual fund does not guarantee return — so lead with the structural benefits and keep return as a supporting point.</p>
+  </div>
+
+  <div class="ibox">
+    <div class="ibox-head">
+      <span class="k">Interactive</span>
+      <span class="h">60-second recall — can you name all eight?</span>
+    </div>
+    <div class="ibox-body">
+      <p style="font-size:13.5px; color:var(--text-dim); margin-bottom:12px;">Say them aloud, then tap to check them off one by one. Target: all eight inside a minute.</p>
+      <div id="benefitCheck" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+      <div style="margin-top:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <button class="btn sm" onclick="startTimer()">Start 60s timer</button>
+        <button class="btn sm" onclick="resetBenefits()">Reset</button>
+        <span class="score-bar" id="benefitScore">0 / 8 revealed</span>
+        <span class="score-bar" id="timerOut"></span>
+      </div>
+    </div>
+  </div>
+
+  <button class="complete-btn" data-part="8">Mark Part 8 Complete</button>
+</section>
+
+<!-- ============================ PART 9 ============================ -->
+<section class="part" id="part-9">
+  <div class="part-header">
+    <div class="part-number">Part 09</div>
+    <h2>Mutual Funds in India — <em>the dated timeline</em></h2>
+    <div class="part-subtitle">Names and years. This is where 1-mark questions come from, so the dates have to be exact.</div>
+  </div>
+
+  <p class="lead">This section of the chapter is almost pure factual recall — a handful of institutions and the years they entered the industry. It is the easiest content in Chapter 16 to score on and the easiest to fumble, because a year that is one digit wrong is a mark gone.</p>
+
+  <div class="tl">
+    <div class="tl-item big">
+      <div class="tl-y">THE IDEA</div>
+      <div class="tl-t">The need for institutionalisation of mutual funds was felt first by <strong>Pandit Jawaharlal Nehru</strong>, former Prime Minister of the country.</div>
+    </div>
+    <div class="tl-item big">
+      <div class="tl-y">1963</div>
+      <div class="tl-t">The idea began to take shape with the enactment of the <strong>Unit Trust of India Act, 1963</strong>.</div>
+      <div class="tl-d">The Act comes first. The institution follows a year later — this gap is the trap.</div>
+    </div>
+    <div class="tl-item big">
+      <div class="tl-y">1964</div>
+      <div class="tl-t"><strong>Unit Trust of India (UTI)</strong> was established, to operate as a financial institution and an investment trust.</div>
+      <div class="tl-d">In 1964 the board of trustees formulated an <em>open-ended</em> scheme and launched it at a nominal value of ₹10 each.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-y">1987</div>
+      <div class="tl-t">Commercial banks were permitted to enter: <strong>State Bank of India (1987)</strong> and <strong>Canara Bank (1987)</strong>.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-y">1989</div>
+      <div class="tl-t"><strong>Life Insurance Corporation (LIC)</strong> entered the mutual fund business.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-y">1990</div>
+      <div class="tl-t"><strong>Indian Bank</strong>, <strong>Bank of India</strong> and <strong>Punjab National Bank</strong> launched their mutual funds.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-y">1991</div>
+      <div class="tl-t"><strong>General Insurance Corporation (GIC)</strong> entered. Public sector units enjoyed a monopoly in the industry <em>till 1991</em>.</div>
+      <div class="tl-d">Private players were allowed with liberalisation and privatisation, which gained momentum with the financial market reforms from 1991 onwards.</div>
+    </div>
+    <div class="tl-item big">
+      <div class="tl-y">1993</div>
+      <div class="tl-t">The first private sector mutual fund, pioneering in the field, was <strong>Kothari</strong>, which launched its mutual fund in <strong>1993</strong>.</div>
+      <div class="tl-d">Later joined by Morgan Stanley, Jardine Fleming, George Soros and Capital International.</div>
+    </div>
+  </div>
+
+  <div class="callout trap">
+    <span class="callout-label">The 1963 / 1964 Trap</span>
+    <p>The Act is <strong>1963</strong>. The institution is <strong>1964</strong>. If the question says "In which year was UTI <em>established</em>?" the answer is <strong>1964</strong>. If it says "the Unit Trust of India <em>Act</em>," the answer is <strong>1963</strong>. Read which noun the question is pointing at before you write the year.</p>
+  </div>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens — the 1-mark harvest</span>
+    <p>Two of the chapter's four printed 1-mark questions come from this section: "Write the first Mutual Fund institution of India" (<strong>Unit Trust of India</strong>) and "In which year the UTI was established?" (<strong>1964</strong>). A third likely stem is the first <em>private sector</em> mutual fund (<strong>Kothari, 1993</strong>). Three marks sitting in one page of text.</p>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-label">Why 1991 is the hinge</span>
+    <p>Notice the shape of the timeline: 1964 to 1987 is UTI alone; 1987 to 1991 is public sector banks and insurers; 1993 onwards is private and foreign. The break is the liberalisation of 1991 — the same reform wave that appears in your Banking chapters. If an 8-mark question ever asks you to trace the growth of mutual funds in India, that three-phase structure <em>is</em> your answer skeleton.</p>
+  </div>
+
+  <div class="callout example">
+    <span class="callout-label">Model answer — "Write a short note on mutual funds in India" (5 marks)</span>
+    <p><strong>Opening:</strong> The need for institutionalisation of mutual funds in India was felt first by Pandit Jawaharlal Nehru.</p>
+    <p><strong>Point 1 — Origin:</strong> The idea took shape in 1963 with the enactment of the Unit Trust of India Act, 1963, and UTI was established in 1964 as a financial institution and investment trust, launching an open-ended scheme at ₹10 per unit.</p>
+    <p><strong>Point 2 — Public sector expansion:</strong> Commercial banks and insurance companies were then permitted to enter — SBI and Canara Bank in 1987, LIC in 1989, Indian Bank, Bank of India and PNB in 1990, and GIC in 1991.</p>
+    <p><strong>Point 3 — Monopoly:</strong> Public sector units enjoyed a monopoly in the industry till 1991.</p>
+    <p><strong>Point 4 — Private entry:</strong> Private players were permitted following liberalisation and the financial market reforms from 1991; Kothari became the first private sector mutual fund in 1993.</p>
+    <p><strong>Point 5 — Foreign entry:</strong> Morgan Stanley, Jardine Fleming, George Soros and Capital International subsequently joined the business.</p>
+  </div>
+
+  <button class="complete-btn" data-part="9">Mark Part 9 Complete</button>
+</section>
+
+<!-- ============================ PART 10 ============================ -->
+<section class="part" id="part-10">
+  <div class="part-header">
+    <div class="part-number">Part 10</div>
+    <h2>Exam Strategy &amp; <em>Kill-List</em></h2>
+    <div class="part-subtitle">Where the marks actually are, how long to spend, and the twelve mistakes that cost this chapter its marks.</div>
+  </div>
+
+  <p class="lead">Everything above is content. This part is conversion. Chapter 16 is small — five pages of textbook — but it sits in Unit IV, Financial Services, alongside five other chapters, and it has a confirmed 5-mark repeat. Treat it as a guaranteed-return investment of study time.</p>
+
+  <h3>The paper you are writing</h3>
+
+  <p>ASSEB Finance, based on the 2025 paper: <strong>Full Marks 80, Pass Marks 24, Time 3 hours.</strong> The structure was:</p>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>Question</th><th>Pattern</th><th>Total</th><th>Choice</th></tr>
+    <tr><td>Q1</td><td>1 mark × 6</td><td>6</td><td>Answer any six</td></tr>
+    <tr><td>Q2</td><td>2 marks × 4</td><td>8</td><td>All</td></tr>
+    <tr><td>Q3</td><td>3 marks × 4</td><td>12</td><td>Answer any four</td></tr>
+    <tr><td>Q4</td><td>5 marks × 6</td><td>30</td><td>Answer any six</td></tr>
+    <tr><td>Q5</td><td>8 marks × 3</td><td>24</td><td>Answer any three</td></tr>
+  </table></div>
+
+  <div class="callout trap">
+    <span class="callout-label">Update your mark-band rules — the 3-marker exists</span>
+    <p>Both the 2024 and 2025 new-course papers carry a <strong>3-mark band</strong> (12 marks of it in 2025) — a band the older papers did not emphasise. Your 1 / 2 / 5 / 8 answer-length rules need a fourth setting: <strong>3 marks = three points, one short explanatory line each, no introduction and no conclusion.</strong> It is a compressed 5-marker, not an expanded 2-marker.</p>
+  </div>
+
+  <h3>PYQ map for this chapter</h3>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>Year</th><th>Question as asked</th><th>Marks</th><th>Status</th></tr>
+    <tr><td><strong>2024</strong></td><td>Write the advantages of investing in mutual funds.</td><td>5</td><td>Alternative in Q10</td></tr>
+    <tr><td><strong>2023</strong></td><td>Write two features of Mutual Fund.</td><td>2</td><td>Q3, compulsory</td></tr>
+    <tr><td><strong>2019</strong></td><td>Mention five advantages of Mutual Funds.</td><td>5</td><td>Alternative in Q14 (old course)</td></tr>
+    <tr><td><strong>2025</strong></td><td>No standalone Mutual Fund question in the archive copy — the topic appears only inside NBFI and money-market answers.</td><td>—</td><td>Skipped</td></tr>
+  </table></div>
+
+  <div class="callout exam">
+    <span class="callout-label">Exam Lens — what this pattern implies</span>
+    <p>Benefits/advantages is the confirmed repeater: two appearances, both at 5 marks, five years apart, effectively identical stems. The chapter's other heavy hitters — the open vs closed table (5) and the investment-pattern classification (8) — are printed as exercise questions in your textbook and are structurally the kind AHSEC favours, but <strong>they have not yet surfaced in the PYQ years available to us</strong>. Treat their weight as an estimate from question shape, not from evidence, and prepare them anyway: 2025 skipped the chapter entirely, which usually means it is due.</p>
+  </div>
+
+  <h3>Time budget</h3>
+
+  <div class="tbl-wrap"><table>
+    <tr><th>If asked at</th><th>Write</th><th>Minutes</th></tr>
+    <tr><td>1 mark</td><td>The bare fact — a year, a name, a full form. No sentence needed.</td><td>&lt;1</td></tr>
+    <tr><td>2 marks</td><td>Two points, or one definition plus one supporting line.</td><td>2–3</td></tr>
+    <tr><td>3 marks</td><td>Three points, one short line each. No intro, no conclusion.</td><td>4–5</td></tr>
+    <tr><td>5 marks</td><td>Five points, one tight explanatory line each. Table if it is a "distinguish."</td><td>7–8</td></tr>
+    <tr><td>8 marks</td><td>Two-line intro → eight numbered points with two to three lines each → one-line conclusion. ~300 words.</td><td>13–15</td></tr>
+  </table></div>
+
+  <h3>The kill-list — twelve ways this chapter loses marks</h3>
+
+  <ol>
+    <li><strong>Writing "the price of a unit is ₹10."</strong> ₹10 is the <em>initial offer price</em> only. After launch, price follows NAV.</li>
+    <li><strong>Dividing before subtracting in NAV.</strong> Net the liabilities off the scheme's total value first, then divide by units.</li>
+    <li><strong>Saying a closed-ended investor cannot sell before maturity.</strong> He cannot <em>redeem</em> from the fund — he can sell on the stock exchange where the units are listed.</li>
+    <li><strong>Swapping the listing row.</strong> Closed-ended units are listed; open-ended units are not. Anchor it: listing is the closed-ended investor's only exit.</li>
+    <li><strong>Answering a "distinguish" question in prose.</strong> Distinguish always means a ruled table with the basis of difference in column one.</li>
+    <li><strong>Giving four rows for a 5-mark table.</strong> Five marks, five rows. The textbook gives six bases — you have a spare.</li>
+    <li><strong>Revising the types from the Summary.</strong> The Summary lists eight types; the main body lists nine (real estate fund is dropped from the Summary).</li>
+    <li><strong>Revising the benefits from the Summary.</strong> The Summary lists seven; the main body lists eight (protected investment / SEBI is dropped from the Summary).</li>
+    <li><strong>Confusing growth with income funds.</strong> Growth <em>retains</em> the income and adds it to your investment; income <em>distributes</em> it as dividend.</li>
+    <li><strong>Answering 1964 for the Unit Trust of India Act.</strong> The Act is 1963; the institution is 1964. Read which noun the question names.</li>
+    <li><strong>Attributing MMMF regulation to SEBI.</strong> Mutual funds are registered with <strong>SEBI</strong>, but MMMF investments are subject to guidelines laid down by the <strong>RBI</strong>. Both appear in this chapter; do not merge them.</li>
+    <li><strong>Listing eight benefits as bare words for a 5-mark question.</strong> Five well-explained beats eight naked. One point plus one line of explanation each.</li>
+  </ol>
+
+  <h3>Presentation marks — free, and most people leave them</h3>
+  <ul>
+    <li>Rule your comparison table with a scale before writing. Three columns: Basis / Open-ended / Closed-ended.</li>
+    <li>Number your points (i), (ii), (iii) — never dashes or bullets in a board answer.</li>
+    <li>Underline the <em>name</em> of each benefit or fund type; leave the explanation un-underlined. The examiner's eye finds the count instantly.</li>
+    <li>Write the NAV formula as a proper fraction with a horizontal line, not inline with a slash.</li>
+    <li>For the structure of a mutual fund, a small labelled box diagram earns credit at 8 marks and costs ninety seconds.</li>
+  </ul>
+
+  <div class="ibox">
+    <div class="ibox-head">
+      <span class="k">Interactive</span>
+      <span class="h">Chapter 16 — 12-question scored quiz</span>
+    </div>
+    <div class="ibox-body">
+      <div id="quiz"></div>
+      <div style="margin-top:16px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <span class="score-bar" id="quizScore">Score: 0 / 12</span>
+        <button class="btn sm" onclick="resetQuiz()">Reset quiz</button>
+      </div>
+      <div id="quizVerdict" style="margin-top:14px; font-size:13.5px; color:var(--text-dim);"></div>
+    </div>
+  </div>
+
+  <div class="callout insight">
+    <span class="callout-label">Where this chapter sits in Unit IV</span>
+    <p>Unit IV — Financial Services — runs Chapters 13 to 18: Modern Banking Services, Lease, Hire-Purchase, Mutual Fund, Venture Capital &amp; Factoring, and Fee-based Services. Chapters 13–17 are the <em>fund-based</em> services; Chapter 18 is <em>fee-based</em>. If a question opens with "financial services are classified as fund-based and fee-based," that one line is worth writing as your introduction — it shows the examiner you know where Mutual Fund sits in the architecture.</p>
+  </div>
+
+  <div class="recall">
+    <span class="k">Final recall — close the file and answer these out loud</span>
+    <ol>
+      <li>State the textbook definition of a mutual fund in one sentence.</li>
+      <li>Write the NAV formula and explain each term.</li>
+      <li>Name the five parties involved in a mutual fund.</li>
+      <li>Give six points of difference between open-ended and closed-ended funds.</li>
+      <li>Name all nine types of fund by yield and investment pattern.</li>
+      <li>List eight benefits of investing in mutual funds.</li>
+      <li>Give the year of the UTI Act, the year UTI was established, and the first private sector mutual fund with its year.</li>
+    </ol>
+  </div>
+
+  <button class="complete-btn" data-part="10">Mark Part 10 Complete</button>
+</section>
+
+<div class="closer">
+  <div class="closer-kicker">End of Masterclass</div>
+  <h3>You now hold every definition, both classifications, the full differences table, all eight benefits and the dated Indian timeline for Chapter 16.</h3>
+  <p>Next: run the 12-question quiz above until you clear 12/12 cold, then move to Chapter 17 — Venture Capital &amp; Factoring — which sits immediately after this one in Unit IV and shares the same fund-based framing.</p>
+</div>
+
+</main>
+</div>
+
+<script>
+  const TOTAL = 10;
+  const completedParts = new Set();
+
+  const dotsEl = document.getElementById('progressDots');
+  const progressText = document.getElementById('progressText');
+  for (let i = 1; i <= TOTAL; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot';
+    dot.dataset.part = i;
+    dot.title = 'Part ' + i;
+    dot.addEventListener('click', () => {
+      document.getElementById('part-' + i).scrollIntoView({ behavior: 'smooth' });
+      closeSidebarOnMobile();
+    });
+    dotsEl.appendChild(dot);
+  }
+
+  function updateProgress() {
+    progressText.textContent = completedParts.size + ' / ' + TOTAL;
+    document.querySelectorAll('.progress-dot').forEach(d => {
+      d.classList.toggle('done', completedParts.has(parseInt(d.dataset.part)));
+    });
+    document.querySelectorAll('.nav-item').forEach(a => {
+      a.classList.toggle('done', completedParts.has(parseInt(a.dataset.part)));
+    });
+  }
+
+  document.querySelectorAll('.complete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = parseInt(btn.dataset.part);
+      if (completedParts.has(p)) {
+        completedParts.delete(p);
+        btn.classList.remove('done');
+        btn.textContent = 'Mark Part ' + p + ' Complete';
+      } else {
+        completedParts.add(p);
+        btn.classList.add('done');
+        btn.textContent = 'Part ' + p + ' Complete';
+      }
+      updateProgress();
+    });
+  });
+
+  document.querySelectorAll('.nav-item').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('part-' + a.dataset.part).scrollIntoView({ behavior: 'smooth' });
+      closeSidebarOnMobile();
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const p = entry.target.id.replace('part-', '');
+        document.querySelectorAll('.nav-item').forEach(a => a.classList.toggle('active', a.dataset.part === p));
+        document.querySelectorAll('.progress-dot').forEach(d => d.classList.toggle('active', d.dataset.part === p));
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  document.querySelectorAll('.part').forEach(s => observer.observe(s));
+
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('sidebarToggle');
+  const navClose = document.getElementById('navClose');
+  const CONTENTS_KEY = 'mf16.nav';
+  /* Named `contents*`, not `nav*` — this script already has a setNav() for the
+     NAV calculator further down, and a second one would silently win. */
+  const narrowLayout = () => window.innerWidth <= 900;
+
+  /* Wide screens collapse the contents column away and remember the choice.
+     Narrow screens keep the slide-over drawer, which is transient by nature. */
+  function contentsOpen() {
+    return narrowLayout()
+      ? sidebar.classList.contains('open')
+      : !document.documentElement.classList.contains('nav-closed');
+  }
+  function syncContents() {
+    toggleBtn.setAttribute('aria-expanded', String(contentsOpen()));
+  }
+  function setContents(open) {
+    if (narrowLayout()) sidebar.classList.toggle('open', open);
+    else {
+      document.documentElement.classList.toggle('nav-closed', !open);
+      try { localStorage.setItem(CONTENTS_KEY, open ? 'open' : 'closed'); } catch (e) { /* private mode */ }
+    }
+    syncContents();
+  }
+  toggleBtn.addEventListener('click', () => setContents(!contentsOpen()));
+  navClose.addEventListener('click', () => setContents(false));
+  function closeSidebarOnMobile() { if (narrowLayout()) setContents(false); }
+  document.addEventListener('click', e => {
+    if (narrowLayout() && sidebar.classList.contains('open')) {
+      if (!sidebar.contains(e.target) && e.target !== toggleBtn) setContents(false);
+    }
+  });
+  window.addEventListener('resize', syncContents);
+  syncContents();
+
+  /* ---------- reveal spans ---------- */
+  document.querySelectorAll('.reveal').forEach(s => {
+    s.addEventListener('click', () => s.classList.toggle('on'));
+  });
+
+  /* ---------- NAV calculator ---------- */
+  const fmt = n => n.toLocaleString('en-IN');
+  function calcNav() {
+    const a = parseFloat(document.getElementById('navAssets').value) || 0;
+    const l = parseFloat(document.getElementById('navLiab').value) || 0;
+    const u = parseFloat(document.getElementById('navUnits').value) || 0;
+    const out = document.getElementById('navOut');
+    if (u <= 0) { out.innerHTML = 'Enter a positive number of outstanding units.'; return; }
+    const net = a - l;
+    const nav = net / u;
+    out.innerHTML =
+      'Step 1 &nbsp;Net assets = ₹' + fmt(a) + ' − ₹' + fmt(l) + ' = <b style="color:var(--gold-bright)">₹' + fmt(net) + '</b><br>' +
+      'Step 2 &nbsp;NAV = ₹' + fmt(net) + ' ÷ ' + fmt(u) + ' units' +
+      '<span class="big">NAV = ₹' + nav.toFixed(2) + ' per unit</span>';
+  }
+  function setNav(a, l, u) {
+    document.getElementById('navAssets').value = a;
+    document.getElementById('navLiab').value = l;
+    document.getElementById('navUnits').value = u;
+    calcNav();
+  }
+  ['navAssets','navLiab','navUnits'].forEach(id => document.getElementById(id).addEventListener('input', calcNav));
+  calcNav();
+
+  /* ---------- sorting drill (open vs closed) ---------- */
+  const SORT = [
+    ['The maximum size of the fund is pre-fixed and cannot be exceeded.', 'CLOSED-ENDED'],
+    ['Units are not listed in the stock exchange.', 'OPEN-ENDED'],
+    ['There is a fixed maturity time on expiry of which the value of the unit is paid.', 'CLOSED-ENDED'],
+    ['An investor can sell his fund at any time — highly liquid.', 'OPEN-ENDED'],
+    ['Units are not available for purchase after the fund size achieves its target.', 'CLOSED-ENDED'],
+    ['Investors transact directly with the AMC issuing the units.', 'OPEN-ENDED'],
+    ['After initial investment an investor must stay with the fund till the lock-in period is over.', 'CLOSED-ENDED'],
+    ['There is no fixed maturity time for receiving the value of the units purchased.', 'OPEN-ENDED']
+  ];
+  function buildSort() {
+    const box = document.getElementById('sortDrill');
+    box.innerHTML = '';
+    SORT.forEach((s, i) => {
+      const d = document.createElement('div');
+      d.className = 'q';
+      d.style.marginBottom = '8px';
+      d.innerHTML = '<div class="stem" style="margin-bottom:0; font-size:13.5px;">' + s[0] +
+        ' <span class="reveal" data-i="' + i + '" style="font-family:var(--mono); font-size:11px; letter-spacing:.12em;">' + s[1] + '</span></div>';
+      box.appendChild(d);
+    });
+    box.querySelectorAll('.reveal').forEach(sp => sp.addEventListener('click', () => sp.classList.toggle('on')));
+  }
+  function resetSort() { buildSort(); }
+  buildSort();
+
+  /* ---------- flip cards: nine fund types ---------- */
+  const TYPES = [
+    ['i', 'Growth-oriented', 'Income generated is <b>not distributed</b>; it is allocated proportionately towards the initial investment, so the size of the unit-holder\u2019s investment goes on increasing.'],
+    ['ii', 'Income-oriented', 'Aims at <b>distribution of income as dividend</b> among unit-holders. Popular with small investors wanting regular income and low risk — e.g. retired persons.'],
+    ['iii', 'Balanced', 'Invested <b>both in equities and interest-bearing instruments</b> such as debentures and preference shares — appreciation plus ascertained return.'],
+    ['iv', 'Stock fund', 'Invested in securities of <b>different companies</b>, from highly rated to newly established. For investors who can resist significant risk for higher returns.'],
+    ['v', 'Leverage fund', 'Combines <b>borrowed funds with own funds</b>, invested in speculative stock. Interest on borrowings is paid from profit; the balance goes to unit-holders.'],
+    ['vi', 'Tax relief fund', 'Also called <b>equity-linked savings schemes</b>; essentially closed-ended. Entitles investors to deduction or rebate under the Income Tax Act, 1961. Has a lock-in period.'],
+    ['vii', 'Bonds fund', 'Bonds are liquid, diversified and conservative with modest capital gains; highly secured, steady income, lesser default risk. For fixed return with safety.'],
+    ['viii', 'MMMF', 'Money Market Mutual Fund — invests in <b>treasury bills, certificates of deposit, commercial papers, bill discounting</b>. Subject to <b>RBI</b> guidelines.'],
+    ['ix', 'Real estate fund', 'Invested in <b>real-estate ventures</b>. Basically closed-ended. Of various types depending on the real-estate transactions involved.']
+  ];
+  const fg = document.getElementById('flipGrid');
+  TYPES.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'flip';
+    d.innerHTML = '<div class="flip-in"><div class="flip-f"><div class="n">' + t[0] + '</div><div class="t">' + t[1] +
+      '</div><div class="hint">tap to reveal</div></div><div class="flip-b">' + t[2] + '</div></div>';
+    d.addEventListener('click', () => d.classList.toggle('on'));
+    fg.appendChild(d);
+  });
+  function flipAll(state) {
+    document.querySelectorAll('.flip').forEach(f => f.classList.toggle('on', state));
+  }
+
+  /* ---------- benefits recall ---------- */
+  const BEN = ['Liquidity','Risk diversification','Return','Professional management','Convenience','Less costly','Protected investment (SEBI)','Tax benefit'];
+  function buildBenefits() {
+    const box = document.getElementById('benefitCheck');
+    box.innerHTML = '';
+    BEN.forEach((b, i) => {
+      const s = document.createElement('span');
+      s.className = 'reveal';
+      s.style.cssText = 'font-family:var(--mono); font-size:12px; padding:6px 12px; border:1px solid var(--border-strong); border-radius:2px;';
+      s.textContent = (i + 1) + '. ' + b;
+      s.addEventListener('click', () => { s.classList.toggle('on'); tallyBenefits(); });
+      box.appendChild(s);
+    });
+    tallyBenefits();
+  }
+  function tallyBenefits() {
+    const n = document.querySelectorAll('#benefitCheck .reveal.on').length;
+    document.getElementById('benefitScore').textContent = n + ' / 8 revealed';
+  }
+  function resetBenefits() { buildBenefits(); document.getElementById('timerOut').textContent = ''; }
+  buildBenefits();
+
+  let tId = null;
+  function startTimer() {
+    if (tId) clearInterval(tId);
+    let t = 60;
+    const out = document.getElementById('timerOut');
+    out.textContent = '00:60';
+    tId = setInterval(() => {
+      t--;
+      out.textContent = '00:' + String(t).padStart(2, '0');
+      if (t <= 0) { clearInterval(tId); tId = null; out.textContent = 'TIME UP'; }
+    }, 1000);
+  }
+
+  /* ---------- quiz ---------- */
+  const QUIZ = [
+    ['The initial offer price of each unit of a mutual fund is basically —', ['₹1', '₹10', '₹100', 'It varies with NAV'], 1, 'The textbook states the initial offer price of each unit is basically ₹10. After launch the price follows NAV.'],
+    ['NAV is calculated as —', ['Total value of scheme ÷ units, then less liabilities', '(Total value of scheme − Liabilities) ÷ outstanding units', 'Total value of scheme ÷ (units − liabilities)', 'Liabilities ÷ outstanding units'], 1, 'Subtract liabilities from the scheme\u2019s total value first, then divide by the number of outstanding units.'],
+    ['Units of which scheme are listed on a stock exchange?', ['Open-ended', 'Closed-ended', 'Neither', 'Only growth funds'], 1, 'Closed-ended units are listed — it is the only exit route before maturity. Open-ended units are not listed because the AMC buys them back directly.'],
+    ['The Unit Trust of India was established in the year —', ['1963', '1964', '1987', '1991'], 1, 'The Unit Trust of India Act is 1963; the institution UTI was established in 1964.'],
+    ['Which fund does NOT distribute income among unit-holders?', ['Income-oriented fund', 'Growth-oriented fund', 'Bonds fund', 'Balanced fund'], 1, 'A growth-oriented fund retains income and allocates it proportionately towards the initial investment, so the holding grows.'],
+    ['Investments in MMMF are subject to guidelines laid down by —', ['SEBI', 'IRDAI', 'Reserve Bank of India', 'Ministry of Finance'], 2, 'Mutual funds are registered with SEBI, but MMMF investments follow RBI guidelines. Both facts sit in this chapter — do not merge them.'],
+    ['Tax relief funds are also known as —', ['Money market funds', 'Equity-linked savings schemes', 'Balanced funds', 'Leverage funds'], 1, 'Tax relief funds = equity-linked savings schemes; essentially closed-ended, with a lock-in period, under the Income Tax Act, 1961.'],
+    ['Which scheme combines the features of open-ended and closed-ended funds?', ['Balanced fund', 'Interval fund', 'Stock fund', 'Real estate fund'], 1, 'Interval funds are open for purchase or redemption during specific intervals at NAV and closed the rest of the time; units are traded on the stock exchange.'],
+    ['The first private sector mutual fund in India was —', ['Morgan Stanley', 'Kothari', 'Jardine Fleming', 'Canara Bank'], 1, 'Kothari launched the first private sector mutual fund in 1993, after which Morgan Stanley, Jardine Fleming, George Soros and Capital International followed.'],
+    ['Which party holds the securities of the scheme in safe custody?', ['Sponsor', 'Trustee', 'Custodian', 'AMC'], 2, 'The Custodian holds securities in safe custody — deliberately separated from the AMC, which only makes investment decisions.'],
+    ['A fund that combines borrowed funds with own funds is a —', ['Balanced fund', 'Leverage fund', 'Bonds fund', 'Income fund'], 1, 'The leverage fund invests borrowed plus own funds in speculative stock; interest is paid from profit and the balance goes to unit-holders.'],
+    ['All mutual funds in India are registered with —', ['RBI', 'SEBI', 'IRDAI', 'NABARD'], 1, 'Registration with SEBI, and functioning within its regulations, is what makes mutual funds a "protected investment" — benefit no. 7.']
+  ];
+  let quizScore = 0, answered = 0;
+  function buildQuiz() {
+    quizScore = 0; answered = 0;
+    const box = document.getElementById('quiz');
+    box.innerHTML = '';
+    document.getElementById('quizVerdict').textContent = '';
+    QUIZ.forEach((q, qi) => {
+      const d = document.createElement('div');
+      d.className = 'q';
+      let html = '<div class="stem"><span class="qn">Q' + (qi + 1) + '</span>' + q[0] + '</div>';
+      q[1].forEach((o, oi) => {
+        html += '<button class="opt" data-q="' + qi + '" data-o="' + oi + '">' + String.fromCharCode(97 + oi) + ') ' + o + '</button>';
+      });
+      html += '<div class="why"><b>Why:</b> ' + q[3] + '</div>';
+      d.innerHTML = html;
+      box.appendChild(d);
+    });
+    box.querySelectorAll('.opt').forEach(b => b.addEventListener('click', () => {
+      const qi = parseInt(b.dataset.q), oi = parseInt(b.dataset.o);
+      const card = b.closest('.q');
+      if (card.classList.contains('answered')) return;
+      card.classList.add('answered');
+      answered++;
+      const correct = QUIZ[qi][2];
+      card.querySelectorAll('.opt').forEach((btn, i) => {
+        btn.classList.add('locked');
+        if (i === correct) btn.classList.add('right');
+        else if (i === oi) btn.classList.add('wrong');
+      });
+      if (oi === correct) quizScore++;
+      document.getElementById('quizScore').textContent = 'Score: ' + quizScore + ' / 12';
+      if (answered === QUIZ.length) {
+        const v = document.getElementById('quizVerdict');
+        if (quizScore === 12) v.innerHTML = '<b style="color:var(--success)">12/12 — chapter is board-ready.</b> Move to Chapter 17.';
+        else if (quizScore >= 9) v.innerHTML = '<b style="color:var(--gold-bright)">' + quizScore + '/12 — close.</b> Re-read the parts covering the ones you missed, then reset and clear it cold.';
+        else v.innerHTML = '<b style="color:var(--warn)">' + quizScore + '/12 — not yet.</b> Work back through Parts 1 to 9 before re-attempting; do not move to Chapter 17 on this score.';
+      }
+    }));
+    document.getElementById('quizScore').textContent = 'Score: 0 / 12';
+  }
+  function resetQuiz() { buildQuiz(); }
+  buildQuiz();
+
+  /* ============================================================
+     VOICE ENGINE  —  Web Speech API, offline, no external calls
+     ============================================================ */
+  const SPEECH_OK = ('speechSynthesis' in window);
+  const VS = { on: true, rate: 1, voice: null, mode: null, stopAll: null };
+
+  const vbStatus = document.getElementById('vbStatus');
+  const vbVoice  = document.getElementById('vbVoice');
+  const vbRate   = document.getElementById('vbRate');
+  const vbToggle = document.getElementById('vbToggle');
+  const vbStop   = document.getElementById('vbStop');
+
+  function status(msg, live) {
+    vbStatus.textContent = msg;
+    vbStatus.classList.toggle('live', !!live);
+  }
+
+  function loadVoices() {
+    if (!SPEECH_OK) return;
+    const all = speechSynthesis.getVoices();
+    if (!all.length) return;
+    const rank = v => (/en-IN|en_IN/i.test(v.lang) ? 0 : /en-GB/i.test(v.lang) ? 1 : /^en/i.test(v.lang) ? 2 : 3);
+    const list = all.filter(v => /^en/i.test(v.lang)).sort((a, b) => rank(a) - rank(b));
+    const use = list.length ? list : all;
+    vbVoice.innerHTML = '';
+    use.forEach((v, i) => {
+      const o = document.createElement('option');
+      o.value = v.name; o.textContent = v.name.replace(/^Microsoft |^Google /, '') + ' (' + v.lang + ')';
+      vbVoice.appendChild(o);
+      if (i === 0 && !VS.voice) VS.voice = v;
+    });
+    vbVoice.addEventListener('change', () => {
+      VS.voice = speechSynthesis.getVoices().find(v => v.name === vbVoice.value) || null;
+    });
+  }
+  if (SPEECH_OK) {
+    loadVoices();
+    speechSynthesis.onvoiceschanged = loadVoices;
+    setTimeout(() => {
+      if (!speechSynthesis.getVoices().length) {
+        status('No speech voices installed on this device \u2014 explainers will play silently on a timer.');
+      }
+    }, 1500);
+  } else {
+    status('Voice not supported in this browser \u2014 explainers will still play on a timer.');
+    vbToggle.disabled = true; vbVoice.disabled = true; vbRate.disabled = true;
+  }
+
+  vbRate.addEventListener('change', () => { VS.rate = parseFloat(vbRate.value); });
+  vbToggle.addEventListener('click', () => {
+    VS.on = !VS.on;
+    vbToggle.textContent = VS.on ? 'Enabled' : 'Muted';
+    vbToggle.classList.toggle('done', false);
+    if (!VS.on) hardStop('Muted \u2014 explainers advance on a timer.');
+  });
+
+  /* Watchdog: some devices expose speechSynthesis but have no installed
+     voice, in which case onend never fires. Whichever finishes first wins,
+     so playback can never hang. */
+  function speak(text, onEnd) {
+    if (!SPEECH_OK || !VS.on) { onEnd && onEnd(); return null; }
+    let done = false;
+    const finish = () => { if (done) return; done = true; clearTimeout(guard); onEnd && onEnd(); };
+    const est = Math.max(3000, (text.length * 78) / (VS.rate || 1)) + 2500;
+    const guard = setTimeout(() => {
+      if (SPEECH_OK) speechSynthesis.cancel();
+      finish();
+    }, est);
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = VS.rate; u.pitch = 1; u.volume = 1;
+    if (VS.voice) { u.voice = VS.voice; u.lang = VS.voice.lang; }
+    u.onend = finish;
+    u.onerror = finish;
+    try { speechSynthesis.speak(u); } catch (e) { finish(); }
+    return u;
+  }
+
+  function hardStop(msg) {
+    if (SPEECH_OK) speechSynthesis.cancel();
+    if (VS.stopAll) { VS.stopAll(); VS.stopAll = null; }
+    VS.mode = null;
+    document.querySelectorAll('.speaking').forEach(e => e.classList.remove('speaking'));
+    document.querySelectorAll('.listen-btn').forEach(b => {
+      b.classList.remove('playing'); b.textContent = '\u25B6 Listen to this part';
+    });
+    document.querySelectorAll('.v-play').forEach(b => { b.classList.remove('playing'); b.textContent = '\u25B6 Play'; });
+    document.querySelectorAll('.s3d-play').forEach(b => { b.classList.remove('playing'); b.innerHTML = '&#9654; Play'; });
+    status(msg || 'Stopped.');
+  }
+  vbStop.addEventListener('click', () => hardStop('Stopped.'));
+
+  /* ---------- READ-ALOUD PER PART ---------- */
+  const SKIP = '.ibox, .vplayer, .recall, .figure, .complete-btn, .listen-btn';
+  function partNodes(sec) {
+    const sel = 'h2, .part-subtitle, p, li, h3, h4, td';
+    return Array.from(sec.querySelectorAll(sel))
+      .filter(n => !n.closest(SKIP))
+      .filter(n => n.textContent.trim().length > 1);
+  }
+
+  document.querySelectorAll('.part').forEach(sec => {
+    const n = sec.id.replace('part-', '');
+    const btn = document.createElement('button');
+    btn.className = 'btn sm listen-btn';
+    btn.textContent = '\u25B6 Listen to this part';
+    sec.querySelector('.part-header').appendChild(btn);
+
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('playing')) { hardStop('Stopped.'); return; }
+      hardStop();
+      if (!SPEECH_OK || !VS.on) { status('Turn voice on to use Listen.'); return; }
+      if (!speechSynthesis.getVoices().length) {
+        status('No speech voices installed on this device \u2014 Listen is unavailable here.');
+        return;
+      }
+      const nodes = partNodes(sec);
+      let i = 0, cancelled = false;
+      VS.stopAll = () => { cancelled = true; };
+      VS.mode = 'read';
+      btn.classList.add('playing'); btn.textContent = '\u25A0 Stop reading';
+      const next = () => {
+        document.querySelectorAll('.speaking').forEach(e => e.classList.remove('speaking'));
+        if (cancelled) return;
+        if (i >= nodes.length) {
+          btn.classList.remove('playing'); btn.textContent = '\u25B6 Listen to this part';
+          status('Finished Part ' + n + '.');
+          return;
+        }
+        const node = nodes[i++];
+        node.classList.add('speaking');
+        status('Reading Part ' + n + ' \u2014 block ' + i + ' of ' + nodes.length, true);
+        speak(node.textContent.replace(/\s+/g, ' ').trim(), next);
+      };
+      next();
+    });
+  });
+
+  /* ============================================================
+     ANIMATED EXPLAINERS  —  narration synced to the diagram
+     ============================================================ */
+  const EXPLAINERS = {
+    'vp-pool': [
+      { on: ['p1-inv'], t: 6500, say: 'Four small savers each put in a modest amount. None of them has the expertise to pick shares on their own.' },
+      { on: ['p1-inv','p1-arrows','p1-pool'], t: 6500, say: 'Their contributions are pooled into a single corpus. That corpus is the mutual fund scheme.' },
+      { on: ['p1-inv','p1-arrows','p1-pool','p1-units'], t: 8000, say: 'The corpus is divided into equal portions called units. At launch, the initial offer price of each unit is basically ten rupees.' },
+      { on: ['p1-inv','p1-arrows','p1-pool','p1-units','p1-amc'], t: 7000, say: 'The pooled money is handed to an Asset Management Company, the fund manager, who takes the investment decisions.' },
+      { on: ['p1-inv','p1-arrows','p1-pool','p1-units','p1-amc','p1-sec'], t: 9000, say: 'The A M C spreads it across equity shares, debentures and money market instruments. That spread is the risk diversification benefit.' },
+      { on: ['p1-inv','p1-arrows','p1-pool','p1-units','p1-amc','p1-sec','p1-ret'], t: 8000, say: 'Returns, as dividend or capital appreciation, flow back to the same unit holders. That is the whole chapter in one picture.' }
+    ],
+    'vp-nav': [
+      { on: ['n1-assets'], t: 6500, say: 'Start with the total value of the scheme. Every asset at market value. Say fifty two lakh rupees.' },
+      { on: ['n1-assets','n1-liab'], t: 6000, say: 'Now subtract the liabilities of the scheme. Here, two lakh rupees.' },
+      { on: ['n1-assets','n1-liab','n1-net'], t: 6500, say: 'Fifty two lakh minus two lakh gives net assets of fifty lakh rupees.' },
+      { on: ['n1-assets','n1-liab','n1-net','n1-div'], t: 6000, say: 'Divide that by the number of outstanding units. Five lakh units.' },
+      { on: ['n1-assets','n1-liab','n1-net','n1-div','n1-res'], t: 9000, say: 'Fifty lakh divided by five lakh equals ten. The N A V is ten rupees per unit. Subtract first, divide second. Never the other way round.' }
+    ],
+    'vp-sip': [
+      { on: ['s1-ax','s1-b1'], t: 6500, say: 'Month one. The N A V is ten rupees. Two thousand rupees buys two hundred units.' },
+      { on: ['s1-ax','s1-b1','s1-b2'], t: 7000, say: 'Month two. The N A V falls to eight rupees. The same two thousand rupees now buys two hundred and fifty units.' },
+      { on: ['s1-ax','s1-b1','s1-b2','s1-b3'], t: 7000, say: 'Month three. The N A V rises to twelve rupees fifty. Two thousand rupees buys only one hundred and sixty units.' },
+      { on: ['s1-ax','s1-b1','s1-b2','s1-b3','s1-tot'], t: 6500, say: 'Total invested, six thousand rupees. Total units, six hundred and ten.' },
+      { on: ['s1-ax','s1-b1','s1-b2','s1-b3','s1-tot','s1-res'], t: 10000, say: 'Cost per unit works out to nine rupees eighty four, lower than the average N A V of ten rupees seventeen. The fixed rupee amount automatically bought more units when the price was low.' }
+    ]
+  };
+
+  Object.keys(EXPLAINERS).forEach(id => {
+    const root = document.getElementById(id);
+    if (!root) return;
+    const steps = EXPLAINERS[id];
+    const playBtn = root.querySelector('.v-play');
+    const resetBtn = root.querySelector('.v-restart');
+    const fill = root.querySelector('.v-fill');
+    const stepOut = root.querySelector('.v-step');
+    const cap = root.querySelector('.v-cap');
+    const idleCap = cap.textContent;
+    let idx = 0, timer = null, running = false;
+
+    function paint(k) {
+      const set = new Set(steps[k].on);
+      root.querySelectorAll('.v-el').forEach(g => g.classList.toggle('on', set.has(g.id)));
+      fill.style.width = Math.round(((k + 1) / steps.length) * 100) + '%';
+      stepOut.textContent = (k + 1) + ' / ' + steps.length;
+      cap.textContent = steps[k].say;
+      cap.classList.add('live');
+    }
+    function stop(msg) {
+      running = false;
+      if (timer) { clearTimeout(timer); timer = null; }
+      playBtn.classList.remove('playing'); playBtn.textContent = '\u25B6 Play';
+      if (msg) status(msg);
+    }
+    function advance() {
+      if (!running) return;
+      if (idx >= steps.length) {
+        stop('Explainer finished.');
+        idx = 0;
+        return;
+      }
+      const k = idx++;
+      paint(k);
+      status('Explainer \u2014 step ' + (k + 1) + ' of ' + steps.length, true);
+      if (SPEECH_OK && VS.on) {
+        const started = Date.now();
+        speak(steps[k].say, () => {
+          if (!running) return;
+          // If the utterance returned almost instantly the device has no
+          // working voice, so hold the step for its full reading time.
+          const elapsed = Date.now() - started;
+          const wait = elapsed < 1200 ? Math.max(0, steps[k].t - elapsed) : 0;
+          timer = setTimeout(() => { if (running) advance(); }, wait);
+        });
+      } else {
+        timer = setTimeout(advance, steps[k].t);
+      }
+    }
+    playBtn.addEventListener('click', () => {
+      if (running) { hardStop('Paused.'); return; }
+      hardStop();
+      running = true;
+      VS.mode = 'explain';
+      VS.stopAll = () => stop();
+      playBtn.classList.add('playing'); playBtn.textContent = '\u25A0 Pause';
+      advance();
+    });
+    resetBtn.addEventListener('click', () => {
+      hardStop();
+      idx = 0;
+      root.querySelectorAll('.v-el').forEach(g => g.classList.remove('on'));
+      fill.style.width = '0%';
+      stepOut.textContent = '0 / ' + steps.length;
+      cap.textContent = idleCap;
+      cap.classList.remove('live');
+      status('Explainer reset.');
+    });
+    stepOut.textContent = '0 / ' + steps.length;
+  });
+
+  window.addEventListener('beforeunload', () => { if (SPEECH_OK) speechSynthesis.cancel(); });
+
+  /* The 3D scenes narrate through this same engine, so "Stop all", the voice
+     picker and the rate control keep working across both. */
+  window.MFVoice = { speak: speak, hardStop: hardStop, status: status, VS: VS, SPEECH_OK: SPEECH_OK };
+
+</script>
+<!--MF3D:JS-->
+</body>
+</html>
