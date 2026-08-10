@@ -1,0 +1,44 @@
+[
+  {
+    "family": "Fraunces",
+    "style": "italic",
+    "weight": "300 700",
+    "file": "fraunces-italic-300-700.woff2",
+    "bytes": 81520
+  },
+  {
+    "family": "Fraunces",
+    "style": "normal",
+    "weight": "300 700",
+    "file": "fraunces-normal-300-700.woff2",
+    "bytes": 67304
+  },
+  {
+    "family": "IBM Plex Mono",
+    "style": "normal",
+    "weight": "400",
+    "file": "ibm-plex-mono-normal-400-400.woff2",
+    "bytes": 14708
+  },
+  {
+    "family": "IBM Plex Mono",
+    "style": "normal",
+    "weight": "500",
+    "file": "ibm-plex-mono-normal-500-500.woff2",
+    "bytes": 14888
+  },
+  {
+    "family": "IBM Plex Mono",
+    "style": "normal",
+    "weight": "600",
+    "file": "ibm-plex-mono-normal-600-600.woff2",
+    "bytes": 15620
+  },
+  {
+    "family": "IBM Plex Sans",
+    "style": "normal",
+    "weight": "300 700",
+    "file": "ibm-plex-sans-normal-300-700.woff2",
+    "bytes": 45712
+  }
+]
