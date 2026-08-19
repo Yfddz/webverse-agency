@@ -361,7 +361,23 @@ function subStats(s) {
     done += v[0] + v[1] + v[2] + v[3];
     if (v[0] && v[1] && v[2] && v[3]) full++;
   }));
-  return { n, ticks, done, full, pct: ticks ? Math.round((done / ticks) * 100) : 0 };
+  return {
+    n, ticks, done, full,
+    pct: ticks ? Math.round((done / ticks) * 100) : 0,      // ticks placed
+    cpct: n ? Math.round((full / n) * 100) : 0,             // chapters fully cleared
+  };
+}
+
+/**
+ * Two-layer progress bar. The solid fill is chapters *fully cleared* — the
+ * number that actually means a chapter is done — and the faint fill behind it
+ * is ticks placed, so partly-worked chapters still show as movement.
+ * cpct is always <= tpct, since a cleared chapter contributes all four ticks.
+ */
+function barHTML(cpct, tpct, cls) {
+  return '<div class="bar' + (cls ? ' ' + cls : '') + '">' +
+    '<i class="part" style="width:' + clamp(tpct, 0, 100) + '%"></i>' +
+    '<i style="width:' + clamp(cpct, 0, 100) + '%"></i></div>';
 }
 function totals() {
   let n = 0, ticks = 0, done = 0, full = 0;
@@ -801,8 +817,9 @@ function renderWeak() {
     '<button class="subcard" data-open-sub="' + s.id + '">' +
       '<div class="nm">' + esc(s.name) + '</div>' +
       '<div class="mt">' + x.full + ' of ' + x.n + ' chapters cleared</div>' +
-      '<div class="pctrow"><span class="pv">' + x.pct + '%</span><span class="pc">' + (x.ticks - x.done) + ' ticks left</span></div>' +
-      '<div class="bar thin"><i style="width:' + x.pct + '%"></i></div>' +
+      '<div class="pctrow"><span class="pv">' + x.cpct + '%</span>' +
+        '<span class="pc">' + (x.ticks - x.done) + ' ticks left</span></div>' +
+      barHTML(x.cpct, x.pct, 'thin') +
     '</button>').join('');
 }
 
@@ -822,8 +839,10 @@ function renderSyllabusIndex() {
     return '<button class="subcard" data-open-sub="' + s.id + '">' +
       '<div class="nm">' + esc(s.name) + '</div>' +
       '<div class="mt">' + x.n + ' chapters · ' + s.mode.stages.join(' / ') + '</div>' +
-      '<div class="pctrow"><span class="pv">' + x.pct + '%</span><span class="pc">' + x.full + '/' + x.n + ' cleared</span></div>' +
-      '<div class="bar thin"><i style="width:' + x.pct + '%"></i></div>' +
+      '<div class="pctrow"><span class="pv">' + x.cpct + '%</span>' +
+        '<span class="pc">' + x.full + ' / ' + x.n + ' chapters</span></div>' +
+      barHTML(x.cpct, x.pct, 'thin') +
+      '<div class="barnote">' + x.pct + '% of ticks placed</div>' +
     '</button>';
   }).join('');
 }
@@ -851,13 +870,13 @@ function renderRows() {
   const s = curSub;
   if (!s) return;
   const x = subStats(s);
-  $('#sd-pct').textContent = x.pct + '%';
-  $('#sd-bar').style.width = x.pct + '%';
-  $('#sd-count').textContent = x.full + '/' + x.n + ' cleared · ' + x.done + '/' + x.ticks + ' ticks';
+  $('#sd-pct').textContent = x.cpct + '%';
+  $('#sd-barwrap').innerHTML = barHTML(x.cpct, x.pct);
+  $('#sd-count').textContent = x.full + ' / ' + x.n + ' chapters cleared · ' + x.done + '/' + x.ticks + ' ticks';
 
   let n = 0, html = '';
   s.groups.forEach((g, gi) => {
-    let rows = '', gDone = 0, gTot = 0;
+    let rows = '', gDone = 0, gTot = 0, gTicks = 0;
     g.ch.forEach((c, ci) => {
       n++;
       const v = chGet(s, g, c);
@@ -865,6 +884,7 @@ function renderRows() {
       const key = chKey(s, g, c);
       const note = (state.notes[key] || '').trim();
       gTot++; if (done) gDone++;
+      gTicks += v[0] + v[1] + v[2] + v[3];
       if (filters.anchor && !c.a) return;
       if (filters.todo && done) return;
       if (filters.notes && !note) return;
@@ -886,7 +906,11 @@ function renderRows() {
         : '');
     });
     if (rows) {
-      html += '<div class="grp"><span>' + esc(g.g) + '</span><b>' + gDone + '/' + gTot + '</b></div>' + rows;
+      const gc = gTot ? Math.round((gDone / gTot) * 100) : 0;
+      const gt = gTot ? Math.round((gTicks / (gTot * 4)) * 100) : 0;
+      html += '<div class="grp"><span>' + esc(g.g) + '</span>' +
+              '<b>' + gDone + ' / ' + gTot + ' chapters</b></div>' +
+              barHTML(gc, gt, 'thin grpbar') + rows;
     }
   });
   $('#sd-rows').innerHTML = html || '<p class="dim" style="padding:26px 0;text-align:center">Nothing matches those filters.</p>';

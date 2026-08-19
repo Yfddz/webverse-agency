@@ -13,7 +13,7 @@ carries `noindex`, so it is not part of the public agency site.
 | Surface | What it's for |
 |---|---|
 | **Deck** | Live clock, board countdown, what to do *right now*, tonight's three deliverables, completion ring, pace forecast, 18-week consistency heatmap, anchor topics, weakest papers |
-| **Syllabus** | All 104 chapters across seven papers, four stages each, with weak-point notes and anchor/unfinished/notes filters |
+| **Syllabus** | All 104 chapters across seven papers, four stages each, with weak-point notes and anchor/unfinished/notes filters. Every subject and every group carries a two-layer progress bar: solid = chapters fully cleared, faint = ticks placed |
 | **Focus** | The night-slot Pomodoro protocol — 25/5, 25/10, 25/5 — with one concrete deliverable per Pomodoro and a written consolidation step |
 | **Sentinel** | The coach: notification scheduling, tone, quiet hours, and the calendar export |
 | **Arsenal** | Method doctrine, per-paper trap atlas, exam-hall protocol, weekly operating rules |

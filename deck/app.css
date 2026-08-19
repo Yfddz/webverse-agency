@@ -310,11 +310,28 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 .chip:hover{color:var(--ink);border-color:var(--line-hot)}
 .chip[aria-pressed="true"]{border-color:var(--cyan);color:var(--cyan);background:rgba(61,220,255,.1)}
 
-/* progress bars */
-.bar{height:6px;border-radius:99px;background:var(--void);overflow:hidden;border:1px solid var(--line)}
-.bar i{display:block;height:100%;border-radius:99px;background:var(--grad);transition:width .6s var(--ease)}
-.bar.thin{height:4px}
+/* Progress bars carry two layers: the solid fill is chapters fully cleared,
+   the faint one behind it is ticks placed. Both are absolutely positioned from
+   the left edge, so the solid layer paints over the faint one. */
+.bar{height:6px;border-radius:99px;background:var(--void);overflow:hidden;border:1px solid var(--line);position:relative}
+.bar i{
+  position:absolute;left:0;top:0;height:100%;border-radius:99px;
+  background:var(--grad);transition:width .6s var(--ease);
+}
+.bar i.part{background:linear-gradient(90deg,rgba(61,220,255,.30),rgba(180,92,255,.30))}
+.bar.thin{height:5px}
 .bar.ok i{background:linear-gradient(90deg,var(--mint),#6EE7B7)}
+.bar.grpbar{margin:0 0 12px}
+.barnote{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;color:var(--ink-3);margin-top:6px}
+.barkey{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:10px;
+}
+.barkey span{display:inline-flex;align-items:center;gap:6px}
+.barkey i{width:14px;height:5px;border-radius:99px;display:block}
+.barkey .k1{background:var(--grad)}
+.barkey .k2{background:linear-gradient(90deg,rgba(61,220,255,.30),rgba(180,92,255,.30))}
 
 /* grids */
 .grid{display:grid;gap:14px}
