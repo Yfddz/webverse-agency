@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /backup/
+Disallow: /deck/
 Sitemap: https://webversejandk.in/sitemap.xml

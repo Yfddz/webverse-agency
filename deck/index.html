@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>XII Command Deck</title>
+<meta name="description" content="Private board-prep command deck for the AHSEC Class 12 Commerce boards — syllabus tracking, focus timer and the SENTINEL study coach.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#06070B">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="XII Deck">
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3DDCFF"/><stop offset="1" stop-color="#B45CFF"/></linearGradient>
+  <linearGradient id="dialGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3DDCFF"/><stop offset="1" stop-color="#7C8BFF"/></linearGradient>
+  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="i-deck" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6.5A2.5 2.5 0 0 1 4 19.5Z"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H19"/><path d="M9 7h6"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/><path d="M9 2h6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1Z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1.2" fill="currentColor" stroke="none"/><rect x="14" y="4" width="4" height="16" rx="1.2" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 4.5v15l11-7.5Z"/><path d="M19 5v14"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4"/><path d="M3 4v5h5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 17V4"/><path d="m7 9 5-5 5 5"/><path d="M4 21h16"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22c4 0 7-2.7 7-6.5 0-4.5-4-6-4-9.5-2 1-3 2.8-3 5-1-.6-1.5-1.8-1.5-3C8 10 5 11.6 5 15.5 5 19.3 8 22 12 22Z"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7Z"/></symbol>
+  </g>
+</defs></svg>
+
+<div class="bg" aria-hidden="true"></div>
+
+<div id="boot">
+  <img class="bm" src="logo.svg" alt="">
+  <p>Spinning up the deck…</p>
+</div>
+
+<div id="shell" hidden>
+
+  <!-- ================= LEFT RAIL (desktop) ================= -->
+  <aside class="rail">
+    <div class="rail-brand">
+      <img src="logo.svg" alt="XII Command Deck">
+      <div class="bx"><div class="bt">Command Deck</div><div class="bs">AHSEC · Class XII</div></div>
+    </div>
+    <button class="navbtn" data-nav="deck" aria-current="page"><svg><use href="#i-deck"/></svg><span>Deck</span></button>
+    <button class="navbtn" data-nav="syllabus"><svg><use href="#i-book"/></svg><span>Syllabus</span><em class="badge" id="nav-syl">0%</em></button>
+    <button class="navbtn" data-nav="focus"><svg><use href="#i-timer"/></svg><span>Focus</span><em class="badge" id="nav-foc">0m</em></button>
+    <button class="navbtn" data-nav="coach"><svg><use href="#i-shield"/></svg><span>Sentinel</span></button>
+    <button class="navbtn" data-nav="arsenal"><svg><use href="#i-target"/></svg><span>Arsenal</span></button>
+    <div class="rail-foot">
+      <button class="navbtn" data-act="palette"><svg><use href="#i-search"/></svg><span>Search</span><em class="badge">⌘K</em></button>
+      <button class="navbtn" data-act="settings"><svg><use href="#i-gear"/></svg><span>Settings</span></button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <!-- ================= TOP BAR ================= -->
+    <header class="topbar">
+      <img class="tb-logo" src="logo.svg" alt="XII Command Deck">
+      <div class="clock">
+        <div class="t" id="tb-time">--:--<span class="s" id="tb-sec">:--</span></div>
+        <div class="d" id="tb-date">—</div>
+      </div>
+      <div class="topbar-r">
+        <div class="tmark" id="tb-tminus" title="Time to Board Day 1">T–<b>—</b></div>
+        <button class="iconbtn" data-act="palette" aria-label="Search and commands" title="Search (⌘K)"><svg><use href="#i-search"/></svg></button>
+        <button class="iconbtn" data-act="settings" aria-label="Settings" title="Settings"><svg><use href="#i-gear"/></svg></button>
+      </div>
+    </header>
+
+    <main class="views" id="views">
+
+      <!-- ================= DECK ================= -->
+      <section class="view" id="v-deck">
+        <div class="sec">
+          <div class="sentinel" id="sentinel" data-tone="steady">
+            <div class="sentinel-head">
+              <span class="orb"></span>
+              <span class="nm">Sentinel</span>
+              <span class="pill" id="sent-state">—</span>
+            </div>
+            <div class="msg" id="sent-msg">Reading the deck…</div>
+            <div class="why" id="sent-why"></div>
+            <div class="sentinel-actions">
+              <button class="btn prime sm" data-act="start-focus"><svg><use href="#i-play"/></svg>Start the slot</button>
+              <button class="btn ghost sm" data-act="reroll"><svg><use href="#i-reset"/></svg>Say something else</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="grid g2">
+            <div class="card col" id="now-card" data-tone="steady">
+              <div class="card-lab"><span class="dot"></span>Right now</div>
+              <h3 class="ch" id="now-title">—</h3>
+              <p class="dim" id="now-body" style="font-size:13.5px;margin-top:7px"></p>
+              <div class="bar thin" style="margin-top:14px"><i id="now-bar" style="width:0%"></i></div>
+              <div class="mono dimmer" id="now-meta" style="font-size:10.5px;margin-top:8px;letter-spacing:.08em"></div>
+              <div class="upnext" id="now-next"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-lab"><span class="dot"></span>Tonight's mission</div>
+              <h3 class="ch" id="mission-subj">—</h3>
+              <div class="mono dimmer" id="mission-slot" style="font-size:10.5px;margin-top:5px;letter-spacing:.1em"></div>
+              <div class="plan" id="mission-plan" style="margin-top:14px"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="grid g4">
+            <div class="stat"><div class="sk">Syllabus</div><div class="sv" id="st-pct">0<small>%</small></div><div class="sm" id="st-pct-sub">—</div></div>
+            <div class="stat"><div class="sk">Streak</div><div class="sv" id="st-streak">0<small>d</small></div><div class="sm" id="st-streak-sub">—</div></div>
+            <div class="stat"><div class="sk">This week</div><div class="sv" id="st-week">0<small>m</small></div><div class="sm" id="st-week-sub">—</div></div>
+            <div class="stat"><div class="sk">Chapters cleared</div><div class="sv" id="st-ch">0</div><div class="sm" id="st-ch-sub">—</div></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="grid g2">
+            <div class="card">
+              <div class="card-lab"><span class="dot"></span>Completion</div>
+              <div class="ringwrap">
+                <div class="ring">
+                  <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="51"/><circle class="fill" id="ring-fill" cx="60" cy="60" r="51" stroke-dasharray="320.4" stroke-dashoffset="320.4"/></svg>
+                  <div class="lbl"><b id="ring-pct">0%</b><span>ticks placed</span></div>
+                </div>
+                <div style="min-width:130px;flex:1">
+                  <div class="rankname" id="rank-name">RECRUIT</div>
+                  <div class="mono dimmer" style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;margin:6px 0 10px" id="rank-next">—</div>
+                  <div class="bar"><i id="rank-bar" style="width:0%"></i></div>
+                  <div class="mono dimmer" id="ring-ticks" style="font-size:11px;margin-top:10px"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-lab"><span class="dot"></span>Pace &amp; forecast</div>
+              <div id="pace-pill"></div>
+              <div class="mono" id="pace-line" style="font-size:12.5px;margin-top:12px;color:var(--ink-2);line-height:1.7"></div>
+              <div class="bar thin" style="margin-top:14px"><i id="pace-bar" style="width:0%"></i></div>
+              <div class="mono dimmer" id="pace-sub" style="font-size:10.5px;margin-top:8px;letter-spacing:.06em"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="card">
+            <div class="card-lab"><span class="dot"></span>Consistency · last 18 weeks</div>
+            <div class="tablewrap"><div class="heat" id="heat"></div></div>
+            <div class="heat-key">Less <i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><i data-l="4"></i> More
+              <span style="margin-left:auto" id="heat-sum"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Anchor topics — clear these first</h2>
+          <div class="card">
+            <p class="dim" style="font-size:13.5px;margin-bottom:14px">Near-certain to appear, every year. <span class="mono" id="anchor-count" style="color:var(--cyan)"></span></p>
+            <div class="bar"><i id="anchor-bar" style="width:0%"></i></div>
+            <div style="display:flex;justify-content:space-between;margin-top:9px;font-family:var(--mono);font-size:11px">
+              <span id="anchor-txt" style="color:var(--cyan)">—</span><span class="dimmer">anchors fully cleared</span>
+            </div>
+            <div class="btnrow" style="margin-top:16px"><button class="btn ghost sm" data-act="show-anchors">See what's left</button></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Weakest links</h2>
+          <div class="grid g3" id="weak-grid"></div>
+        </div>
+      </section>
+
+      <!-- ================= SYLLABUS ================= -->
+      <section class="view" id="v-syllabus" hidden>
+        <div id="syl-index">
+          <div class="sec">
+            <div class="kicker">Seven papers · <span id="syl-total">—</span> chapters · four stages each</div>
+            <h1 class="page">Every chapter, <em>four ticks</em> deep.</h1>
+            <p class="page-sub">A chapter isn't done when you've read it. It's done when you've read it, drilled the PYQs, built the kill sheet, and revised it cold.</p>
+          </div>
+          <div class="sec"><div class="grid g-auto" id="syl-cards"></div></div>
+        </div>
+
+        <div id="syl-detail" hidden>
+          <div class="sec">
+            <button class="btn ghost sm" data-act="syl-back" style="margin-bottom:16px"><svg><use href="#i-chev"/></svg>All subjects</button>
+            <div class="kicker" id="sd-kicker"></div>
+            <h1 class="page" id="sd-title"></h1>
+            <p class="page-sub" id="sd-note" style="font-size:14px"></p>
+          </div>
+          <div class="sec">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:12px;flex-wrap:wrap">
+                <div class="rankname" id="sd-pct" style="font-size:26px">0%</div>
+                <div class="mono dimmer" id="sd-count" style="font-size:11px"></div>
+              </div>
+              <div id="sd-barwrap"></div>
+              <div class="barkey">
+                <span><i class="k1"></i>Chapters cleared</span>
+                <span><i class="k2"></i>Ticks placed</span>
+              </div>
+              <div class="mono dimmer" id="sd-key" style="font-size:10.5px;margin-top:14px;line-height:1.9"></div>
+            </div>
+          </div>
+          <div class="sec">
+            <div class="chips" style="margin-bottom:8px">
+              <button class="chip" data-filt="anchor">★ Anchors only</button>
+              <button class="chip" data-filt="todo">Unfinished only</button>
+              <button class="chip" data-filt="notes">Has weak-point note</button>
+            </div>
+            <div id="sd-rows"></div>
+            <div id="sd-editor" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FOCUS ================= -->
+      <section class="view" id="v-focus" hidden>
+        <div class="sec">
+          <div class="kicker">Night slot protocol · 25 / 5 · 25 / 10 · 25 / 5</div>
+          <h1 class="page">One Pomodoro, <em>one deliverable</em>.</h1>
+          <p class="page-sub">Not "study Cash Flow" — "finish one Cash Flow problem." Vague targets are how sessions dissolve.</p>
+        </div>
+
+        <div class="sec">
+          <div class="grid g2">
+            <div class="card pad-lg">
+              <div class="timer">
+                <div class="dial" id="dial">
+                  <svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="fill" id="dial-fill" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="0"/></svg>
+                  <div class="face">
+                    <div class="ph" id="dial-phase">Ready</div>
+                    <div class="cd" id="dial-time">25:00</div>
+                    <div class="task" id="dial-task">Pick a deliverable below</div>
+                  </div>
+                </div>
+                <div class="pomdots" id="pomdots"></div>
+                <div class="btnrow" style="justify-content:center">
+                  <button class="btn prime" id="f-toggle"><svg><use href="#i-play"/></svg>Start</button>
+                  <button class="btn ghost" id="f-skip"><svg><use href="#i-skip"/></svg>Skip</button>
+                  <button class="btn ghost" id="f-reset"><svg><use href="#i-reset"/></svg>Reset</button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="card" style="margin-bottom:14px">
+                <div class="card-lab"><span class="dot"></span>Tonight's three deliverables</div>
+                <div class="plan" id="focus-plan"></div>
+                <div class="btnrow" style="margin-top:14px">
+                  <button class="btn ghost sm" data-act="regen-plan"><svg><use href="#i-reset"/></svg>Regenerate</button>
+                  <button class="btn ghost sm" data-act="edit-plan"><svg><use href="#i-note"/></svg>Edit</button>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-lab"><span class="dot"></span>Today's log</div>
+                <div id="focus-log"></div>
+                <div class="btnrow" style="margin-top:14px">
+                  <button class="btn ghost sm" data-act="log-manual"><svg><use href="#i-plus"/></svg>Log minutes by hand</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Consolidation — three lines on what stuck</h2>
+          <div class="card">
+            <p class="dim" style="font-size:13.5px;margin-bottom:12px">Written, not re-read. This is the part everyone skips and it's the part that makes the session count.</p>
+            <textarea class="inp" id="consolidate" placeholder="1.&#10;2.&#10;3."></textarea>
+            <div class="btnrow" style="margin-top:12px"><button class="btn sm" data-act="save-consol"><svg><use href="#i-check"/></svg>Save to today's log</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SENTINEL ================= -->
+      <section class="view" id="v-coach" hidden>
+        <div class="sec">
+          <div class="kicker">The coach that does not care how you feel</div>
+          <h1 class="page">SENTINEL, <em>all day</em>.</h1>
+          <p class="page-sub">It reads your actual ticks, minutes and streak, then talks to you accordingly — encouragement when you've earned it, and the other thing when you haven't.</p>
+        </div>
+
+        <div class="sec">
+          <div class="card">
+            <div class="card-lab"><span class="dot"></span>Notifications</div>
+            <div class="switch">
+              <div><div class="sl">Push nudges to this device</div><div class="sd" id="perm-note">Browser permission required. Nothing leaves your phone — it all runs locally.</div></div>
+              <button class="btn sm" id="perm-btn"><svg><use href="#i-bell"/></svg>Enable</button>
+            </div>
+            <div class="switch">
+              <div><div class="sl">Nudge me even when I'm doing fine</div><div class="sd">Off means SENTINEL only speaks up when you're slipping.</div></div>
+              <button class="tgl" id="tg-always" role="switch" aria-checked="true"></button>
+            </div>
+            <div class="switch">
+              <div><div class="sl">Quiet hours</div><div class="sd">No nudges between these times. Sleep is part of the plan.</div></div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input type="time" class="inp" id="quiet-from" style="width:118px;min-height:40px">
+                <span class="dimmer">→</span>
+                <input type="time" class="inp" id="quiet-to" style="width:118px;min-height:40px">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Tone</h2>
+          <div class="card">
+            <p class="dim" style="font-size:13.5px;margin-bottom:14px">How hard SENTINEL goes when you've skipped a day. All three tell the truth — they differ in how gently. On a day you've actually studied, all three say the same thing.</p>
+            <div class="seg" id="tone-seg" role="group">
+              <button data-tone-set="gentle" aria-pressed="false">Gentle</button>
+              <button data-tone-set="standard" aria-pressed="true">Standard</button>
+              <button data-tone-set="brutal" aria-pressed="false">Brutal</button>
+            </div>
+            <div class="callout" style="margin-top:18px">
+              <div class="co-lab">◆ Preview — what it would say on a day you skipped</div>
+              <p id="tone-preview" style="color:var(--ink)"></p>
+            </div>
+            <div class="btnrow"><button class="btn ghost sm" data-act="tone-sample"><svg><use href="#i-reset"/></svg>Another sample</button>
+            <button class="btn ghost sm" data-act="test-notif"><svg><use href="#i-bell"/></svg>Send a test notification</button></div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Nudge schedule</h2>
+          <div class="card">
+            <p class="dim" style="font-size:13.5px;margin-bottom:14px">The times SENTINEL checks in across the day. Keep the slot-start one — it's the one that matters.</p>
+            <div class="timelist" id="nudge-times"></div>
+            <div class="btnrow" style="margin-top:14px">
+              <input type="time" class="inp" id="nudge-new" style="width:130px">
+              <button class="btn sm" data-act="add-nudge"><svg><use href="#i-plus"/></svg>Add</button>
+              <button class="btn ghost sm" data-act="reset-nudges">Restore defaults</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Make the nudges survive a closed browser</h2>
+          <div class="card">
+            <p class="dim" style="font-size:13.5px;margin-bottom:6px">Honest version: a website can only push notifications on its own under specific conditions. Here's exactly what works where — and the fallback that works <em style="color:var(--cyan);font-style:normal">everywhere</em>.</p>
+            <div class="tablewrap">
+              <table class="caps">
+                <thead><tr><th>Delivery</th><th>Android / Chrome</th><th>iPhone / Safari</th><th>Laptop</th></tr></thead>
+                <tbody>
+                  <tr><td>Deck open in a tab</td><td class="y">Works</td><td class="y">Works</td><td class="y">Works</td></tr>
+                  <tr><td>Installed to home screen</td><td class="y">Works</td><td class="m">Install required</td><td class="y">Works</td></tr>
+                  <tr><td>Browser fully closed</td><td class="m">Best effort</td><td class="n">No</td><td class="m">Best effort</td></tr>
+                  <tr><td><strong>Calendar alarms</strong></td><td class="y">Always</td><td class="y">Always</td><td class="y">Always</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout ok" style="margin-top:16px">
+              <div class="co-lab">✓ The bulletproof route</div>
+              <p>Export the nudge schedule as a calendar file and open it on your phone. Your phone's own calendar fires the alarms — no browser, no permission, no battery-saver killing it. Same times, same daily rotation, right through to Board Day 1.</p>
+            </div>
+            <div class="btnrow">
+              <button class="btn prime sm" data-act="export-ics"><svg><use href="#i-cal"/></svg>Download calendar alarms</button>
+              <button class="btn ghost sm" data-act="install-pwa" id="install-btn" hidden><svg><use href="#i-down"/></svg>Install to home screen</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Recent transmissions</h2>
+          <div class="card"><div id="coach-history"></div></div>
+        </div>
+      </section>
+
+      <!-- ================= ARSENAL ================= -->
+      <section class="view" id="v-arsenal" hidden>
+        <div class="sec">
+          <div class="kicker">Method · traps · exam-hall protocol</div>
+          <h1 class="page">Marks are <em>engineered</em>, not earned.</h1>
+          <p class="page-sub">Your competition studies harder. You study correctly. This page is the difference.</p>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">The four stages — why this order and no other</h2>
+          <div class="callout">
+            <div class="co-lab">◆ The doctrine</div>
+            <p><strong>Study → PYQ → Kill Sheet → Revise.</strong> The order is the whole point. Most students build notes during the first reading, which means they write down everything the textbook says instead of everything the examiner asks. You build the kill sheet <em>after</em> two PYQs, so the PYQs decide what belongs on the page.</p>
+            <p>A kill sheet made before PYQs is a summary. A kill sheet made after PYQs is a weapon.</p>
+          </div>
+          <ul class="tips">
+            <li><b>Stage 1 — Study.</b> One clean pass. Understand, don't memorise. No notes yet.</li>
+            <li><b>Stage 2 — PYQ.</b> Minimum two past questions, written full-length, closed book. This is where you find out what you actually don't know.</li>
+            <li><b>Stage 3 — Kill Sheet.</b> One A4 page. Definitions, formulas, key differences, and <em>your</em> weak points only. If it fills two pages you've written a summary, not a kill sheet.</li>
+            <li><b>Stage 4 — Revise.</b> Blank page, from memory, then check against the kill sheet. Reading the sheet is not revising it.</li>
+          </ul>
+          <div class="callout ok">
+            <div class="co-lab">✓ Accountancy runs different</div>
+            <p><strong>Concept → PYQ → Drill → Revise.</strong> No kill sheet. Accountancy marks live in your hands, not your notes — you either produce the format under time pressure or you don't. Drill means the same problem type repeated until the format comes out without thinking.</p>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Recall protocol — the only technique that compounds</h2>
+          <ul class="tips">
+            <li><b>Blank page test.</b> Close everything. Write everything you remember about the chapter. The gaps ARE your revision list. Ten minutes of this beats an hour of rereading.</li>
+            <li><b>Spaced repetition.</b> Revisit at day 1, day 3, day 7, day 21. Four short hits beat one long cram — and the gap is what does the work, not the effort.</li>
+            <li><b>Interleave.</b> Don't do six Admission-of-Partner problems in a row. Do Admission, Retirement, Dissolution, Admission. Feels worse, tests better. Boards don't label the question type for you.</li>
+            <li><b>Feynman for theory.</b> Explain Fayol's principles to an imaginary Class 9 student. Where you stumble is where you don't understand it — you've only memorised the words.</li>
+            <li><b>Rereading is not studying.</b> It creates a feeling of familiarity your brain misreads as knowledge. If your pen isn't moving, you're not learning.</li>
+            <li><b>Write it the way you'll write it.</b> Full sentences, proper format, timed. <em>You cannot practise casually and perform formally.</em></li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">AHSEC trap atlas — per paper</h2>
+          <details class="acc"><summary>Accountancy</summary><div class="accbody"><ul class="tips">
+            <li><b>Narration is mandatory.</b> A journal entry without narration is not a complete answer. Free marks, thrown away.</li>
+            <li><b>Schedule III format, exactly.</b> A company Balance Sheet in any other format loses presentation marks even when the numbers are right.</li>
+            <li><b>Cash Flow classification.</b> AS-3 heads — Operating, Investing, Financing. Wrong head is the single most common Cash Flow mark-loss. Indirect method is the AHSEC default.</li>
+            <li><b>Ratios: formula → substitution → answer with unit.</b> "2.5" is incomplete. "2.5 times" is the answer. Show the formula even when you can do it mentally.</li>
+            <li><b>Working notes are marks.</b> Goodwill valuation, revaluation, capital adjustment — show the working separately and label it. Examiners award them.</li>
+            <li><b>Dr must equal Cr.</b> Always. Balance every T-account before moving on — an unbalanced account bleeds marks across the whole question.</li>
+          </ul></div></details>
+
+          <details class="acc"><summary>Business Studies</summary><div class="accbody"><ul class="tips">
+            <li><b>Point → Explain → Example.</b> Every long answer. The heading alone gets partial credit; heading plus explanation plus example gets full.</li>
+            <li><b>Headings underlined or bolded.</b> A 6-mark answer written as one paragraph reads as fewer points than it contains. Make the structure visible.</li>
+            <li><b>Fayol vs Taylor.</b> The recurring trap. General administrative theory vs scientific management; manager-down vs shop-floor-up. Know the contrast cold.</li>
+            <li><b>Consumer Protection Act 2019.</b> Older PYQs cite the 1986 Act. Answer with 2019 provisions.</li>
+            <li><b>Count your points.</b> 6 marks usually means 6 points, or 3 well-explained. Don't write 2 points beautifully and lose 4 marks.</li>
+          </ul></div></details>
+
+          <details class="acc"><summary>Economics</summary><div class="accbody"><ul class="tips">
+            <li><b>Label every diagram.</b> Axes, curves, equilibrium point, shift direction. An unlabelled diagram earns close to nothing regardless of how correct the shape is.</li>
+            <li><b>Numericals: formula, substitution, answer, unit.</b> Same discipline as Accountancy ratios.</li>
+            <li><b>Stock vs flow.</b> A recurring distinguish-question. Capital is stock, income is flow. Have several examples of each ready.</li>
+            <li><b>National Income:</b> know FC vs MP and Gross vs Net conversions in both directions. Half the numerical is the adjustment, not the aggregate.</li>
+            <li><b>The India–Pakistan–China comparison</b> is a reliable long-answer slot. Have the numbers and the three-way structure ready.</li>
+          </ul></div></details>
+
+          <details class="acc"><summary>Finance</summary><div class="accbody"><ul class="tips">
+            <li><b>It's a theory paper.</b> The name misleads. Treat it like Business Studies, not Accountancy — bullet points with bold headings score.</li>
+            <li><b>Know your distinctions.</b> Equity vs Preference. Debentures vs Bonds. Money Market vs Capital Market. Owned vs Borrowed funds. These are guaranteed marks.</li>
+            <li><b>Financial institutions.</b> IFCI, IDBI, SFCs, NBFCs, commercial banks — know what each actually does, not just the expansion.</li>
+          </ul></div></details>
+
+          <details class="acc"><summary>English &amp; Alternative English</summary><div class="accbody"><ul class="tips">
+            <li><b>Format is a hard gate.</b> Letter: sender's address, date, receiver, subject, salutation, body, closing. Notice: issuing authority, date, subject, boxed. A missing element costs marks before the content is even read.</li>
+            <li><b>Two textual references minimum</b> in every literature long answer. Short, embedded, accurate.</li>
+            <li><b>Write from understanding, not memory.</b> Memorised answers collapse under pressure and rarely match the exact question asked. Know the content points; build the sentences live.</li>
+            <li><b>Alternative English marks split:</b> Prose 40 · Poetry 30 · Grammar 10 · Comprehension 10 · Essay 10. Poetry is 30 marks off a handful of short pieces — the highest marks-per-page on your whole timetable.</li>
+          </ul></div></details>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Exam-hall protocol</h2>
+          <div class="callout">
+            <div class="co-lab">◆ Two minutes per mark</div>
+            <p>Three hours, 80 marks. That's <strong>2 minutes per mark</strong>, with roughly 20 minutes spare for reading the paper and checking at the end. An 8-mark question gets 16 minutes. When the clock hits 16 you move — even mid-sentence. You can come back. You cannot get back time.</p>
+          </div>
+          <ul class="tips">
+            <li><b>Read the whole paper first.</b> Five minutes. Mark the ones you own, the ones you'll fight, the ones you'll do last.</li>
+            <li><b>Bank the certain marks first.</b> Answer order is yours to choose. Start where you're strongest — it builds momentum and gets those marks on paper before fatigue hits.</li>
+            <li><b>Never leave a blank.</b> A blank is a guaranteed zero. A partial attempt with the right format, a formula, a heading, a definition — that is not zero. Write something. Always.</li>
+            <li><b>Attempt-count check at the end.</b> Confirm you answered the required number in every section, and that you didn't accidentally do both sides of an internal choice.</li>
+            <li><b>Underline keywords in your own answers.</b> Examiners scan. Make the marks easy to find.</li>
+            <li><b>Present cleanly.</b> Correct question numbers, margins, one answer per section grouped. Presentation isn't vanity — it's how a tired examiner finds your marks.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">Weekly operating rules</h2>
+          <ul class="tips">
+            <li><b>PYQ-first is non-negotiable.</b> Every chapter goes through past papers before you decide it's understood.</li>
+            <li><b>Sunday is revision.</b> No new chapters. Revisit weak points, redo failed problems, blank-page the week's material.</li>
+            <li><b>Saturday is a full paper.</b> Timed, closed book, sitting properly. Simulate the pressure before the pressure is real.</li>
+            <li><b>One Pomodoro, one deliverable.</b> Not "study Cash Flow" — "finish one Cash Flow problem."</li>
+            <li><b>Consolidate in writing.</b> End of each session, three lines on what stuck. Writing, not rereading.</li>
+            <li><b>Log the day.</b> The streak isn't decoration. A chain you can see is one of the few reliable ways to make effort self-sustaining — and one broken link is much harder to ignore than a vague feeling that you should study more.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <h2 class="sh">When it stops feeling worth it</h2>
+          <div class="callout bad">
+            <div class="co-lab">⚠ Read this on the bad days</div>
+            <p>Motivation is not a resource you can budget with. It arrives late, leaves early, and never shows up on the day you need it most. Systems don't care how you feel. That's the entire reason to have them.</p>
+            <p>You don't need to want to study tonight. You need to open the book and start the timer. <strong>Feeling follows action far more reliably than action follows feeling.</strong></p>
+          </div>
+          <div class="callout ok">
+            <div class="co-lab">✓ The floor rule</div>
+            <p>On a bad day, don't aim for the plan. Aim for the floor: <strong>one Pomodoro. Twenty-five minutes.</strong> Then you're allowed to stop.</p>
+            <p>Most days you won't stop. But the rule has to be real for it to work — if "one Pomodoro" is secretly a trick to get three, you figure it out and stop believing yourself. Honour the floor when you hit it. That's what carries the streak through the weeks that would otherwise break it.</p>
+          </div>
+          <div class="callout">
+            <div class="co-lab">◆ Perspective</div>
+            <p>You're self-studying seven papers with no coaching, building a business at the same time, and aiming at a number most people don't attempt. Some weeks will go badly. That's a feature of the size of the target, not evidence you picked wrong.</p>
+            <p>And 100% is the aim, not the condition for it having been worth it. A 92 built this way beats a 92 built on panic, and it beats not trying. Keep the standard. Hold it loosely enough that a bad week doesn't take the whole project down with it.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================= BOTTOM TABS (phones) ================= -->
+  <nav class="tabbar" aria-label="Primary">
+    <div class="tabbar-in">
+      <button class="tabbtn" data-nav="deck" aria-current="page"><svg><use href="#i-deck"/></svg>Deck</button>
+      <button class="tabbtn" data-nav="syllabus"><svg><use href="#i-book"/></svg>Syllabus</button>
+      <button class="tabbtn" data-nav="focus"><svg><use href="#i-timer"/></svg>Focus</button>
+      <button class="tabbtn" data-nav="coach"><svg><use href="#i-shield"/></svg>Sentinel</button>
+      <button class="tabbtn" data-nav="arsenal"><svg><use href="#i-target"/></svg>Arsenal</button>
+    </div>
+  </nav>
+</div>
+
+<div id="modals"></div>
+<div id="toasts" aria-live="polite"></div>
+<input type="file" id="file-import" accept="application/json,.json" hidden>
+
+<script src="app.js"></script>
+</body>
+</html>

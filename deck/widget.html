@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>XII Deck — Glance</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#06070B">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+/* Standalone on purpose: this page must render instantly and in isolation,
+   whether it's an iframe, a Samsung/KWGT web widget, or a home-screen tile. */
+:root{
+  --void:#06070B;--panel:#11141F;--line:#222739;--ink:#EDF0F8;--ink-2:#98A2BE;--ink-3:#5D6784;
+  --cyan:#3DDCFF;--indigo:#7C8BFF;--violet:#B45CFF;--mint:#34D399;--amber:#FBBF24;--coral:#FB7185;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --ui:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+[data-tone="hype"]{--tone:var(--mint)}[data-tone="steady"]{--tone:var(--cyan)}
+[data-tone="nudge"]{--tone:var(--indigo)}[data-tone="warn"]{--tone:var(--amber)}
+[data-tone="disappoint"],[data-tone="brutal"]{--tone:var(--coral)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--void);color:var(--ink);font-family:var(--ui);
+  display:flex;align-items:stretch;-webkit-font-smoothing:antialiased;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+a.w{
+  display:flex;flex-direction:column;gap:11px;flex:1;min-width:0;
+  padding:16px 17px;text-decoration:none;color:inherit;
+  background:
+    radial-gradient(120% 90% at 100% 0%,rgba(180,92,255,.12),transparent 60%),
+    radial-gradient(110% 80% at 0% 100%,rgba(61,220,255,.10),transparent 60%),
+    linear-gradient(180deg,var(--panel),var(--void));
+  border:1px solid var(--line);border-radius:20px;
+}
+.top{display:flex;align-items:center;gap:9px}
+.top img{width:22px;height:22px}
+.top .nm{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.top .st{margin-left:auto;width:7px;height:7px;border-radius:99px;background:var(--tone,var(--cyan))}
+.big{display:flex;align-items:baseline;gap:9px}
+.big b{font-family:var(--mono);font-size:38px;font-weight:700;letter-spacing:-.04em;line-height:.95;font-variant-numeric:tabular-nums}
+.big span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.subj{font-size:14px;font-weight:600;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.subj em{font-style:normal;color:var(--ink-3);font-weight:500}
+.bar{height:5px;border-radius:99px;background:#0A0C14;border:1px solid var(--line);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--violet))}
+.row{display:flex;gap:14px;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.04em}
+.row b{color:var(--ink-2);font-weight:500}
+.line{
+  font-size:12px;line-height:1.45;color:var(--ink-2);
+  border-left:2px solid var(--tone,var(--cyan));padding-left:9px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.empty{font-size:12.5px;color:var(--ink-3);line-height:1.5}
+/* Home-screen tiles are short. Shed content in stages rather than all at
+   once, so a 4x2 tile still carries a line and only a 2x2 drops to numbers. */
+@media (max-height:230px){
+  a.w{gap:8px;padding:13px 14px;border-radius:16px}
+  .row{display:none}
+  .line{-webkit-line-clamp:2}
+  .big b{font-size:32px}
+}
+@media (max-height:165px){
+  .line{display:none}
+  .big b{font-size:28px}
+}
+@media (max-width:200px){ .subj{font-size:12.5px} .top .nm{display:none} }
+</style>
+</head>
+<body>
+<a class="w" id="w" href="./" data-tone="steady">
+  <div class="top"><img src="logo.svg" alt=""><span class="nm">XII Deck</span><span class="st"></span></div>
+  <div class="big"><b id="days">—</b><span>days to boards</span></div>
+  <div class="subj"><span id="subj">—</span> <em id="slot"></em></div>
+  <div class="bar" id="barwrap" hidden><i id="bar" style="width:0%"></i></div>
+  <div class="row" id="stats" hidden><span><b id="pct">0%</b> done</span><span><b id="streak">0</b>d streak</span><span><b id="mins">0</b>m today</span></div>
+  <div class="line" id="line"></div>
+</a>
+<script>
+(function () {
+  var el = function (id) { return document.getElementById(id); };
+
+  // localStorage is per-origin AND per-browser. An Android home-screen widget
+  // app renders this page in its own WebView, which cannot see the deck's
+  // saved state — so everything derivable from the date alone is computed
+  // here, and only the progress half depends on the saved summary.
+  var DEFAULT_EXAM = '2027-02-10';
+  var DEFAULT_SLOT = '20:30-22:45';
+  var ROTATION = [
+    'Weak-area review + rest', 'Accountancy', 'Business Studies', 'Economics',
+    'Accountancy', 'English', 'Accountancy PYQ'
+  ];
+  var LINES = [
+    'Start the timer. The mood will catch up.',
+    'One Pomodoro is a real day. Zero is not.',
+    'Talent sets the ceiling. Completion sets the score.',
+    'You cannot practise casually and perform formally.',
+    'The paper does not know how you felt while preparing for it.',
+    'A blank answer is the only guaranteed zero on the paper.',
+    'Do the anchors first. Everything else is optimisation.',
+    'Two hours today beats eight hours you keep planning for Sunday.',
+    'Reading is comfort. Writing is study. Pick correctly.',
+    'Consistency is just what discipline looks like from far away.'
+  ];
+
+  function daysTo(examISO) {
+    var p = String(examISO || DEFAULT_EXAM).split('-').map(Number);
+    var d = new Date(p[0], (p[1] || 1) - 1, p[2] || 1, 9, 0, 0, 0);
+    return Math.max(0, Math.ceil((d - Date.now()) / 86400000));
+  }
+
+  function paint() {
+    var raw = null;
+    try { raw = localStorage.getItem('xii-deck-summary'); } catch (e) { /* blocked */ }
+    var s = null;
+    if (raw) { try { s = JSON.parse(raw); } catch (e) { s = null; } }
+
+    // --- always available, no storage needed ---
+    var now = new Date();
+    el('days').textContent = daysTo(s && s.exam);
+    el('subj').textContent = (s && s.subject) || ROTATION[now.getDay()];
+    el('slot').textContent = '· ' + ((s && s.slot) || DEFAULT_SLOT);
+
+    // --- needs the deck's saved progress ---
+    if (s) {
+      el('w').setAttribute('data-tone', s.tier || 'steady');
+      el('bar').style.width = (s.pct || 0) + '%';
+      el('pct').textContent = (s.pct || 0) + '%';
+      el('streak').textContent = s.streak || 0;
+      el('mins').textContent = s.minsToday || 0;
+      el('line').textContent = s.line || '';
+      el('barwrap').hidden = false;
+      el('stats').hidden = false;
+    } else {
+      el('w').setAttribute('data-tone', 'steady');
+      el('barwrap').hidden = true;
+      el('stats').hidden = true;
+      el('line').textContent = LINES[Math.floor(now.getTime() / 86400000) % LINES.length];
+    }
+  }
+
+  paint();
+  setInterval(paint, 60000);
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) paint(); });
+  // Another tab ticking a chapter should update this one immediately.
+  window.addEventListener('storage', function (e) { if (e.key === 'xii-deck-summary') paint(); });
+})();
+</script>
+</body>
+</html>
