@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="XII Command Deck">
+  <defs>
+    <linearGradient id="xiiEdge" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3DDCFF"/>
+      <stop offset="0.55" stop-color="#7C8BFF"/>
+      <stop offset="1" stop-color="#B45CFF"/>
+    </linearGradient>
+    <linearGradient id="xiiPlate" x1="12" y1="4" x2="52" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#161B2B"/>
+      <stop offset="1" stop-color="#0A0C14"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 3 L57 17.5 L57 46.5 L32 61 L7 46.5 L7 17.5 Z" fill="url(#xiiPlate)"/>
+  <path d="M32 3 L57 17.5 L57 46.5 L32 61 L7 46.5 L7 17.5 Z" fill="none" stroke="url(#xiiEdge)" stroke-width="2.6" stroke-linejoin="round"/>
+  <g stroke="url(#xiiEdge)" stroke-width="3.8" stroke-linecap="round" fill="none">
+    <path d="M20.5 23 L30.5 39"/>
+    <path d="M30.5 23 L20.5 39"/>
+    <path d="M37 23 L37 39"/>
+    <path d="M43.5 23 L43.5 39"/>
+  </g>
+  <path d="M21 46.5 L43 46.5" stroke="url(#xiiEdge)" stroke-width="2.2" stroke-linecap="round" opacity="0.62"/>
+</svg>
