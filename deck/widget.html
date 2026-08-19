@@ -56,11 +56,17 @@ a.w{
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
 }
 .empty{font-size:12.5px;color:var(--ink-3);line-height:1.5}
-/* Very small tiles (2x2 home-screen widgets): drop to the essentials. */
+/* Home-screen tiles are short. Shed content in stages rather than all at
+   once, so a 4x2 tile still carries a line and only a 2x2 drops to numbers. */
 @media (max-height:230px){
   a.w{gap:8px;padding:13px 14px;border-radius:16px}
-  .line,.row{display:none}
+  .row{display:none}
+  .line{-webkit-line-clamp:2}
   .big b{font-size:32px}
+}
+@media (max-height:165px){
+  .line{display:none}
+  .big b{font-size:28px}
 }
 @media (max-width:200px){ .subj{font-size:12.5px} .top .nm{display:none} }
 </style>
@@ -69,18 +75,40 @@ a.w{
 <a class="w" id="w" href="./" data-tone="steady">
   <div class="top"><img src="logo.svg" alt=""><span class="nm">XII Deck</span><span class="st"></span></div>
   <div class="big"><b id="days">—</b><span>days to boards</span></div>
-  <div class="subj" id="subj">Open the deck to sync</div>
-  <div class="bar"><i id="bar" style="width:0%"></i></div>
-  <div class="row"><span><b id="pct">0%</b> done</span><span><b id="streak">0</b>d streak</span><span><b id="mins">0</b>m today</span></div>
+  <div class="subj"><span id="subj">—</span> <em id="slot"></em></div>
+  <div class="bar" id="barwrap" hidden><i id="bar" style="width:0%"></i></div>
+  <div class="row" id="stats" hidden><span><b id="pct">0%</b> done</span><span><b id="streak">0</b>d streak</span><span><b id="mins">0</b>m today</span></div>
   <div class="line" id="line"></div>
 </a>
 <script>
 (function () {
   var el = function (id) { return document.getElementById(id); };
 
+  // localStorage is per-origin AND per-browser. An Android home-screen widget
+  // app renders this page in its own WebView, which cannot see the deck's
+  // saved state — so everything derivable from the date alone is computed
+  // here, and only the progress half depends on the saved summary.
+  var DEFAULT_EXAM = '2027-02-10';
+  var DEFAULT_SLOT = '20:30-22:45';
+  var ROTATION = [
+    'Weak-area review + rest', 'Accountancy', 'Business Studies', 'Economics',
+    'Accountancy', 'English', 'Accountancy PYQ'
+  ];
+  var LINES = [
+    'Start the timer. The mood will catch up.',
+    'One Pomodoro is a real day. Zero is not.',
+    'Talent sets the ceiling. Completion sets the score.',
+    'You cannot practise casually and perform formally.',
+    'The paper does not know how you felt while preparing for it.',
+    'A blank answer is the only guaranteed zero on the paper.',
+    'Do the anchors first. Everything else is optimisation.',
+    'Two hours today beats eight hours you keep planning for Sunday.',
+    'Reading is comfort. Writing is study. Pick correctly.',
+    'Consistency is just what discipline looks like from far away.'
+  ];
+
   function daysTo(examISO) {
-    if (!examISO) return null;
-    var p = String(examISO).split('-').map(Number);
+    var p = String(examISO || DEFAULT_EXAM).split('-').map(Number);
     var d = new Date(p[0], (p[1] || 1) - 1, p[2] || 1, 9, 0, 0, 0);
     return Math.max(0, Math.ceil((d - Date.now()) / 86400000));
   }
@@ -88,25 +116,31 @@ a.w{
   function paint() {
     var raw = null;
     try { raw = localStorage.getItem('xii-deck-summary'); } catch (e) { /* blocked */ }
-    if (!raw) {
-      el('subj').textContent = 'Open the deck once to sync';
-      el('line').className = 'empty';
-      el('line').textContent = 'This glance reads the deck’s own saved progress. It needs the deck opened in this same browser first.';
-      return;
-    }
-    var s;
-    try { s = JSON.parse(raw); } catch (e) { return; }
+    var s = null;
+    if (raw) { try { s = JSON.parse(raw); } catch (e) { s = null; } }
 
-    // Recompute the countdown live — the stored one ages, the exam date doesn't.
-    var d = daysTo(s.exam);
-    el('days').textContent = d == null ? (s.days || 0) : d;
-    el('w').setAttribute('data-tone', s.tier || 'steady');
-    el('subj').innerHTML = String(s.subject || '').replace(/[<>&]/g, '') + ' <em>· ' + (s.slot || '') + '</em>';
-    el('bar').style.width = (s.pct || 0) + '%';
-    el('pct').textContent = (s.pct || 0) + '%';
-    el('streak').textContent = s.streak || 0;
-    el('mins').textContent = s.minsToday || 0;
-    el('line').textContent = s.line || '';
+    // --- always available, no storage needed ---
+    var now = new Date();
+    el('days').textContent = daysTo(s && s.exam);
+    el('subj').textContent = (s && s.subject) || ROTATION[now.getDay()];
+    el('slot').textContent = '· ' + ((s && s.slot) || DEFAULT_SLOT);
+
+    // --- needs the deck's saved progress ---
+    if (s) {
+      el('w').setAttribute('data-tone', s.tier || 'steady');
+      el('bar').style.width = (s.pct || 0) + '%';
+      el('pct').textContent = (s.pct || 0) + '%';
+      el('streak').textContent = s.streak || 0;
+      el('mins').textContent = s.minsToday || 0;
+      el('line').textContent = s.line || '';
+      el('barwrap').hidden = false;
+      el('stats').hidden = false;
+    } else {
+      el('w').setAttribute('data-tone', 'steady');
+      el('barwrap').hidden = true;
+      el('stats').hidden = true;
+      el('line').textContent = LINES[Math.floor(now.getTime() / 86400000) % LINES.length];
+    }
   }
 
   paint();

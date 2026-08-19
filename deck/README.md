@@ -71,10 +71,12 @@ Web Notifications where permitted, and `periodicsync` in an installed Chrome PWA
 
 ## Widgets
 
-- **`widget.html`** — a compact glance view (countdown, tonight's subject,
-  streak, completion, current coach line). Same-origin, so it reads the deck's
-  own saved progress. Good in an iframe, a Samsung/KWGT web widget, or pinned as
-  its own home-screen tile.
+- **`widget.html`** — a compact glance view. The countdown, tonight's subject
+  and the slot times are derived from the date alone, so they render anywhere,
+  including inside an Android widget app's own WebView, which cannot see the
+  deck's `localStorage`. Completion, streak, minutes and the live coach line
+  appear only when it's opened in the same browser as the deck; without them it
+  falls back to a doctrine line. Degrades in stages by tile height.
 - **`widget-scriptable.js`** — a *real* iOS home-screen widget. iOS won't let a
   website draw one, so paste this into the free [Scriptable](https://scriptable.app)
   app as a script named `XII Deck` and add a Scriptable widget pointing at it.
